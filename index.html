@@ -127,7 +127,8 @@ border-radius: 4px;
 
 body {
 background: var(–bg); color: var(–text);
-font-family: ‘DM Sans’, sans-serif; min-height: 100vh; overflow-x: hidden;
+font-family: ‘DM Sans’, ui-sans-serif, system-ui, -apple-system, sans-serif;
+min-height: 100vh; overflow-x: hidden;
 transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -167,18 +168,18 @@ font-size: 28px; margin: 0 auto 32px; box-shadow: var(–glow-gold);
 }
 .intro-eyebrow { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(–gold); margin-bottom: 16px; }
 h1 {
-font-family: ‘Playfair Display’, serif; font-size: clamp(38px, 6vw, 72px);
+font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: clamp(38px, 6vw, 72px);
 font-weight: 900; line-height: 1.05; margin-bottom: 24px;
 background: var(–h1-grad);
 -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .intro-desc { font-size: 17px; line-height: 1.7; color: var(–muted); max-width: 560px; margin: 0 auto 48px; }
 .intro-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
-.stat-num { font-family: ‘Playfair Display’, serif; font-size: 36px; font-weight: 700; color: var(–gold); display: block; }
+.stat-num { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 36px; font-weight: 700; color: var(–gold); display: block; }
 .stat-label { font-size: 12px; letter-spacing: 1px; color: var(–muted); text-transform: uppercase; }
 .btn-primary {
 background: linear-gradient(135deg, var(–gold), #a87c2e); color: #fff; border: none;
-padding: 18px 48px; font-family: ‘DM Sans’, sans-serif; font-size: 15px; font-weight: 600;
+padding: 18px 48px; font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 15px; font-weight: 600;
 letter-spacing: 1px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease;
 box-shadow: 0 8px 30px var(–gold-dim);
 }
@@ -193,7 +194,7 @@ border-bottom: 1px solid var(–border); padding: 16px 24px;
 display: flex; align-items: center; gap: 16px; z-index: 100;
 transition: background 0.3s ease, border-color 0.3s ease;
 }
-.quiz-logo { font-family: ‘Playfair Display’, serif; font-size: 16px; color: var(–gold); white-space: nowrap; }
+.quiz-logo { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 16px; color: var(–gold); white-space: nowrap; }
 .progress-wrap { flex: 1; background: var(–border); height: 4px; border-radius: 4px; overflow: hidden; }
 .progress-bar { height: 100%; background: linear-gradient(90deg, var(–gold), var(–accent)); border-radius: 4px; transition: width 0.4s ease; width: 0%; }
 .progress-text { font-size: 13px; color: var(–muted); white-space: nowrap; }
@@ -201,7 +202,7 @@ transition: background 0.3s ease, border-color 0.3s ease;
 .quiz-body { max-width: 780px; margin: 0 auto; padding: 60px 24px 80px; }
 .section-tag { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(–accent); margin-bottom: 16px; }
 .question-text {
-font-family: ‘Playfair Display’, serif; font-size: clamp(20px, 3vw, 26px);
+font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: clamp(20px, 3vw, 26px);
 line-height: 1.35; font-weight: 400; margin-bottom: 48px; color: var(–text-strong);
 }
 
@@ -216,7 +217,7 @@ transition: background 0.3s ease, border-color 0.3s ease;
 .scale-options { display: flex; justify-content: center; gap: 12px; align-items: center; }
 .scale-btn {
 border-radius: 50%; border: 2px solid var(–border); background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, sans-serif; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
 }
 .scale-btn:nth-child(1) { width: 44px; height: 44px; font-size: 13px; }
 .scale-btn:nth-child(2) { width: 48px; height: 48px; font-size: 14px; }
@@ -233,7 +234,7 @@ transform: scale(1.12); box-shadow: 0 0 20px var(–gold-dim);
 .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; }
 .btn-nav {
 padding: 12px 28px; border-radius: 50px; border: 1px solid var(–border);
-background: transparent; color: var(–muted); font-family: ‘DM Sans’, sans-serif;
+background: transparent; color: var(–muted); font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif;
 font-size: 14px; cursor: pointer; transition: all 0.2s;
 }
 .btn-nav:hover { border-color: var(–text); color: var(–text); background: var(–gold-dim); }
@@ -241,7 +242,7 @@ font-size: 14px; cursor: pointer; transition: all 0.2s;
 .btn-next {
 padding: 14px 36px; border-radius: 50px; border: none;
 background: linear-gradient(135deg, var(–gold), #a87c2e); color: #fff;
-font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 600;
+font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 600;
 cursor: pointer; transition: all 0.3s; opacity: 0.35; pointer-events: none;
 }
 .btn-next.ready { opacity: 1; pointer-events: all; }
@@ -257,7 +258,7 @@ width: 64px; height: 64px; border: 3px solid var(–border); border-top-color: v
 border-radius: 50%; animation: spin 1s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-.loading-text { font-family: ‘Playfair Display’, serif; font-size: 22px; color: var(–text-strong); }
+.loading-text { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 22px; color: var(–text-strong); }
 .loading-sub { font-size: 14px; color: var(–muted); }
 
 /* ── RESULTS ── */
@@ -269,7 +270,7 @@ background: var(–results-hero-bg);
 .results-eyebrow { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(–gold); margin-bottom: 16px; }
 .results-sub { font-size: 16px; color: var(–muted); max-width: 500px; margin: 0 auto; }
 .results-content { max-width: 900px; margin: 0 auto; padding: 60px 24px 0; }
-.section-title { font-family: ‘Playfair Display’, serif; font-size: 24px; margin-bottom: 32px; color: var(–text-strong); }
+.section-title { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 24px; margin-bottom: 32px; color: var(–text-strong); }
 
 .top5-grid { display: grid; gap: 16px; margin-bottom: 64px; }
 .theme-card {
@@ -286,12 +287,12 @@ background: var(–tc, var(–gold));
 .theme-card:hover { transform: translateX(4px); background: var(–card-hover); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-.theme-rank { font-family: ‘Playfair Display’, serif; font-size: 36px; font-weight: 700; line-height: 1; }
-.theme-name { font-family: ‘Playfair Display’, serif; font-size: 22px; font-weight: 700; color: var(–text-strong); margin-bottom: 6px; }
+.theme-rank { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 36px; font-weight: 700; line-height: 1; }
+.theme-name { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 22px; font-weight: 700; color: var(–text-strong); margin-bottom: 6px; }
 .theme-domain { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
 .theme-desc { font-size: 14px; line-height: 1.65; color: var(–muted); }
 .theme-score-wrap { text-align: right; }
-.theme-score { font-family: ‘Playfair Display’, serif; font-size: 28px; font-weight: 700; }
+.theme-score { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 28px; font-weight: 700; }
 .theme-score-label { font-size: 12px; color: var(–muted); text-transform: uppercase; letter-spacing: 1px; }
 
 .domains-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 64px; }
@@ -302,8 +303,8 @@ box-shadow: var(–shadow-card); transition: background 0.3s, border-color 0.3s;
 }
 .domain-card:hover { background: var(–card-hover); }
 .domain-icon { font-size: 28px; margin-bottom: 12px; display: block; }
-.domain-name { font-family: ‘Playfair Display’, serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(–text-strong); }
-.domain-score { font-size: 28px; font-weight: 700; font-family: ‘Playfair Display’, serif; margin-bottom: 4px; }
+.domain-name { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(–text-strong); }
+.domain-score { font-size: 28px; font-weight: 700; font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; margin-bottom: 4px; }
 .domain-label { font-size: 12px; color: var(–muted); text-transform: uppercase; letter-spacing: 1px; }
 
 .all-themes { margin-bottom: 64px; }
@@ -330,7 +331,7 @@ background: var(–card); border: 1px solid var(–border); border-radius: 20px;
 padding: 36px; margin-bottom: 40px; animation: fadeUp 0.5s ease both;
 box-shadow: var(–shadow-card);
 }
-.insights-heading { font-family: ‘Playfair Display’, serif; font-size: 20px; margin-bottom: 16px; color: var(–gold); }
+.insights-heading { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 20px; margin-bottom: 16px; color: var(–gold); }
 .insights-text { font-size: 15px; line-height: 1.75; color: var(–muted); white-space: pre-wrap; }
 .ai-loading { display: flex; align-items: center; gap: 12px; color: var(–muted); font-size: 14px; }
 .ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–gold); animation: pulse 1.2s ease infinite; }
@@ -341,7 +342,7 @@ box-shadow: var(–shadow-card);
 .btn-restart {
 display: block; margin: 0 auto; padding: 14px 40px; border-radius: 50px;
 border: 1px solid var(–border); background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s;
+font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s;
 }
 .btn-restart:hover { border-color: var(–gold); color: var(–gold); background: var(–gold-dim); }
 
@@ -366,7 +367,7 @@ transition: all 0.2s; flex-shrink: 0;
 .btn-slots-open {
 margin-top: 16px; padding: 10px 22px; border-radius: 50px;
 border: 1px solid var(–border); background: transparent;
-color: var(–muted); font-family: ‘DM Sans’, sans-serif;
+color: var(–muted); font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif;
 font-size: 13px; cursor: pointer; transition: all 0.2s;
 }
 .btn-slots-open:hover { border-color: var(–gold); color: var(–gold); }
@@ -385,7 +386,7 @@ display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
 .resume-info { flex: 1; }
 .resume-title {
-font-family: ‘Playfair Display’, serif; font-size: 16px;
+font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 16px;
 font-weight: 700; color: var(–text-strong); margin-bottom: 4px;
 }
 .resume-meta { font-size: 13px; color: var(–muted); }
@@ -398,14 +399,14 @@ overflow: hidden; margin-top: 10px;
 .btn-resume {
 padding: 10px 20px; border-radius: 50px; border: none;
 background: linear-gradient(135deg, var(–gold), #a87c2e);
-color: #fff; font-family: ‘DM Sans’, sans-serif;
+color: #fff; font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif;
 font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
 }
 .btn-resume:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(–gold-dim); }
 .btn-resume-dismiss {
 padding: 10px 16px; border-radius: 50px; border: 1px solid var(–border);
 background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s;
+font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s;
 }
 .btn-resume-dismiss:hover { border-color: var(–text); color: var(–text); }
 
@@ -435,7 +436,7 @@ box-shadow: 0 24px 60px rgba(0,0,0,0.5);
 animation: fadeUp 0.3s ease both;
 }
 .modal-title {
-font-family: ‘Playfair Display’, serif; font-size: 22px;
+font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 22px;
 font-weight: 700; color: var(–text-strong); margin-bottom: 8px;
 }
 .modal-sub { font-size: 14px; color: var(–muted); margin-bottom: 24px; }
@@ -457,14 +458,14 @@ margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellips
 .btn-slot-load {
 padding: 7px 14px; border-radius: 50px; border: none;
 background: var(–gold); color: var(–scale-selected-text);
-font-family: ‘DM Sans’, sans-serif; font-size: 12px; font-weight: 600;
+font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 600;
 cursor: pointer; transition: all 0.2s;
 }
 .btn-slot-load:hover { opacity: 0.85; }
 .btn-slot-del {
 padding: 7px 10px; border-radius: 50px; border: 1px solid var(–border);
 background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, sans-serif; font-size: 12px;
+font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 12px;
 cursor: pointer; transition: all 0.2s;
 }
 .btn-slot-del:hover { border-color: #e75c5c; color: #e75c5c; }
@@ -473,9 +474,12 @@ cursor: pointer; transition: all 0.2s;
 .btn-modal-close {
 padding: 11px 24px; border-radius: 50px; border: 1px solid var(–border);
 background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s;
+font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s;
 }
 .btn-modal-close:hover { border-color: var(–text); color: var(–text); }
+
+#saveNameInput:focus { border-color: var(–gold); box-shadow: 0 0 0 3px var(–gold-dim); }
+#saveNameInput::placeholder { color: var(–muted); opacity: 0.7; }
 
 /* ── SCREEN READER ONLY (visually hidden but accessible) ── */
 .sr-only {
@@ -488,7 +492,7 @@ fieldset.scale-wrap { border: 1px solid var(–border); }
 
 /* ── results-title as h2 ── */
 h2.results-title {
-font-family: ‘Playfair Display’, serif; font-size: clamp(32px, 5vw, 56px);
+font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: clamp(32px, 5vw, 56px);
 font-weight: 900; margin-bottom: 16px;
 background: var(–h1-grad);
 -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -624,12 +628,31 @@ background: var(–h1-grad);
   <div id="saveModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-box">
       <div class="modal-title" id="modalTitle">Saved Assessments</div>
-      <div class="modal-sub">Pick a saved session to resume, or delete ones you no longer need.</div>
-      <div class="save-slots" id="saveSlotsList"></div>
-      <div class="modal-footer">
-        <button class="btn-modal-close" id="btnModalClose" type="button">Close</button>
-      </div>
+      <div class="modal-sub">Resume a saved session, or save your current progress with a name.</div>
+
+```
+  <!-- Quick-save input (shown only while quiz is active) -->
+  <div id="quickSaveRow" style="display:none; margin-bottom:20px;">
+    <div style="font-size:13px; color:var(--muted); margin-bottom:8px;">Save current progress as:</div>
+    <div style="display:flex; gap:8px;">
+      <input id="saveNameInput" type="text" placeholder='e.g. "My first attempt"'
+        maxlength="40" autocomplete="off"
+        style="flex:1; background:var(--bg); border:1px solid var(--border); border-radius:8px;
+               padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:14px;
+               color:var(--text); outline:none;"
+        aria-label="Name for this saved session" />
+      <button class="btn-resume" id="btnConfirmSave" type="button" style="flex-shrink:0">Save</button>
     </div>
+    <div id="saveNameFeedback" style="font-size:12px; color:var(--gold); margin-top:6px; min-height:16px;"></div>
+  </div>
+
+  <div class="save-slots" id="saveSlotsList"></div>
+  <div class="modal-footer">
+    <button class="btn-modal-close" id="btnModalClose" type="button">Close</button>
+  </div>
+</div>
+```
+
   </div>
 
 </div>
@@ -1005,14 +1028,40 @@ return ‘just now’;
 }
 
 // ─── SAVE MODAL ───
-function openSlotsModal() {
+function openSlotsModal(showQuickSave) {
+const qsr = document.getElementById(‘quickSaveRow’);
+const inp = document.getElementById(‘saveNameInput’);
+const fb  = document.getElementById(‘saveNameFeedback’);
+if (showQuickSave) {
+qsr.style.display = ‘’;
+inp.value = ‘’;
+fb.textContent = ‘’;
+// Pre-fill a default name
+const n = answers.filter(a=>a!==null).length;
+inp.value = ‘Session — ’ + n + ’ of ’ + QUESTIONS.length + ’ answered’;
+inp.select();
+} else {
+qsr.style.display = ‘none’;
+}
 renderSlots();
 document.getElementById(‘saveModal’).classList.add(‘open’);
-document.getElementById(‘btnModalClose’).focus();
+if (showQuickSave) { setTimeout(() => inp.focus(), 60); }
+else { document.getElementById(‘btnModalClose’).focus(); }
 }
 
 function closeSlotsModal() {
 document.getElementById(‘saveModal’).classList.remove(‘open’);
+}
+
+function confirmSaveName() {
+const inp = document.getElementById(‘saveNameInput’);
+const fb  = document.getElementById(‘saveNameFeedback’);
+const name = inp.value.trim();
+if (!name) { fb.textContent = ‘Please enter a name.’; inp.focus(); return; }
+saveProgress(name);
+fb.textContent = ‘✓ Saved as “’ + name + ‘”’;
+renderSlots();
+setTimeout(closeSlotsModal, 900);
 }
 
 function renderSlots() {
@@ -1092,19 +1141,17 @@ document.getElementById(‘resumeBanner’).style.display = ‘none’;
 document.getElementById(‘startBtn’).textContent = ‘Begin Assessment →’;
 });
 document.getElementById(‘btnSave’).addEventListener(‘click’, () => {
-// Prompt for a name, save as named slot
-const name = prompt(‘Name this save (e.g. “My first attempt”):’);
-if (name && name.trim()) {
-saveProgress(name.trim());
-alert(‘Saved as “’ + name.trim() + ‘”! You can resume from the home screen anytime.’);
-}
+openSlotsModal(true); // true = show quiz is active, reveal quick-save row
 });
-document.getElementById(‘btnOpenSlots’).addEventListener(‘click’, openSlotsModal);
+document.getElementById(‘btnOpenSlots’).addEventListener(‘click’, () => openSlotsModal(false));
 document.getElementById(‘btnModalClose’).addEventListener(‘click’, closeSlotsModal);
+document.getElementById(‘btnConfirmSave’).addEventListener(‘click’, confirmSaveName);
+document.getElementById(‘saveNameInput’).addEventListener(‘keydown’, e => {
+if (e.key === ‘Enter’) confirmSaveName();
+});
 document.getElementById(‘saveModal’).addEventListener(‘click’, e => {
 if (e.target === document.getElementById(‘saveModal’)) closeSlotsModal();
 });
-// Close modal on Escape
 document.addEventListener(‘keydown’, e => {
 if (e.key === ‘Escape’ && document.getElementById(‘saveModal’).classList.contains(‘open’)) closeSlotsModal();
 });
@@ -1288,26 +1335,76 @@ fetchInsights(top5);
 }
 
 async function fetchInsights(top5) {
-const names = top5.map(t => t.name).join(’, ‘);
-const domains = […new Set(top5.map(t => t.domain))].join(’ and ‘);
-const prompt = ‘A person completed the CliftonStrengths 2.0 assessment. Their top 5 themes are: ’ + names + ‘. Their strengths lean toward ’ + domains + ’ domains.\n\nWrite 3 paragraphs of personalized coaching insights:\n1. What makes this specific combination of strengths uniquely powerful together\n2. Work environments, roles, and activities where they will naturally thrive\n3. One key blind spot this profile tends to create, and a practical way to manage it\n\nSpeak directly to the person as “you”. Be specific, warm, and actionable. No bullet points. Each paragraph 3-4 sentences.’;
+// NOTE: Direct Anthropic API calls only work inside Claude.ai’s sandbox.
+// When hosted on GitHub Pages or opened as a local file, we generate
+// rich insights client-side instead — no server or API key needed.
 try {
 const res = await fetch(‘https://api.anthropic.com/v1/messages’, {
 method: ‘POST’,
 headers: {‘Content-Type’:‘application/json’},
-body: JSON.stringify({model:‘claude-sonnet-4-20250514’, max_tokens:1000, messages:[{role:‘user’, content:prompt}]})
+body: JSON.stringify({model:‘claude-sonnet-4-20250514’, max_tokens:1000, messages:[{role:‘user’, content:buildInsightPrompt(top5)}]})
 });
+if (!res.ok) throw new Error(‘API unavailable’);
 const data = await res.json();
 const text = (data.content||[]).map(b => b.text||’’).join(’’);
-document.getElementById(‘insightsText’).textContent = text || fallback(top5);
-} catch(e) {
-document.getElementById(‘insightsText’).textContent = fallback(top5);
-}
+if (text) { document.getElementById(‘insightsText’).textContent = text; return; }
+} catch(e) { /* fall through to local generation */ }
+// Local generation — works everywhere, no dependencies
+document.getElementById(‘insightsText’).textContent = generateInsightsLocally(top5);
 }
 
-function fallback(top5) {
-const names = top5.map(t => t.name).join(’, ’);
-return ‘Your combination of ’ + names + ’ creates a powerful and distinctive talent signature. These themes work together synergistically — each one amplifying the others — giving you a natural edge in environments that reward results, relationships, or both.\n\nYou will thrive in roles that give you room to apply your natural strengths without forcing you to work against your grain. Seek positions that blend strategic thinking with visible impact, where your unique combination can be recognized and built upon.\n\nEvery strength profile also creates a blind spot worth managing. With your particular combination, pay attention to how you show up when under pressure — that is where shadow behaviors tend to emerge. Regular reflection and a trusted thinking partner can help you stay consistently at your best.’;
+function buildInsightPrompt(top5) {
+const names = top5.map(t => t.name).join(’, ‘);
+const domains = […new Set(top5.map(t => t.domain))].join(’ and ’);
+return ’A person completed the CliftonStrengths 2.0 assessment. Their top 5 themes are: ’ + names + ‘. Their strengths lean toward ’ + domains + ’ domains.\n\nWrite 3 paragraphs of personalized coaching insights:\n1. What makes this specific combination of strengths uniquely powerful together\n2. Work environments, roles, and activities where they will naturally thrive\n3. One key blind spot this profile tends to create, and a practical way to manage it\n\nSpeak directly to the person as “you”. Be specific, warm, and actionable. No bullet points. Each paragraph 3-4 sentences.’;
+}
+
+function generateInsightsLocally(top5) {
+const names  = top5.map(t => t.name);
+const domains = […new Set(top5.map(t => t.domain))];
+
+// Domain-based power statements
+const domainPower = {
+‘Executing’:    ‘a rare ability to follow through and get things done when others stall’,
+‘Influencing’:  ‘a natural capacity to move people, shape opinions, and drive momentum’,
+‘Relationship’: ‘a deep talent for building trust, loyalty, and genuine human connection’,
+‘Strategic’:    ‘an exceptional ability to absorb complexity, spot patterns, and think ahead’,
+};
+const domainEnv = {
+‘Executing’:    ‘structured environments where outcomes are measurable and accountability is clear’,
+‘Influencing’:  ‘visible roles where you can present ideas, lead change, and rally others’,
+‘Relationship’: ‘collaborative teams where relationships and trust are the engine of success’,
+‘Strategic’:    ‘roles that reward deep thinking, research, planning, or complex problem-solving’,
+};
+const domainBlind = {
+‘Executing’:    ‘you may push for closure before others feel heard — pause to invite input before finalising decisions’,
+‘Influencing’:  ‘you may move too fast for those who need time to process — build in deliberate checkpoints’,
+‘Relationship’: ‘you may avoid difficult conversations to protect harmony — practice naming tension early’,
+‘Strategic’:    ‘you may over-analyse before acting — set time-boxed decisions to stop the loop’,
+};
+
+const primaryDomain = domains[0] || ‘Strategic’;
+const n1 = names[0], n2 = names[1], n3 = names[2];
+
+const para1 = ‘Your combination of ’ + names.join(’, ’) + ’ creates a genuinely distinctive strength signature. ’
++ ’At the core, ’ + n1 + ’ and ’ + n2 + ’ work together to give you ’ + (domainPower[primaryDomain] || ‘a powerful and focused edge’) + ’. ’
++ ’When ’ + n3 + ’ enters the picture, it adds a third dimension that multiplies your impact — you are not just strong in one area, you are integrated across several. ’
++ ‘Few people carry this particular combination, which means you bring something genuinely hard to replicate to every team and challenge.’;
+
+const envDomain = domains[domains.length - 1] || primaryDomain;
+const para2 = ’You will thrive most in ’ + (domainEnv[primaryDomain] || ‘dynamic environments’) + ’. ’
++ ’Your ’ + n1 + ’ theme means you are energised when there is real work to own and finish, while ’ + n2 + ’ ensures you approach it with your own distinct perspective and style. ’
++ ’Look for roles that give you both autonomy and visibility — places where results matter and where your particular way of working is valued rather than managed away. ’
++ ‘Environments that are stagnant or overly bureaucratic will frustrate you; seek contexts where growth and initiative are genuinely rewarded.’;
+
+const blindDomain = domains.find(d => d !== primaryDomain) || primaryDomain;
+const para3 = ‘Every strength profile carries a shadow, and yours is worth knowing. Because of your ’ + names.slice(0,2).join(’ and ’) + ’, ’
++ (domainBlind[primaryDomain] || ‘you may underestimate how your pace or approach lands on others who are wired differently’) + ’. ’
++ ’This is not a flaw — it is the natural edge of a sharp strength. ’
++ ’The practical fix is simple: build one or two relationships with people whose profiles complement yours, and treat their friction as signal rather than obstacle. ’
++ ‘That single habit will make your already-strong profile significantly more effective.’;
+
+return para1 + ‘\n\n’ + para2 + ‘\n\n’ + para3;
 }
 
 function restart() {
