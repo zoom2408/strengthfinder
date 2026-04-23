@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,1412 +7,936 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  /* ── TOKENS: DARK (default) ──
-     All contrast ratios verified WCAG AA (4.5:1 normal, 3:1 large/UI)
-     muted #8080a0: 5.19:1 on bg, 4.52:1 on card ✅
-     accent #7e6ffa: 5.21:1 on bg, 4.54:1 on card ✅
-     gold #c9a84c: 8.64:1 on bg, 7.53:1 on card ✅
-  ── */
-  :root {
-    --bg:          #0a0a0f;
-    --bg2:         #0f0f18;
-    --card:        #1a1a26;
-    --card-hover:  #1f1f30;
-    --border:      #656579;
-    --gold:        #c9a84c;
-    --gold-light:  #e8c97a;
-    --gold-dim:    rgba(201,168,76,0.15);
-    --text:        #e8e8f0;
-    --text-strong: #ffffff;
-    --muted:       #8080a0;
-    --accent:      #7e6ffa;
-    --header-bg:   rgba(10,10,15,0.92);
-    --shadow-card: 0 2px 16px rgba(0,0,0,0.4);
-    --glow-gold:   0 0 40px rgba(201,168,76,0.25);
-    --glow-accent: rgba(126,111,250,0.08);
-    --h1-grad:     linear-gradient(135deg,#fff 30%,#e8c97a);
-    --results-hero-bg: linear-gradient(180deg,rgba(201,168,76,0.05) 0%,transparent 100%);
-    --row-hover:   rgba(255,255,255,0.04);
-    --row-top5:    rgba(201,168,76,0.06);
-    --scale-selected-text: #0a0a0f;
-    --th-exec:   #e75c5c;
-    --th-infl:   #e7935c;
-    --th-rel:    #5c8ee7;
-    --th-strat:  #a85ce7;
-    color-scheme: dark;
+/* ── DARK MODE (default) ── */
+:root {
+  --bg:#0a0a0f; --card:#1a1a26; --card2:#1f1f30; --border:#656579;
+  --gold:#c9a84c; --gold2:#e8c97a; --golddim:rgba(201,168,76,.15);
+  --text:#e8e8f0; --strong:#ffffff; --muted:#8080a0; --accent:#7e6ffa;
+  --hbg:rgba(10,10,15,.92); --shadow:0 2px 16px rgba(0,0,0,.4);
+  --rowhov:rgba(255,255,255,.04); --rowtop:rgba(201,168,76,.06);
+  --seltext:#0a0a0f;
+  --th-exec:#e75c5c; --th-infl:#e7935c; --th-rel:#5c8ee7; --th-strat:#a85ce7;
+  --h1g:linear-gradient(135deg,#fff 30%,#e8c97a);
+  --herobg:linear-gradient(180deg,rgba(201,168,76,.05) 0%,transparent 100%);
+  color-scheme:dark;
+}
+/* ── DARK MODE (explicit, for toggle) ── */
+[data-theme="dark"] {
+  --bg:#0a0a0f; --card:#1a1a26; --card2:#1f1f30; --border:#656579;
+  --gold:#c9a84c; --gold2:#e8c97a; --golddim:rgba(201,168,76,.15);
+  --text:#e8e8f0; --strong:#ffffff; --muted:#8080a0; --accent:#7e6ffa;
+  --hbg:rgba(10,10,15,.92); --shadow:0 2px 16px rgba(0,0,0,.4);
+  --rowhov:rgba(255,255,255,.04); --rowtop:rgba(201,168,76,.06);
+  --seltext:#0a0a0f;
+  --th-exec:#e75c5c; --th-infl:#e7935c; --th-rel:#5c8ee7; --th-strat:#a85ce7;
+  --h1g:linear-gradient(135deg,#fff 30%,#e8c97a);
+  --herobg:linear-gradient(180deg,rgba(201,168,76,.05) 0%,transparent 100%);
+  color-scheme:dark;
+}
+
+/* ── LIGHT MODE ── */
+[data-theme="light"] {
+  --bg:#f5f4f0; --card:#ffffff; --card2:#fafaf8; --border:#918d85;
+  --gold:#8e6a18; --gold2:#a07820; --golddim:rgba(142,106,24,.1);
+  --text:#2c2a24; --strong:#111008; --muted:#776f61; --accent:#5548c8;
+  --hbg:rgba(245,244,240,.94); --shadow:0 2px 16px rgba(0,0,0,.08);
+  --rowhov:rgba(0,0,0,.03); --rowtop:rgba(142,106,24,.06);
+  --seltext:#ffffff;
+  --th-exec:#c83d3d; --th-infl:#ad5922; --th-rel:#3b6dc6; --th-strat:#964ad5;
+  --h1g:linear-gradient(135deg,#111008 30%,#8e6a18);
+  --herobg:linear-gradient(180deg,rgba(142,106,24,.05) 0%,transparent 100%);
+  color-scheme:light;
+}
+@media(prefers-color-scheme:light){
+  :root:not([data-theme]){
+    --bg:#f5f4f0; --card:#ffffff; --card2:#fafaf8; --border:#918d85;
+    --gold:#8e6a18; --gold2:#a07820; --golddim:rgba(142,106,24,.1);
+    --text:#2c2a24; --strong:#111008; --muted:#776f61; --accent:#5548c8;
+    --hbg:rgba(245,244,240,.94); --shadow:0 2px 16px rgba(0,0,0,.08);
+    --rowhov:rgba(0,0,0,.03); --rowtop:rgba(142,106,24,.06);
+    --seltext:#ffffff;
+    --th-exec:#c83d3d; --th-infl:#ad5922; --th-rel:#3b6dc6; --th-strat:#964ad5;
+    --h1g:linear-gradient(135deg,#111008 30%,#8e6a18);
+    --herobg:linear-gradient(180deg,rgba(142,106,24,.05) 0%,transparent 100%);
+    color-scheme:light;
   }
-
-/* ── TOKENS: LIGHT ──
-All contrast ratios verified WCAG AA
-muted #776f61: 4.51:1 on bg, 4.96:1 on card ✅
-gold #8e6a18: 4.52:1 on bg, 4.97:1 on card ✅
-accent #5548c8: 6.06:1 on bg, 6.67:1 on card ✅
-domain colors adjusted for light: all ≥4.5:1 on bg and card ✅
-btn text white on gold btn (#8e6a18): 4.52:1 ✅
-── */
-[data-theme=“light”] {
-–bg:          #f5f4f0;
-–bg2:         #edecea;
-–card:        #ffffff;
-–card-hover:  #fafaf8;
-–border:      #918d85;
-–gold:        #8e6a18;
-–gold-light:  #a07820;
-–gold-dim:    rgba(142,106,24,0.1);
-–text:        #2c2a24;
-–text-strong: #111008;
-–muted:       #776f61;
-–accent:      #5548c8;
-–header-bg:   rgba(245,244,240,0.94);
-–shadow-card: 0 2px 16px rgba(0,0,0,0.08);
-–glow-gold:   0 0 40px rgba(142,106,24,0.15);
-–glow-accent: rgba(85,72,200,0.06);
-–h1-grad:     linear-gradient(135deg,#111008 30%,#8e6a18);
-–results-hero-bg: linear-gradient(180deg,rgba(142,106,24,0.05) 0%,transparent 100%);
-–row-hover:   rgba(0,0,0,0.03);
-–row-top5:    rgba(142,106,24,0.06);
-–scale-selected-text: #ffffff;
-–th-exec:   #c83d3d;
-–th-infl:   #ad5922;
-–th-rel:    #3b6dc6;
-–th-strat:  #964ad5;
-color-scheme: light;
 }
 
-/* ── SYSTEM PREFERENCE (auto) ── */
-@media (prefers-color-scheme: light) {
-:root:not([data-theme]) {
-–bg:          #f5f4f0;
-–bg2:         #edecea;
-–card:        #ffffff;
-–card-hover:  #fafaf8;
-–border:      #918d85;
-–gold:        #8e6a18;
-–gold-light:  #a07820;
-–gold-dim:    rgba(142,106,24,0.1);
-–text:        #2c2a24;
-–text-strong: #111008;
-–muted:       #776f61;
-–accent:      #5548c8;
-–header-bg:   rgba(245,244,240,0.94);
-–shadow-card: 0 2px 16px rgba(0,0,0,0.08);
-–glow-gold:   0 0 40px rgba(142,106,24,0.15);
-–glow-accent: rgba(85,72,200,0.06);
-–h1-grad:     linear-gradient(135deg,#111008 30%,#8e6a18);
-–results-hero-bg: linear-gradient(180deg,rgba(142,106,24,0.05) 0%,transparent 100%);
-–row-hover:   rgba(0,0,0,0.03);
-–row-top5:    rgba(142,106,24,0.06);
-–scale-selected-text: #ffffff;
-–th-exec:   #c83d3d;
-–th-infl:   #ad5922;
-–th-rel:    #3b6dc6;
-–th-strat:  #964ad5;
-color-scheme: light;
-}
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif;min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;top:-30%;left:-20%;width:60%;height:60%;background:radial-gradient(ellipse,rgba(126,111,250,.07) 0%,transparent 70%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:50%;height:50%;background:radial-gradient(ellipse,var(--golddim) 0%,transparent 70%);pointer-events:none;z-index:0}
 
-/* ── FOCUS VISIBLE (2.4.7 / 2.4.11) ── */
-:focus-visible {
-outline: 3px solid var(–gold);
-outline-offset: 3px;
-border-radius: 4px;
-}
-.scale-btn:focus-visible { outline-offset: 4px; border-radius: 50%; }
-.btn-primary:focus-visible, .btn-next:focus-visible,
-.btn-nav:focus-visible, .btn-restart:focus-visible,
-#themeToggle:focus-visible { outline-offset: 4px; border-radius: 50px; }
+/* Focus */
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+.scale-btn:focus-visible,.btn-primary:focus-visible,.btn-next:focus-visible,.btn-nav:focus-visible,.btn-restart:focus-visible,#themeToggle:focus-visible{outline-offset:4px;border-radius:50px}
+.scale-btn:focus-visible{border-radius:50%}
 
-- { margin: 0; padding: 0; box-sizing: border-box; }
+/* Screen */
+.screen{position:relative;z-index:1}
 
-body {
-background: var(–bg); color: var(–text);
-font-family: ‘DM Sans’, ui-sans-serif, system-ui, -apple-system, sans-serif;
-min-height: 100vh; overflow-x: hidden;
-transition: background 0.3s ease, color 0.3s ease;
-}
-
-body::before {
-content: ‘’; position: fixed; top: -30%; left: -20%; width: 60%; height: 60%;
-background: radial-gradient(ellipse, var(–glow-accent) 0%, transparent 70%);
-pointer-events: none; z-index: 0;
-}
-body::after {
-content: ‘’; position: fixed; bottom: -20%; right: -10%; width: 50%; height: 50%;
-background: radial-gradient(ellipse, var(–gold-dim) 0%, transparent 70%);
-pointer-events: none; z-index: 0;
-}
-
-.screen { position: relative; z-index: 1; }
+/* Sr-only */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* ── THEME TOGGLE ── */
-#themeToggle {
-position: fixed; top: 16px; right: 20px; z-index: 999;
-width: 40px; height: 40px; border-radius: 50%;
-border: 1px solid var(–border); background: var(–card);
-color: var(–muted); font-size: 17px; cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-transition: all 0.25s ease; box-shadow: var(–shadow-card);
-}
-#themeToggle:hover { border-color: var(–gold); color: var(–gold); transform: scale(1.08); }
+#themeToggle{position:fixed;top:16px;right:20px;z-index:999;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;box-shadow:var(--shadow)}
+#themeToggle:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.08)}
 
 /* ── INTRO ── */
-#intro {
-min-height: 100vh; display: flex; flex-direction: column;
-align-items: center; justify-content: center; padding: 40px 24px; text-align: center;
-}
-.logo-mark {
-width: 64px; height: 64px; background: linear-gradient(135deg, var(–gold), var(–accent));
-border-radius: 18px; display: flex; align-items: center; justify-content: center;
-font-size: 28px; margin: 0 auto 32px; box-shadow: var(–glow-gold);
-}
-.intro-eyebrow { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(–gold); margin-bottom: 16px; }
-h1 {
-font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: clamp(38px, 6vw, 72px);
-font-weight: 900; line-height: 1.05; margin-bottom: 24px;
-background: var(–h1-grad);
--webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.intro-desc { font-size: 17px; line-height: 1.7; color: var(–muted); max-width: 560px; margin: 0 auto 48px; }
-.intro-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
-.stat-num { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 36px; font-weight: 700; color: var(–gold); display: block; }
-.stat-label { font-size: 12px; letter-spacing: 1px; color: var(–muted); text-transform: uppercase; }
-.btn-primary {
-background: linear-gradient(135deg, var(–gold), #a87c2e); color: #fff; border: none;
-padding: 18px 48px; font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 15px; font-weight: 600;
-letter-spacing: 1px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease;
-box-shadow: 0 8px 30px var(–gold-dim);
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,76,0.35); }
-.intro-note { margin-top: 20px; font-size: 13px; color: var(–muted); }
+#intro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.logo-mark{width:64px;height:64px;background:linear-gradient(135deg,var(--gold),var(--accent));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 32px;box-shadow:0 0 40px var(--golddim)}
+.eyebrow{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+h1{font-family:'Playfair Display','Georgia',serif;font-size:clamp(36px,6vw,68px);font-weight:900;line-height:1.05;margin-bottom:24px;background:var(--h1g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.intro-desc{font-size:17px;line-height:1.7;color:var(--muted);max-width:560px;margin:0 auto 48px}
+.intro-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
+.stat-num{font-family:'Playfair Display','Georgia',serif;font-size:36px;font-weight:700;color:var(--gold);display:block}
+.stat-label{font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.btn-primary{background:linear-gradient(135deg,var(--gold),#a87c2e);color:#fff;border:none;padding:18px 48px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;border-radius:50px;cursor:pointer;transition:all .3s;box-shadow:0 8px 30px var(--golddim)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px var(--golddim)}
+.intro-note{margin-top:16px;font-size:13px;color:var(--muted)}
+.btn-slots{margin-top:14px;padding:10px 22px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.btn-slots:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── RESUME BANNER ── */
+#resumeBanner{display:none;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 28px;max-width:480px;margin:0 auto 32px;box-shadow:var(--shadow);animation:fadeUp .4s ease both}
+.resume-row{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.resume-info{flex:1}
+.resume-title{font-family:'Playfair Display','Georgia',serif;font-size:16px;font-weight:700;color:var(--strong);margin-bottom:4px}
+.resume-meta{font-size:13px;color:var(--muted)}
+.resume-prog{background:var(--border);height:4px;border-radius:4px;overflow:hidden;margin-top:10px}
+.resume-prog-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));border-radius:4px}
+.resume-btns{display:flex;gap:8px;flex-shrink:0}
+.btn-resume{padding:10px 20px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--gold),#a87c2e);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-dismiss{padding:10px 16px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.btn-dismiss:hover{border-color:var(--text);color:var(--text)}
 
 /* ── QUIZ ── */
-#quiz { min-height: 100vh; }
-.quiz-header {
-position: sticky; top: 0; background: var(–header-bg); backdrop-filter: blur(14px);
-border-bottom: 1px solid var(–border); padding: 16px 24px;
-display: flex; align-items: center; gap: 16px; z-index: 100;
-transition: background 0.3s ease, border-color 0.3s ease;
-}
-.quiz-logo { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 16px; color: var(–gold); white-space: nowrap; }
-.progress-wrap { flex: 1; background: var(–border); height: 4px; border-radius: 4px; overflow: hidden; }
-.progress-bar { height: 100%; background: linear-gradient(90deg, var(–gold), var(–accent)); border-radius: 4px; transition: width 0.4s ease; width: 0%; }
-.progress-text { font-size: 13px; color: var(–muted); white-space: nowrap; }
+#quiz{min-height:100vh}
+.quiz-header{position:sticky;top:0;background:var(--hbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;z-index:100}
+.quiz-logo{font-family:'Playfair Display','Georgia',serif;font-size:15px;color:var(--gold);white-space:nowrap}
+.prog-wrap{flex:1;background:var(--border);height:4px;border-radius:4px;overflow:hidden}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));border-radius:4px;transition:width .4s ease;width:0}
+.prog-text{font-size:13px;color:var(--muted);white-space:nowrap}
+.save-ind{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px;white-space:nowrap;opacity:0;transition:opacity .4s}
+.save-ind.show{opacity:1}
+.save-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.btn-save{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.btn-save:hover{border-color:var(--gold);color:var(--gold)}
 
-.quiz-body { max-width: 780px; margin: 0 auto; padding: 60px 24px 80px; }
-.section-tag { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(–accent); margin-bottom: 16px; }
-.question-text {
-font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: clamp(20px, 3vw, 26px);
-line-height: 1.35; font-weight: 400; margin-bottom: 48px; color: var(–text-strong);
-}
-
-.scale-wrap {
-background: var(–card); border: 1px solid var(–border); border-radius: 20px;
-padding: 36px 32px; box-shadow: var(–shadow-card);
-transition: background 0.3s ease, border-color 0.3s ease;
-}
-.scale-endpoints { display: flex; justify-content: space-between; margin-bottom: 28px; gap: 16px; }
-.scale-label { font-size: 13px; color: var(–muted); flex: 1; line-height: 1.55; }
-.scale-label.right { text-align: right; }
-.scale-options { display: flex; justify-content: center; gap: 12px; align-items: center; }
-.scale-btn {
-border-radius: 50%; border: 2px solid var(–border); background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
-}
-.scale-btn:nth-child(1) { width: 44px; height: 44px; font-size: 13px; }
-.scale-btn:nth-child(2) { width: 48px; height: 48px; font-size: 14px; }
-.scale-btn:nth-child(3) { width: 56px; height: 56px; font-size: 15px; }
-.scale-btn:nth-child(4) { width: 48px; height: 48px; font-size: 14px; }
-.scale-btn:nth-child(5) { width: 44px; height: 44px; font-size: 13px; }
-.scale-btn:hover { border-color: var(–gold); color: var(–gold); transform: scale(1.08); background: var(–gold-dim); }
-.scale-btn.selected {
-background: var(–gold); border-color: var(–gold); color: var(–scale-selected-text);
-transform: scale(1.12); box-shadow: 0 0 20px var(–gold-dim);
-}
-.scale-desc { text-align: center; margin-top: 20px; font-size: 12px; color: var(–muted); min-height: 18px; }
-
-.quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; }
-.btn-nav {
-padding: 12px 28px; border-radius: 50px; border: 1px solid var(–border);
-background: transparent; color: var(–muted); font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif;
-font-size: 14px; cursor: pointer; transition: all 0.2s;
-}
-.btn-nav:hover { border-color: var(–text); color: var(–text); background: var(–gold-dim); }
-.btn-nav:disabled { opacity: 0.3; cursor: not-allowed; }
-.btn-next {
-padding: 14px 36px; border-radius: 50px; border: none;
-background: linear-gradient(135deg, var(–gold), #a87c2e); color: #fff;
-font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 600;
-cursor: pointer; transition: all 0.3s; opacity: 0.35; pointer-events: none;
-}
-.btn-next.ready { opacity: 1; pointer-events: all; }
-.btn-next.ready:hover { transform: translateY(-1px); box-shadow: 0 6px 24px var(–gold-dim); }
+.quiz-body{max-width:780px;margin:0 auto;padding:60px 24px 80px}
+.q-tag{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.q-text{font-family:'Playfair Display','Georgia',serif;font-size:clamp(20px,3vw,26px);line-height:1.35;margin-bottom:48px;color:var(--strong)}
+.scale-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;box-shadow:var(--shadow)}
+.scale-ends{display:flex;justify-content:space-between;margin-bottom:24px;gap:16px}
+.scale-lbl{font-size:13px;color:var(--muted);flex:1;line-height:1.55}
+.scale-lbl.r{text-align:right}
+.scale-btns{display:flex;justify-content:center;gap:12px;align-items:center}
+.scale-btn{border-radius:50%;border:2px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all .2s}
+.scale-btn:nth-child(1){width:44px;height:44px;font-size:13px}
+.scale-btn:nth-child(2){width:48px;height:48px;font-size:14px}
+.scale-btn:nth-child(3){width:56px;height:56px;font-size:15px}
+.scale-btn:nth-child(4){width:48px;height:48px;font-size:14px}
+.scale-btn:nth-child(5){width:44px;height:44px;font-size:13px}
+.scale-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--golddim);transform:scale(1.08)}
+.scale-btn.sel{background:var(--gold);border-color:var(--gold);color:var(--seltext);transform:scale(1.12);box-shadow:0 0 20px var(--golddim)}
+.scale-hint{text-align:center;margin-top:18px;font-size:12px;color:var(--muted);min-height:18px}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:40px}
+.btn-nav{padding:12px 28px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all .2s}
+.btn-nav:hover{border-color:var(--text);color:var(--text)}
+.btn-nav:disabled{opacity:.3;cursor:not-allowed}
+.btn-next{padding:14px 36px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--gold),#a87c2e);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;opacity:.35;pointer-events:none}
+.btn-next.on{opacity:1;pointer-events:all}
+.btn-next.on:hover{transform:translateY(-1px);box-shadow:0 6px 20px var(--golddim)}
 
 /* ── LOADING ── */
-#loading {
-min-height: 100vh; display: flex; flex-direction: column;
-align-items: center; justify-content: center; gap: 24px; text-align: center; padding: 24px;
-}
-.loader-ring {
-width: 64px; height: 64px; border: 3px solid var(–border); border-top-color: var(–gold);
-border-radius: 50%; animation: spin 1s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-text { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 22px; color: var(–text-strong); }
-.loading-sub { font-size: 14px; color: var(–muted); }
+#loading{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;padding:24px}
+.spinner{width:60px;height:60px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-t{font-family:'Playfair Display','Georgia',serif;font-size:22px;color:var(--strong)}
+.loading-s{font-size:14px;color:var(--muted)}
 
 /* ── RESULTS ── */
-#results { min-height: 100vh; padding-bottom: 80px; }
-.results-hero {
-text-align: center; padding: 80px 24px 60px; border-bottom: 1px solid var(–border);
-background: var(–results-hero-bg);
-}
-.results-eyebrow { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(–gold); margin-bottom: 16px; }
-.results-sub { font-size: 16px; color: var(–muted); max-width: 500px; margin: 0 auto; }
-.results-content { max-width: 900px; margin: 0 auto; padding: 60px 24px 0; }
-.section-title { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 24px; margin-bottom: 32px; color: var(–text-strong); }
+#results{min-height:100vh;padding-bottom:80px}
+.results-hero{text-align:center;padding:80px 24px 60px;border-bottom:1px solid var(--border);background:var(--herobg)}
+.results-eyebrow{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.results-title{font-family:'Playfair Display','Georgia',serif;font-size:clamp(30px,5vw,54px);font-weight:900;margin-bottom:16px;background:var(--h1g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.results-sub{font-size:16px;color:var(--muted);max-width:500px;margin:0 auto}
+.results-body{max-width:900px;margin:0 auto;padding:60px 24px 0}
+.sec-title{font-family:'Playfair Display','Georgia',serif;font-size:24px;margin-bottom:32px;color:var(--strong)}
+.top5{display:grid;gap:16px;margin-bottom:64px}
+.theme-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 32px;display:grid;grid-template-columns:48px 1fr auto;gap:20px;align-items:start;transition:all .3s;animation:fadeUp .5s ease both;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.theme-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--tc,var(--gold))}
+.theme-card:hover{transform:translateX(4px);background:var(--card2)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.theme-rank{font-family:'Playfair Display','Georgia',serif;font-size:36px;font-weight:700;line-height:1}
+.theme-name{font-family:'Playfair Display','Georgia',serif;font-size:21px;font-weight:700;color:var(--strong);margin-bottom:6px}
+.theme-domain{font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.theme-desc{font-size:14px;line-height:1.65;color:var(--muted)}
+.theme-score{text-align:right}
+.theme-score-n{font-family:'Playfair Display','Georgia',serif;font-size:28px;font-weight:700}
+.theme-score-l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.domains{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:64px}
+.dom-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center;animation:fadeUp .5s ease both;box-shadow:var(--shadow);transition:background .2s}
+.dom-card:hover{background:var(--card2)}
+.dom-icon{font-size:28px;margin-bottom:12px;display:block}
+.dom-name{font-family:'Playfair Display','Georgia',serif;font-size:16px;font-weight:700;margin-bottom:8px;color:var(--strong)}
+.dom-score{font-size:28px;font-weight:700;font-family:'Playfair Display','Georgia',serif;margin-bottom:4px}
+.dom-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.insights-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;margin-bottom:40px;animation:fadeUp .5s ease both;box-shadow:var(--shadow)}
+.insights-head{font-family:'Playfair Display','Georgia',serif;font-size:20px;margin-bottom:16px;color:var(--gold)}
+.insights-body{font-size:15px;line-height:1.75;color:var(--muted);white-space:pre-wrap}
+.ai-dots{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 1.2s ease infinite}
+.ai-dot:nth-child(2){animation-delay:.2s}
+.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.all-table{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:64px;box-shadow:var(--shadow)}
+.t-row{display:grid;grid-template-columns:32px 1fr 110px 120px;gap:16px;align-items:center;padding:14px 24px;border-bottom:1px solid var(--border);transition:background .15s;animation:fadeUp .3s ease both}
+.t-row:last-child{border-bottom:none}
+.t-row:hover{background:var(--rowhov)}
+.t-row.top{background:var(--rowtop)}
+.t-rank{font-size:13px;color:var(--muted);font-weight:600}
+.t-name{font-size:14px;font-weight:500;color:var(--text)}
+.t-domain{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.t-bar-wrap{background:var(--border);height:6px;border-radius:6px;overflow:hidden}
+.t-bar{height:100%;border-radius:6px}
+.btn-restart{display:block;margin:0 auto;padding:14px 40px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all .2s}
+.btn-restart:hover{border-color:var(--gold);color:var(--gold);background:var(--golddim)}
 
-.top5-grid { display: grid; gap: 16px; margin-bottom: 64px; }
-.theme-card {
-background: var(–card); border: 1px solid var(–border); border-radius: 16px;
-padding: 28px 32px; display: grid; grid-template-columns: 48px 1fr auto;
-gap: 20px; align-items: start; transition: all 0.3s ease;
-animation: fadeUp 0.5s ease both; position: relative; overflow: hidden;
-box-shadow: var(–shadow-card);
-}
-.theme-card::before {
-content: ‘’; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-background: var(–tc, var(–gold));
-}
-.theme-card:hover { transform: translateX(4px); background: var(–card-hover); }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;max-width:480px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:fadeUp .3s ease both}
+.modal-title{font-family:'Playfair Display','Georgia',serif;font-size:22px;font-weight:700;color:var(--strong);margin-bottom:8px}
+.modal-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
+.save-input-row{margin-bottom:20px}
+.save-input-label{font-size:13px;color:var(--muted);margin-bottom:8px}
+.save-input-wrap{display:flex;gap:8px}
+.save-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s}
+.save-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--golddim)}
+.save-feedback{font-size:12px;color:var(--gold);margin-top:6px;min-height:16px}
+.slots-list{display:grid;gap:10px;margin-bottom:24px}
+.slot{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:border-color .2s}
+.slot:hover{border-color:var(--gold)}
+.slot-info{flex:1;min-width:0}
+.slot-name{font-size:14px;font-weight:600;color:var(--strong);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slot-detail{font-size:12px;color:var(--muted)}
+.slot-acts{display:flex;gap:6px;flex-shrink:0}
+.btn-slot-load{padding:7px 14px;border-radius:50px;border:none;background:var(--gold);color:var(--seltext);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s}
+.btn-slot-load:hover{opacity:.85}
+.btn-slot-del{padding:7px 10px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;transition:all .2s}
+.btn-slot-del:hover{border-color:#e75c5c;color:#e75c5c}
+.slot-empty{text-align:center;padding:20px;color:var(--muted);font-size:14px}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end}
+.btn-modal-close{padding:11px 24px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all .2s}
+.btn-modal-close:hover{border-color:var(--text);color:var(--text)}
 
-.theme-rank { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 36px; font-weight: 700; line-height: 1; }
-.theme-name { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 22px; font-weight: 700; color: var(–text-strong); margin-bottom: 6px; }
-.theme-domain { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
-.theme-desc { font-size: 14px; line-height: 1.65; color: var(–muted); }
-.theme-score-wrap { text-align: right; }
-.theme-score { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 28px; font-weight: 700; }
-.theme-score-label { font-size: 12px; color: var(–muted); text-transform: uppercase; letter-spacing: 1px; }
-
-.domains-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 64px; }
-.domain-card {
-background: var(–card); border: 1px solid var(–border); border-radius: 14px;
-padding: 24px; text-align: center; animation: fadeUp 0.5s ease both;
-box-shadow: var(–shadow-card); transition: background 0.3s, border-color 0.3s;
-}
-.domain-card:hover { background: var(–card-hover); }
-.domain-icon { font-size: 28px; margin-bottom: 12px; display: block; }
-.domain-name { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(–text-strong); }
-.domain-score { font-size: 28px; font-weight: 700; font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; margin-bottom: 4px; }
-.domain-label { font-size: 12px; color: var(–muted); text-transform: uppercase; letter-spacing: 1px; }
-
-.all-themes { margin-bottom: 64px; }
-.themes-table {
-background: var(–card); border: 1px solid var(–border); border-radius: 16px;
-overflow: hidden; box-shadow: var(–shadow-card);
-}
-.theme-row {
-display: grid; grid-template-columns: 32px 1fr 110px 120px; gap: 16px;
-align-items: center; padding: 14px 24px; border-bottom: 1px solid var(–border);
-transition: background 0.15s; animation: fadeUp 0.3s ease both;
-}
-.theme-row:last-child { border-bottom: none; }
-.theme-row:hover { background: var(–row-hover); }
-.theme-row.top5 { background: var(–row-top5); }
-.row-rank { font-size: 13px; color: var(–muted); font-weight: 600; }
-.row-name { font-size: 14px; font-weight: 500; color: var(–text); }
-.row-domain { font-size: 12px; color: var(–muted); letter-spacing: 1px; text-transform: uppercase; }
-.row-bar-wrap { background: var(–border); height: 6px; border-radius: 6px; overflow: hidden; }
-.row-bar { height: 100%; border-radius: 6px; }
-
-.insights-box {
-background: var(–card); border: 1px solid var(–border); border-radius: 20px;
-padding: 36px; margin-bottom: 40px; animation: fadeUp 0.5s ease both;
-box-shadow: var(–shadow-card);
-}
-.insights-heading { font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 20px; margin-bottom: 16px; color: var(–gold); }
-.insights-text { font-size: 15px; line-height: 1.75; color: var(–muted); white-space: pre-wrap; }
-.ai-loading { display: flex; align-items: center; gap: 12px; color: var(–muted); font-size: 14px; }
-.ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–gold); animation: pulse 1.2s ease infinite; }
-.ai-dot:nth-child(2) { animation-delay: 0.2s; }
-.ai-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes pulse { 0%,100% { opacity:0.3; transform:scale(0.8); } 50% { opacity:1; transform:scale(1.2); } }
-
-.btn-restart {
-display: block; margin: 0 auto; padding: 14px 40px; border-radius: 50px;
-border: 1px solid var(–border); background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s;
-}
-.btn-restart:hover { border-color: var(–gold); color: var(–gold); background: var(–gold-dim); }
-
-@media (max-width: 600px) {
-.theme-card { grid-template-columns: 40px 1fr; }
-.theme-score-wrap { grid-column: 2; }
-.theme-row { grid-template-columns: 28px 1fr 80px; }
-.row-domain { display: none; }
-.scale-btn { width: 40px !important; height: 40px !important; font-size: 13px !important; }
-.scale-options { gap: 8px; }
-#themeToggle { top: 12px; right: 12px; }
-}
-
-.btn-save-manual {
-width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(–border);
-background: transparent; color: var(–muted); font-size: 15px; cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-transition: all 0.2s; flex-shrink: 0;
-}
-.btn-save-manual:hover { border-color: var(–gold); color: var(–gold); }
-
-.btn-slots-open {
-margin-top: 16px; padding: 10px 22px; border-radius: 50px;
-border: 1px solid var(–border); background: transparent;
-color: var(–muted); font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif;
-font-size: 13px; cursor: pointer; transition: all 0.2s;
-}
-.btn-slots-open:hover { border-color: var(–gold); color: var(–gold); }
-
-/* ── SAVE / RESUME BANNER ── */
-#resumeBanner {
-display: none;
-background: var(–card); border: 1px solid var(–border);
-border-radius: 16px; padding: 20px 28px;
-max-width: 480px; margin: 0 auto 32px;
-box-shadow: var(–shadow-card);
-animation: fadeUp 0.4s ease both;
-}
-.resume-row {
-display: flex; align-items: center; justify-content: space-between; gap: 16px;
-}
-.resume-info { flex: 1; }
-.resume-title {
-font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 16px;
-font-weight: 700; color: var(–text-strong); margin-bottom: 4px;
-}
-.resume-meta { font-size: 13px; color: var(–muted); }
-.resume-bar-wrap {
-background: var(–border); height: 4px; border-radius: 4px;
-overflow: hidden; margin-top: 10px;
-}
-.resume-bar { height: 100%; background: linear-gradient(90deg, var(–gold), var(–accent)); border-radius: 4px; }
-.resume-actions { display: flex; gap: 8px; flex-shrink: 0; }
-.btn-resume {
-padding: 10px 20px; border-radius: 50px; border: none;
-background: linear-gradient(135deg, var(–gold), #a87c2e);
-color: #fff; font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif;
-font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
-}
-.btn-resume:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(–gold-dim); }
-.btn-resume-dismiss {
-padding: 10px 16px; border-radius: 50px; border: 1px solid var(–border);
-background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s;
-}
-.btn-resume-dismiss:hover { border-color: var(–text); color: var(–text); }
-
-/* ── SAVE STATUS INDICATOR (in quiz header) ── */
-.save-indicator {
-font-size: 12px; color: var(–muted); display: flex;
-align-items: center; gap: 5px; white-space: nowrap; opacity: 0;
-transition: opacity 0.4s ease;
-}
-.save-indicator.visible { opacity: 1; }
-.save-dot {
-width: 6px; height: 6px; border-radius: 50%;
-background: var(–gold); flex-shrink: 0;
-}
-
-/* ── SAVE SLOTS MODAL ── */
-#saveModal {
-display: none; position: fixed; inset: 0; z-index: 500;
-background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-align-items: center; justify-content: center; padding: 24px;
-}
-#saveModal.open { display: flex; }
-.modal-box {
-background: var(–card); border: 1px solid var(–border);
-border-radius: 20px; padding: 36px; max-width: 480px; width: 100%;
-box-shadow: 0 24px 60px rgba(0,0,0,0.5);
-animation: fadeUp 0.3s ease both;
-}
-.modal-title {
-font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: 22px;
-font-weight: 700; color: var(–text-strong); margin-bottom: 8px;
-}
-.modal-sub { font-size: 14px; color: var(–muted); margin-bottom: 24px; }
-.save-slots { display: grid; gap: 10px; margin-bottom: 24px; }
-.save-slot {
-background: var(–bg); border: 1px solid var(–border);
-border-radius: 12px; padding: 14px 18px;
-display: flex; align-items: center; justify-content: space-between;
-gap: 12px; transition: border-color 0.2s;
-}
-.save-slot:hover { border-color: var(–gold); }
-.slot-info { flex: 1; min-width: 0; }
-.slot-name {
-font-size: 14px; font-weight: 600; color: var(–text-strong);
-margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.slot-detail { font-size: 12px; color: var(–muted); }
-.slot-actions { display: flex; gap: 6px; flex-shrink: 0; }
-.btn-slot-load {
-padding: 7px 14px; border-radius: 50px; border: none;
-background: var(–gold); color: var(–scale-selected-text);
-font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 600;
-cursor: pointer; transition: all 0.2s;
-}
-.btn-slot-load:hover { opacity: 0.85; }
-.btn-slot-del {
-padding: 7px 10px; border-radius: 50px; border: 1px solid var(–border);
-background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 12px;
-cursor: pointer; transition: all 0.2s;
-}
-.btn-slot-del:hover { border-color: #e75c5c; color: #e75c5c; }
-.slot-empty { text-align: center; padding: 20px; color: var(–muted); font-size: 14px; }
-.modal-footer { display: flex; gap: 10px; justify-content: flex-end; }
-.btn-modal-close {
-padding: 11px 24px; border-radius: 50px; border: 1px solid var(–border);
-background: transparent; color: var(–muted);
-font-family: ‘DM Sans’, ui-sans-serif, system-ui, sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s;
-}
-.btn-modal-close:hover { border-color: var(–text); color: var(–text); }
-
-#saveNameInput:focus { border-color: var(–gold); box-shadow: 0 0 0 3px var(–gold-dim); }
-#saveNameInput::placeholder { color: var(–muted); opacity: 0.7; }
-
-/* ── SCREEN READER ONLY (visually hidden but accessible) ── */
-.sr-only {
-position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-}
-
-/* ── fieldset reset (used for scale-wrap) ── */
-fieldset.scale-wrap { border: 1px solid var(–border); }
-
-/* ── results-title as h2 ── */
-h2.results-title {
-font-family: ‘Playfair Display’, ‘Georgia’, ‘Times New Roman’, serif; font-size: clamp(32px, 5vw, 56px);
-font-weight: 900; margin-bottom: 16px;
-background: var(–h1-grad);
--webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+@media(max-width:600px){
+  .theme-card{grid-template-columns:40px 1fr}
+  .theme-score{grid-column:2}
+  .t-row{grid-template-columns:28px 1fr 80px}
+  .t-domain{display:none}
+  .scale-btn{width:40px!important;height:40px!important;font-size:13px!important}
+  .scale-btns{gap:8px}
+  #themeToggle{top:12px;right:12px}
 }
 </style>
-
 </head>
 <body>
-<div id="app">
 
-  <!-- THEME TOGGLE -->
+<button id="themeToggle" type="button" aria-label="Switch to light mode">🌙</button>
 
-<button id="themeToggle" type="button" aria-label="Switch to light mode" title="Toggle light/dark mode">🌙</button>
+<main>
 
-  <!-- INTRO -->
+<!-- INTRO -->
+<div id="intro" class="screen">
+  <div class="logo-mark" aria-hidden="true">◈</div>
+  <p class="eyebrow">Gallup CliftonStrengths</p>
+  <h1>Discover Your<br>Signature Strengths</h1>
+  <p class="intro-desc">177 questions · 34 strength themes · ~20 minutes. The most widely used talent assessment in the world.</p>
+  <div class="intro-stats" aria-label="Assessment overview">
+    <div><span class="stat-num">177</span><span class="stat-label">Questions</span></div>
+    <div><span class="stat-num">34</span><span class="stat-label">Themes</span></div>
+    <div><span class="stat-num">4</span><span class="stat-label">Domains</span></div>
+    <div><span class="stat-num">~20</span><span class="stat-label">Minutes</span></div>
+  </div>
 
-  <main id="mainContent">
-  <div id="intro" class="screen">
-    <div class="logo-mark" aria-hidden="true">◈</div>
-    <div class="intro-eyebrow">Gallup CliftonStrengths</div>
-    <h1>Discover Your<br>Signature Strengths</h1>
-    <p class="intro-desc">A research-backed assessment of 177 questions to identify your top talents across 34 strength themes — the foundation of what makes you uniquely powerful.</p>
-    <div class="intro-stats" aria-label="Assessment overview">
-      <div class="stat-item"><span class="stat-num">177</span><span class="stat-label">Questions</span></div>
-      <div class="stat-item"><span class="stat-num">34</span><span class="stat-label">Themes</span></div>
-      <div class="stat-item"><span class="stat-num">4</span><span class="stat-label">Domains</span></div>
-      <div class="stat-item"><span class="stat-num">~20</span><span class="stat-label">Minutes</span></div>
+  <div id="resumeBanner" role="region" aria-label="Resume saved progress">
+    <div class="resume-row">
+      <div class="resume-info">
+        <div class="resume-title">Continue where you left off</div>
+        <div class="resume-meta" id="resumeMeta"></div>
+        <div class="resume-prog"><div class="resume-prog-bar" id="resumeProgBar" style="width:0%"></div></div>
+      </div>
+      <div class="resume-btns">
+        <button class="btn-resume" id="btnResume" type="button">Resume →</button>
+        <button class="btn-dismiss" id="btnDismiss" type="button" aria-label="Dismiss">✕</button>
+      </div>
     </div>
+  </div>
 
-```
-<!-- RESUME BANNER (shown if a saved session exists) -->
-<div id="resumeBanner" role="region" aria-label="Resume saved progress">
-  <div class="resume-row">
-    <div class="resume-info">
-      <div class="resume-title" id="resumeTitle">Continue where you left off</div>
-      <div class="resume-meta" id="resumeMeta"></div>
-      <div class="resume-bar-wrap"><div class="resume-bar" id="resumeBar" style="width:0%"></div></div>
+  <button class="btn-primary" id="startBtn" type="button">Begin Assessment →</button>
+  <p class="intro-note">Answer instinctively — your first reaction is most accurate.</p>
+  <button class="btn-slots" id="btnOpenSlots" type="button">📋 Saved Sessions</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="screen" style="display:none">
+  <header class="quiz-header">
+    <span class="quiz-logo" aria-hidden="true">◈ SF</span>
+    <div class="prog-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="177" aria-valuenow="0" aria-label="Progress" id="progWrap">
+      <div class="prog-bar" id="progBar"></div>
     </div>
-    <div class="resume-actions">
-      <button class="btn-resume" id="btnResume" type="button">Resume →</button>
-      <button class="btn-resume-dismiss" id="btnDismiss" type="button" aria-label="Dismiss and start fresh">✕</button>
+    <span class="prog-text" id="progText" aria-live="polite">0 / 177</span>
+    <span class="save-ind" id="saveInd" aria-live="polite"><span class="save-dot" aria-hidden="true"></span>Saved</span>
+    <button class="btn-save" id="btnSave" type="button" aria-label="Save and name this session">💾</button>
+  </header>
+  <div class="quiz-body">
+    <p class="q-tag" id="qTag" aria-live="polite"></p>
+    <p class="q-text" id="qText" role="heading" aria-level="2"></p>
+    <div class="scale-card">
+      <div class="scale-ends">
+        <span class="scale-lbl" id="lblA"></span>
+        <span class="scale-lbl r" id="lblB"></span>
+      </div>
+      <div class="scale-btns" role="group" aria-label="Your answer">
+        <button class="scale-btn" data-val="1" type="button" aria-label="1 — Strongly A" aria-pressed="false">1</button>
+        <button class="scale-btn" data-val="2" type="button" aria-label="2 — Leaning A"  aria-pressed="false">2</button>
+        <button class="scale-btn" data-val="3" type="button" aria-label="3 — Neutral"    aria-pressed="false">3</button>
+        <button class="scale-btn" data-val="4" type="button" aria-label="4 — Leaning B"  aria-pressed="false">4</button>
+        <button class="scale-btn" data-val="5" type="button" aria-label="5 — Strongly B" aria-pressed="false">5</button>
+      </div>
+      <p class="scale-hint" id="scaleHint" aria-live="polite">← Strongly A · Neutral · Strongly B →</p>
+    </div>
+    <div class="quiz-nav">
+      <button class="btn-nav" id="btnBack" type="button" aria-label="Previous question">← Back</button>
+      <button class="btn-next" id="btnNext" type="button" aria-label="Next question" aria-disabled="true">Next →</button>
     </div>
   </div>
 </div>
 
-<button class="btn-primary" id="startBtn" type="button">Begin New Assessment →</button>
-<p class="intro-note">Answer instinctively. Your first reaction is most accurate.</p>
-<button class="btn-slots-open" id="btnOpenSlots" type="button" aria-label="View all saved assessments">📋 Saved Assessments</button>
-```
+<!-- LOADING -->
+<div id="loading" class="screen" style="display:none" role="status" aria-live="polite">
+  <div class="spinner" aria-hidden="true"></div>
+  <p class="loading-t">Analyzing your responses…</p>
+  <p class="loading-s">Mapping your talent profile across 34 themes</p>
+</div>
 
+<!-- RESULTS -->
+<div id="results" class="screen" style="display:none">
+  <div class="results-hero">
+    <p class="results-eyebrow">Your Talent Profile</p>
+    <h2 class="results-title">Your Signature Strengths</h2>
+    <p class="results-sub">Based on your 177 responses, here are your talent themes ranked.</p>
   </div>
-
-  <!-- QUIZ -->
-
-  <div id="quiz" class="screen" style="display:none">
-    <header class="quiz-header">
-      <div class="quiz-logo" aria-hidden="true">◈ StrengthsFinder</div>
-      <div class="progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="177" aria-valuenow="0" aria-label="Assessment progress" id="progressWrap">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-      <div class="progress-text" id="progressText" aria-live="polite" aria-atomic="true">0 / 177</div>
-      <div class="save-indicator" id="saveIndicator" aria-live="polite" aria-atomic="true">
-        <span class="save-dot" aria-hidden="true"></span>Saved
-      </div>
-      <button class="btn-save-manual" id="btnSave" type="button" aria-label="Save progress and exit">💾</button>
-    </header>
-    <div class="quiz-body">
-      <div class="section-tag" id="sectionTag" aria-live="polite"></div>
-      <div class="question-text" id="questionText" role="heading" aria-level="2"></div>
-      <fieldset class="scale-wrap">
-        <div class="scale-endpoints">
-          <div class="scale-label" id="labelA"></div>
-          <div class="scale-label right" id="labelB"></div>
-        </div>
-        <legend class="sr-only">Rate which statement describes you better: 1 = Strongly A, 3 = Neutral, 5 = Strongly B</legend>
-        <div class="scale-options" id="scaleOptions" role="group" aria-labelledby="labelA labelB">
-          <button class="scale-btn" data-val="1" type="button" aria-label="1 — Strongly A" aria-pressed="false">1</button>
-          <button class="scale-btn" data-val="2" type="button" aria-label="2 — Leaning A" aria-pressed="false">2</button>
-          <button class="scale-btn" data-val="3" type="button" aria-label="3 — Neutral" aria-pressed="false">3</button>
-          <button class="scale-btn" data-val="4" type="button" aria-label="4 — Leaning B" aria-pressed="false">4</button>
-          <button class="scale-btn" data-val="5" type="button" aria-label="5 — Strongly B" aria-pressed="false">5</button>
-        </div>
-        <div class="scale-desc" id="scaleDesc" aria-live="polite" aria-atomic="true">← Strongly A &nbsp;·&nbsp; Neutral &nbsp;·&nbsp; Strongly B →</div>
-      </fieldset>
-      <div class="quiz-nav">
-        <button class="btn-nav" id="btnBack" type="button" aria-label="Go to previous question">← Back</button>
-        <button class="btn-next" id="btnNext" type="button" aria-label="Go to next question" aria-disabled="true">Next →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- LOADING -->
-
-  <div id="loading" class="screen" style="display:none" role="status" aria-live="polite" aria-label="Analyzing your responses">
-    <div class="loader-ring" aria-hidden="true"></div>
-    <div class="loading-text">Analyzing your responses…</div>
-    <div class="loading-sub">Mapping your talent profile across 34 themes</div>
-  </div>
-
-  <!-- RESULTS -->
-
-  <div id="results" class="screen" style="display:none">
-    <div class="results-hero">
-      <div class="results-eyebrow">Your Talent Profile</div>
-      <h2 class="results-title">Your Signature Strengths</h2>
-      <div class="results-sub">Based on your 177 responses, here are your talent themes ranked.</div>
-    </div>
-    <div class="results-content">
-      <h3 class="section-title">Your Top 5 Signature Themes</h3>
-      <div class="top5-grid" id="top5Grid"></div>
-      <h3 class="section-title">Strength Domain Overview</h3>
-      <div class="domains-grid" id="domainsGrid"></div>
-      <h3 class="section-title" style="margin-bottom:20px;">AI-Powered Personalized Insights</h3>
-      <div class="insights-box">
-        <h4 class="insights-heading">Your Unique Strength Signature</h4>
-        <div class="insights-text" id="insightsText" aria-live="polite">
-          <div class="ai-loading" aria-label="Generating insights">
-            <div class="ai-dot" aria-hidden="true"></div><div class="ai-dot" aria-hidden="true"></div><div class="ai-dot" aria-hidden="true"></div>
-            <span>Generating personalized insights…</span>
-          </div>
+  <div class="results-body">
+    <h3 class="sec-title">Your Top 5 Signature Themes</h3>
+    <div class="top5" id="top5"></div>
+    <h3 class="sec-title">Strength Domain Overview</h3>
+    <div class="domains" id="domainsGrid"></div>
+    <h3 class="sec-title" style="margin-bottom:20px">Personalized Insights</h3>
+    <div class="insights-box">
+      <h4 class="insights-head">Your Unique Strength Signature</h4>
+      <div class="insights-body" id="insightsBody" aria-live="polite">
+        <div class="ai-dots">
+          <div class="ai-dot" aria-hidden="true"></div>
+          <div class="ai-dot" aria-hidden="true"></div>
+          <div class="ai-dot" aria-hidden="true"></div>
+          <span>Generating insights…</span>
         </div>
       </div>
-      <h3 class="section-title">All 34 Themes Ranked</h3>
-      <div class="all-themes"><div class="themes-table" id="allThemesTable" role="list" aria-label="All 34 strength themes ranked"></div></div>
-      <button class="btn-restart" id="restartBtn" type="button">Retake Assessment</button>
     </div>
-  </div>
-
-  </main>
-
-  <!-- SAVE SLOTS MODAL -->
-
-  <div id="saveModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-box">
-      <div class="modal-title" id="modalTitle">Saved Assessments</div>
-      <div class="modal-sub">Resume a saved session, or save your current progress with a name.</div>
-
-```
-  <!-- Quick-save input (shown only while quiz is active) -->
-  <div id="quickSaveRow" style="display:none; margin-bottom:20px;">
-    <div style="font-size:13px; color:var(--muted); margin-bottom:8px;">Save current progress as:</div>
-    <div style="display:flex; gap:8px;">
-      <input id="saveNameInput" type="text" placeholder='e.g. "My first attempt"'
-        maxlength="40" autocomplete="off"
-        style="flex:1; background:var(--bg); border:1px solid var(--border); border-radius:8px;
-               padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:14px;
-               color:var(--text); outline:none;"
-        aria-label="Name for this saved session" />
-      <button class="btn-resume" id="btnConfirmSave" type="button" style="flex-shrink:0">Save</button>
-    </div>
-    <div id="saveNameFeedback" style="font-size:12px; color:var(--gold); margin-top:6px; min-height:16px;"></div>
-  </div>
-
-  <div class="save-slots" id="saveSlotsList"></div>
-  <div class="modal-footer">
-    <button class="btn-modal-close" id="btnModalClose" type="button">Close</button>
+    <h3 class="sec-title">All 34 Themes Ranked</h3>
+    <div class="all-table" id="allTable" role="list" aria-label="All 34 themes ranked"></div>
+    <button class="btn-restart" id="btnRestart" type="button">Retake Assessment</button>
   </div>
 </div>
-```
 
+</main>
+
+<!-- SAVE MODAL -->
+<div class="modal-overlay" id="saveModal" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+  <div class="modal-box">
+    <h2 class="modal-title" id="modalHeading">Saved Sessions</h2>
+    <p class="modal-sub">Save your progress or resume a previous session.</p>
+    <div class="save-input-row" id="saveInputRow" style="display:none">
+      <p class="save-input-label">Save current progress as:</p>
+      <div class="save-input-wrap">
+        <input class="save-input" id="saveNameInput" type="text" maxlength="40" autocomplete="off"
+          placeholder='e.g. "First attempt"' aria-label="Session name" />
+        <button class="btn-resume" id="btnConfirmSave" type="button">Save</button>
+      </div>
+      <p class="save-feedback" id="saveFeedback"></p>
+    </div>
+    <div class="slots-list" id="slotsList"></div>
+    <div class="modal-footer">
+      <button class="btn-modal-close" id="btnModalClose" type="button">Close</button>
+    </div>
   </div>
-
 </div>
+
 <script>
-// ─── THEME TOGGLE ───
-(function() {
-  const root = document.documentElement;
-  const btn = document.getElementById('themeToggle');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  let isDark = prefersDark;
-  function applyTheme(dark) {
-    if (dark) {
-      root.setAttribute('data-theme','dark');
-      btn.textContent = '🌙';
-      btn.setAttribute('aria-label','Switch to light mode');
-    } else {
-      root.setAttribute('data-theme','light');
-      btn.textContent = '☀️';
-      btn.setAttribute('aria-label','Switch to dark mode');
-    }
-  }
-  applyTheme(isDark);
-  btn.addEventListener('click', () => { isDark = !isDark; applyTheme(isDark); });
-})();
 
-// ─── 34 THEMES ───
+// ── DATA ──────────────────────────────────────────────────────────
 const THEMES = [
-{id:“achiever”,        name:“Achiever”,         domain:“Executing”,    color:”#e75c5c”, desc:“You have a great deal of stamina and work hard. You take great satisfaction from being busy and productive.”},
-{id:“activator”,       name:“Activator”,         domain:“Influencing”,  color:”#e7935c”, desc:“You can make things happen by turning thoughts into action. You are impatient with inaction.”},
-{id:“adaptability”,    name:“Adaptability”,      domain:“Relationship”, color:”#5c8ee7”, desc:“You prefer to go with the flow. You tend to be a ‘now’ person who takes things as they come.”},
-{id:“analytical”,      name:“Analytical”,        domain:“Strategic”,    color:”#a85ce7”, desc:“You search for reasons and causes. You have the ability to think about all the factors that might affect a situation.”},
-{id:“arranger”,        name:“Arranger”,          domain:“Executing”,    color:”#e75c5c”, desc:“You can organize, but you also have a flexibility that complements this ability. You like to figure out the best configuration.”},
-{id:“belief”,          name:“Belief”,            domain:“Executing”,    color:”#e75c5c”, desc:“You have certain core values that are unchanging. Out of these values emerges a defined purpose for your life.”},
-{id:“command”,         name:“Command”,           domain:“Influencing”,  color:”#e7935c”, desc:“You have presence. You can take control of a situation and make decisions. Others are comfortable letting you lead.”},
-{id:“communication”,   name:“Communication”,     domain:“Influencing”,  color:”#e7935c”, desc:“You generally find it easy to put your thoughts into words. You are a good conversationalist and presenter.”},
-{id:“competition”,     name:“Competition”,       domain:“Influencing”,  color:”#e7935c”, desc:“You measure your progress against the performance of others. You strive to win and need other competitors.”},
-{id:“connectedness”,   name:“Connectedness”,     domain:“Relationship”, color:”#5c8ee7”, desc:“You have faith in the links between all things. You believe there are few coincidences and that almost every event has a reason.”},
-{id:“consistency”,     name:“Consistency”,       domain:“Executing”,    color:”#e75c5c”, desc:“You are keenly aware of the need to treat people the same. You crave stable routines and clear rules.”},
-{id:“context”,         name:“Context”,           domain:“Strategic”,    color:”#a85ce7”, desc:“You enjoy thinking about the past. You understand the present by researching its history.”},
-{id:“deliberative”,    name:“Deliberative”,      domain:“Executing”,    color:”#e75c5c”, desc:“You are best described by the serious care you take in making decisions. You anticipate obstacles.”},
-{id:“developer”,       name:“Developer”,         domain:“Relationship”, color:”#5c8ee7”, desc:“You recognize and cultivate the potential in others. You spot the signs of each small improvement.”},
-{id:“discipline”,      name:“Discipline”,        domain:“Executing”,    color:”#e75c5c”, desc:“Your world needs to be ordered and planned. You automatically impose structure on your life and work.”},
-{id:“empathy”,         name:“Empathy”,           domain:“Relationship”, color:”#5c8ee7”, desc:“You can sense the feelings of other people by imagining yourself in others’ lives or situations.”},
-{id:“focus”,           name:“Focus”,             domain:“Executing”,    color:”#e75c5c”, desc:“You can take a direction, follow through, and make the corrections necessary to stay on track.”},
-{id:“futuristic”,      name:“Futuristic”,        domain:“Strategic”,    color:”#a85ce7”, desc:“You are inspired by the future and what could be. You inspire others with your visions of what lies ahead.”},
-{id:“harmony”,         name:“Harmony”,           domain:“Relationship”, color:”#5c8ee7”, desc:“You look for consensus. You don’t enjoy conflict; rather, you seek areas of agreement.”},
-{id:“ideation”,        name:“Ideation”,          domain:“Strategic”,    color:”#a85ce7”, desc:“You are fascinated by ideas. You are able to find connections between seemingly disparate phenomena.”},
-{id:“includer”,        name:“Includer”,          domain:“Relationship”, color:”#5c8ee7”, desc:“You are accepting of others. You show awareness of those who feel left out and make an effort to include them.”},
-{id:“individualization”,name:“Individualization”,domain:“Relationship”, color:”#5c8ee7”, desc:“You are intrigued with the unique qualities of each person. You figure out how different people can work together productively.”},
-{id:“input”,           name:“Input”,             domain:“Strategic”,    color:”#a85ce7”, desc:“You have a craving to know more. Often you like to collect and archive all kinds of information.”},
-{id:“intellection”,    name:“Intellection”,      domain:“Strategic”,    color:”#a85ce7”, desc:“You are characterized by your intellectual activity. You are introspective and appreciate intellectual discussions.”},
-{id:“learner”,         name:“Learner”,           domain:“Strategic”,    color:”#a85ce7”, desc:“You have a great desire to learn and want to continuously improve. The process of learning excites you.”},
-{id:“maximizer”,       name:“Maximizer”,         domain:“Influencing”,  color:”#e7935c”, desc:“You focus on strengths as a way to stimulate excellence. You seek to transform something strong into something superb.”},
-{id:“positivity”,      name:“Positivity”,        domain:“Relationship”, color:”#5c8ee7”, desc:“You have an enthusiasm that is contagious. You are upbeat and can get others excited about what they are going to do.”},
-{id:“relator”,         name:“Relator”,           domain:“Relationship”, color:”#5c8ee7”, desc:“You enjoy close relationships with others. You find deep satisfaction in working hard with friends to achieve a goal.”},
-{id:“responsibility”,  name:“Responsibility”,    domain:“Executing”,    color:”#e75c5c”, desc:“You take psychological ownership of what you say you will do. You are committed to stable values such as honesty and loyalty.”},
-{id:“restorative”,     name:“Restorative”,       domain:“Executing”,    color:”#e75c5c”, desc:“You are adept at dealing with problems. You are good at figuring out what is wrong and resolving it.”},
-{id:“selfassurance”,   name:“Self-Assurance”,    domain:“Influencing”,  color:”#e7935c”, desc:“You feel confident in your ability to manage your own life. You possess an inner compass that gives you confidence.”},
-{id:“significance”,    name:“Significance”,      domain:“Influencing”,  color:”#e7935c”, desc:“You want to be very significant in the eyes of others. You want to be known and recognized for your contributions.”},
-{id:“strategic”,       name:“Strategic”,         domain:“Strategic”,    color:”#a85ce7”, desc:“You create alternative ways to proceed. Faced with any given scenario, you can quickly spot the relevant patterns and issues.”},
-{id:“woo”,             name:“Woo”,               domain:“Influencing”,  color:”#e7935c”, desc:“Woo stands for winning others over. You enjoy the challenge of meeting new people and getting them to like you.”},
+  {id:'achiever',        name:'Achiever',         d:'Executing',    desc:"You have a great deal of stamina and work hard. You take great satisfaction from being busy and productive."},
+  {id:'activator',       name:'Activator',         d:'Influencing',  desc:"You can make things happen by turning thoughts into action. You are impatient with inaction."},
+  {id:'adaptability',    name:'Adaptability',      d:'Relationship', desc:"You prefer to go with the flow. You tend to be a 'now' person who takes things as they come."},
+  {id:'analytical',      name:'Analytical',        d:'Strategic',    desc:"You search for reasons and causes. You have the ability to think about all the factors that might affect a situation."},
+  {id:'arranger',        name:'Arranger',           d:'Executing',    desc:"You can organize, but you also have flexibility. You like to figure out the best configuration."},
+  {id:'belief',          name:'Belief',             d:'Executing',    desc:"You have certain core values that are unchanging. Out of these values emerges a defined purpose for your life."},
+  {id:'command',         name:'Command',            d:'Influencing',  desc:"You have presence. You can take control of a situation and make decisions. Others are comfortable letting you lead."},
+  {id:'communication',   name:'Communication',      d:'Influencing',  desc:"You generally find it easy to put your thoughts into words. You are a good conversationalist and presenter."},
+  {id:'competition',     name:'Competition',        d:'Influencing',  desc:"You measure your progress against the performance of others. You strive to win."},
+  {id:'connectedness',   name:'Connectedness',      d:'Relationship', desc:"You have faith in the links between all things. You believe there are few coincidences."},
+  {id:'consistency',     name:'Consistency',        d:'Executing',    desc:"You are keenly aware of the need to treat people the same. You crave stable routines and clear rules."},
+  {id:'context',         name:'Context',            d:'Strategic',    desc:"You enjoy thinking about the past. You understand the present by researching its history."},
+  {id:'deliberative',    name:'Deliberative',       d:'Executing',    desc:"You are best described by the serious care you take in making decisions. You anticipate obstacles."},
+  {id:'developer',       name:'Developer',          d:'Relationship', desc:"You recognize and cultivate the potential in others. You spot the signs of each small improvement."},
+  {id:'discipline',      name:'Discipline',         d:'Executing',    desc:"Your world needs to be ordered and planned. You automatically impose structure on your life and work."},
+  {id:'empathy',         name:'Empathy',            d:'Relationship', desc:"You can sense the feelings of other people by imagining yourself in others' lives or situations."},
+  {id:'focus',           name:'Focus',              d:'Executing',    desc:"You can take a direction, follow through, and make the corrections necessary to stay on track."},
+  {id:'futuristic',      name:'Futuristic',         d:'Strategic',    desc:"You are inspired by the future and what could be. You inspire others with your visions of what lies ahead."},
+  {id:'harmony',         name:'Harmony',            d:'Relationship', desc:"You look for consensus. You don't enjoy conflict; rather, you seek areas of agreement."},
+  {id:'ideation',        name:'Ideation',           d:'Strategic',    desc:"You are fascinated by ideas. You are able to find connections between seemingly disparate phenomena."},
+  {id:'includer',        name:'Includer',           d:'Relationship', desc:"You are accepting of others. You show awareness of those who feel left out and make an effort to include them."},
+  {id:'individualization',name:'Individualization', d:'Relationship', desc:"You are intrigued with the unique qualities of each person. You figure out how different people can work together."},
+  {id:'input',           name:'Input',              d:'Strategic',    desc:"You have a craving to know more. Often you like to collect and archive all kinds of information."},
+  {id:'intellection',    name:'Intellection',       d:'Strategic',    desc:"You are characterized by your intellectual activity. You are introspective and appreciate intellectual discussions."},
+  {id:'learner',         name:'Learner',            d:'Strategic',    desc:"You have a great desire to learn and want to continuously improve. The process of learning excites you."},
+  {id:'maximizer',       name:'Maximizer',          d:'Influencing',  desc:"You focus on strengths as a way to stimulate excellence. You seek to transform something strong into something superb."},
+  {id:'positivity',      name:'Positivity',         d:'Relationship', desc:"You have an enthusiasm that is contagious. You are upbeat and can get others excited about what they are going to do."},
+  {id:'relator',         name:'Relator',            d:'Relationship', desc:"You enjoy close relationships with others. You find deep satisfaction in working hard with friends to achieve a goal."},
+  {id:'responsibility',  name:'Responsibility',     d:'Executing',    desc:"You take psychological ownership of what you say you will do. You are committed to stable values such as honesty and loyalty."},
+  {id:'restorative',     name:'Restorative',        d:'Executing',    desc:"You are adept at dealing with problems. You are good at figuring out what is wrong and resolving it."},
+  {id:'selfassurance',   name:'Self-Assurance',     d:'Influencing',  desc:"You feel confident in your ability to manage your own life. You possess an inner compass that gives you confidence."},
+  {id:'significance',    name:'Significance',       d:'Influencing',  desc:"You want to be very significant in the eyes of others. You want to be known and recognized for your contributions."},
+  {id:'strategic',       name:'Strategic',          d:'Strategic',    desc:"You create alternative ways to proceed. Faced with any given scenario, you can quickly spot the relevant patterns."},
+  {id:'woo',             name:'Woo',                d:'Influencing',  desc:"Woo stands for winning others over. You enjoy the challenge of meeting new people and getting them to like you."},
 ];
 
-const DOMAIN_META = {
-“Executing”:    {icon:“⚙️”, color:”#e75c5c”, desc:“Making things happen”},
-“Influencing”:  {icon:“🔥”, color:”#e7935c”, desc:“Taking charge & speaking up”},
-“Relationship”: {icon:“🤝”, color:”#5c8ee7”, desc:“Building strong connections”},
-“Strategic”:    {icon:“💡”, color:”#a85ce7”, desc:“Absorbing & analyzing information”},
+const DOMAINS = {
+  Executing:   {icon:'⚙️', desc:'Making things happen'},
+  Influencing: {icon:'🔥', desc:'Taking charge & speaking up'},
+  Relationship:{icon:'🤝', desc:'Building strong connections'},
+  Strategic:   {icon:'💡', desc:'Absorbing & analyzing information'},
 };
 
-// ─── 177 QUESTIONS ───
-// [themeA, themeB, statementA, statementB]
+function domainColor(d){
+  return 'var(--th-'+(d==='Executing'?'exec':d==='Influencing'?'infl':d==='Relationship'?'rel':'strat')+')';
+}
+
 const RAW = [
-[“achiever”,“learner”,“I feel restless until I finish everything on my task list today”,“I am more excited by the process of learning than by the outcome”],
-[“adaptability”,“focus”,“I prefer to stay flexible and adjust as new things come up”,“Once I set a goal I stay locked onto it until it is complete”],
-[“analytical”,“positivity”,“I need data and evidence before I can commit to a decision”,“I naturally focus on what is good and possible in any situation”],
-[“arranger”,“discipline”,“I enjoy rearranging multiple resources for maximum efficiency”,“I work best when I have a clear structured routine to follow”],
-[“belief”,“strategic”,“My core values guide every major decision I make in life”,“I always see multiple pathways and options in any given situation”],
-[“command”,“harmony”,“I am comfortable taking charge and challenging others directly”,“I seek consensus and avoid unnecessary conflict whenever possible”],
-[“communication”,“intellection”,“I find it easy and natural to put complex ideas into words”,“I prefer deep private reflection over explaining my thoughts to others”],
-[“competition”,“relator”,“I measure my own progress by comparing myself to others around me”,“I prefer a few deep meaningful relationships over many connections”],
-[“connectedness”,“analytical”,“I believe events are linked and little happens purely by accident”,“I look for data patterns and logical cause-and-effect explanations”],
-[“consistency”,“individualization”,“Everyone should be treated according to the same rules and standards”,“I am fascinated by what makes each individual person unique”],
-[“context”,“futuristic”,“Understanding the past helps me make much better decisions today”,“I am energized by imagining what the future could possibly look like”],
-[“deliberative”,“activator”,“I think carefully and anticipate all risks before taking any action”,“I believe the best way to learn and improve is by starting to act now”],
-[“developer”,“competition”,“I feel rewarded when I help someone else grow and develop”,“I am driven by measuring my results directly against other people”],
-[“empathy”,“command”,“I can easily sense and understand how others around me are feeling”,“I am comfortable taking full control and making tough calls quickly”],
-[“focus”,“adaptability”,“I filter out distractions and stay laser-focused on my top priority”,“I adjust naturally and feel at ease even when plans change suddenly”],
-[“futuristic”,“context”,“I love inspiring others with bold visions of what could be achieved”,“I research the history behind things to better understand the present”],
-[“harmony”,“command”,“I find areas of agreement before pushing my own point of view”,“I do not hesitate to take charge and lead even in tough situations”],
-[“ideation”,“consistency”,“I love generating fresh ideas and finding unexpected connections”,“I believe stable routines and clear rules produce the best outcomes”],
-[“includer”,“competition”,“I notice when someone feels excluded and act to bring them in”,“Winning and outperforming others is a strong personal motivator for me”],
-[“individualization”,“consistency”,“I tailor my approach to each person based on their unique traits”,“I apply the same fair standard to everyone in every situation”],
-[“input”,“achiever”,“I love collecting information resources and facts from many fields”,“I work hard every single day and feel driven to complete tangible tasks”],
-[“intellection”,“communication”,“I enjoy deep private contemplation and complex mental challenges”,“I think best when I can talk through ideas with other people”],
-[“learner”,“achiever”,“The journey of learning new things excites me more than the outcome”,“I feel most satisfied when I produce concrete measurable results”],
-[“maximizer”,“includer”,“I focus on developing strengths rather than fixing weaknesses”,“I try to ensure everyone feels welcome and part of the group”],
-[“positivity”,“deliberative”,“I stay enthusiastic and upbeat even when facing major obstacles”,“I carefully think through risks and downsides before committing to anything”],
-[“relator”,“woo”,“I prefer investing deeply in a small close circle of trusted friendships”,“I thrive on meeting new people and enjoy winning them over quickly”],
-[“responsibility”,“adaptability”,“I feel a strong personal obligation to honor every commitment I make”,“I handle unexpected changes easily and adjust course without much stress”],
-[“restorative”,“positivity”,“I feel energized when I can identify and fix a difficult problem”,“I naturally look for the bright side and keep morale high for others”],
-[“selfassurance”,“harmony”,“I trust my own instincts and feel confident in my own judgment”,“I prefer to find common ground and build agreement among people”],
-[“significance”,“relator”,“I want my work to be recognized as important and truly impactful”,“I find the most satisfaction in deep bonds with the people I trust”],
-[“strategic”,“belief”,“I rapidly map out options and alternative paths in any scenario”,“My values and sense of purpose anchor every decision that I make”],
-[“woo”,“relator”,“I love the challenge of meeting strangers and making them like me”,“I prefer going deeper with a small number of people I already trust”],
-[“achiever”,“responsibility”,“I push hard to accomplish as many tasks as possible each single day”,“I take full personal ownership of every commitment I make to others”],
-[“activator”,“deliberative”,“I prefer to start moving immediately rather than planning extensively”,“I prefer to gather information and anticipate all problems before acting”],
-[“adaptability”,“consistency”,“I am comfortable when priorities shift and routines change frequently”,“I prefer predictable processes and consistent rules that apply to everyone”],
-[“analytical”,“empathy”,“I rely primarily on logic data and evidence to understand situations”,“I rely on sensing how others feel to understand what is really happening”],
-[“arranger”,“focus”,“I enjoy orchestrating people and resources for the most optimal results”,“I eliminate distractions and concentrate intensely on a single priority”],
-[“belief”,“ideation”,“My work needs to align closely with my core values and life mission”,“I am constantly generating novel ideas and making surprising new connections”],
-[“command”,“developer”,“I naturally take charge and make clear decisions under any pressure”,“I love seeing people grow and invest real energy into their development”],
-[“communication”,“relator”,“I enjoy presenting ideas and engaging broad audiences in conversation”,“I prefer intimate one-on-one conversations with the people I trust most”],
-[“competition”,“includer”,“I am driven to outperform others and win in competitive situations”,“I make absolutely sure no one is left out and everyone feels they belong”],
-[“connectedness”,“restorative”,“I believe in the deeper links between all people events and outcomes”,“I am energized by diagnosing problems and finding clever solutions to fix them”],
-[“consistency”,“adaptability”,“I value clear rules that apply equally to everyone at all times”,“I prefer staying flexible and adapting my approach freely to the moment”],
-[“context”,“ideation”,“I ground my thinking in historical research and past experiences”,“I prefer generating new ideas and imagining entirely novel possibilities”],
-[“deliberative”,“woo”,“I take my time to carefully evaluate risks before committing to anything”,“I enjoy meeting strangers and quickly winning their trust and warmth”],
-[“developer”,“maximizer”,“I find reward in nurturing potential in people at any skill level”,“I focus my energy on those already excellent to make them truly exceptional”],
-[“empathy”,“competition”,“I tune into the emotional experience of the people directly around me”,“I use competition with others as fuel to push my own performance forward”],
-[“focus”,“arranger”,“I concentrate on a single priority and strongly resist task-switching”,“I enjoy juggling multiple threads and finding the best overall configuration”],
-[“futuristic”,“restorative”,“I am motivated by painting a vision of what is possible ahead”,“I am energized by diagnosing and solving the problems that already exist”],
-[“harmony”,“selfassurance”,“I try to reduce friction by finding what everyone around me can agree on”,“I trust my own inner compass and feel fully confident acting on my instincts”],
-[“ideation”,“input”,“I love creating novel connections and generating completely new concepts”,“I love collecting information facts and resources across many diverse areas”],
-[“includer”,“harmony”,“I actively work to bring people who feel excluded into any group”,“I seek peaceful agreement and try to minimize tension or conflict always”],
-[“individualization”,“arranger”,“I see each person as unique and adapt my style to who they are”,“I enjoy coordinating people and resources to achieve the best possible outcome”],
-[“input”,“intellection”,“I gather and archive diverse information from across many different fields”,“I enjoy long deep dives into complex topics that really challenge my thinking”],
-[“intellection”,“learner”,“I value private contemplation and rich internal thinking time deeply”,“I love acquiring new skills and knowledge through deliberate structured learning”],
-[“learner”,“input”,“I am excited by the personal growth that comes from deliberate learning”,“I love accumulating a broad archive of interesting ideas and useful facts”],
-[“maximizer”,“developer”,“I channel my energy toward people who are already highly talented”,“I invest in people at all levels to help them develop meaningfully over time”],
-[“positivity”,“empathy”,“I bring energy and genuine enthusiasm that lifts the mood of others”,“I sense and respond warmly to the emotional needs of those around me”],
-[“relator”,“communication”,“I prefer deep honest conversations with a trusted inner circle of people”,“I enjoy expressing ideas clearly to a wide range of different audiences”],
-[“responsibility”,“consistency”,“I hold myself personally accountable for delivering on every single promise”,“I believe equal treatment and fair rules create the best possible environment”],
-[“restorative”,“deliberative”,“I am energized by diagnosing and solving what is broken or not working”,“I carefully consider all risks and potential problems before taking any action”],
-[“selfassurance”,“command”,“I navigate ambiguity with quiet internal confidence in my own judgment”,“I openly assert my views and take control of uncertain situations directly”],
-[“significance”,“competition”,“I want my contributions to truly matter and to leave a lasting mark”,“I am driven by the desire to outperform and outrank everyone around me”],
-[“strategic”,“analytical”,“I quickly see patterns and chart the absolute best forward path forward”,“I systematically analyze data to understand the real underlying cause and effect”],
-[“woo”,“positivity”,“I love the challenge of winning over people I have never yet met”,“I bring natural enthusiasm and optimism that genuinely energizes those around me”],
-[“achiever”,“discipline”,“I push myself every day to complete as much as I possibly can”,“I thrive when my schedule is structured and all my processes are carefully ordered”],
-[“activator”,“command”,“I believe in starting now and adjusting course as things naturally unfold”,“I take charge decisively and direct others with clear authority and confidence”],
-[“adaptability”,“harmony”,“I go with the flow and adjust naturally as my circumstances evolve”,“I seek smooth consensus and actively avoid unnecessary friction among people”],
-[“analytical”,“input”,“I analyze data and identify patterns to find the root cause of issues”,“I collect vast amounts of interesting information and archive it all for later use”],
-[“arranger”,“activator”,“I orchestrate the best possible combination of people and resources for a task”,“I prefer to launch directly into action immediately rather than overpreparing”],
-[“belief”,“responsibility”,“My values give me purpose and I need work that truly aligns with them”,“I take deep personal ownership of everything I commit myself to doing”],
-[“command”,“activator”,“I step up clearly to lead and direct others when a situation demands it”,“I push hard to start moving forward rather than spending more time planning”],
-[“communication”,“positivity”,“I easily put thoughts into engaging words that truly resonate with others”,“I bring natural optimism and enthusiasm that uplifts and energizes everyone”],
-[“competition”,“significance”,“I am motivated by outperforming others and being ranked right at the top”,“I am motivated by doing work that is important recognized and truly impactful”],
-[“connectedness”,“empathy”,“I believe in the deep invisible links between all people and events”,“I tune into the feelings of others and share their emotional experience fully”],
-[“consistency”,“deliberative”,“I want clear rules applied equally to absolutely everyone without exception”,“I take my time carefully thinking through all potential consequences before acting”],
-[“context”,“learner”,“I study the past carefully to better understand what is happening right now”,“I love the ongoing process of acquiring new knowledge and developing my skills”],
-[“deliberative”,“responsibility”,“I anticipate problems and think carefully before committing to anything at all”,“Once I commit to something I take full and complete personal ownership of it”],
-[“developer”,“communication”,“I invest in others and help them see their own full growth potential”,“I communicate ideas in ways that are consistently clear compelling and memorable”],
-[“empathy”,“harmony”,“I sense and respond to the emotional undercurrent running through any group”,“I try to reduce conflict and help people find peaceful common ground together”],
-[“focus”,“deliberative”,“I lock onto the most important priority and pursue it with great relentlessness”,“I take time to carefully evaluate all risks before deciding exactly where to focus”],
-[“futuristic”,“activator”,“I inspire the people around me with a compelling vision of what lies ahead”,“I push to move forward right now rather than waiting for perfect conditions”],
-[“harmony”,“connectedness”,“I seek to minimize all conflict and build real consensus among the people around me”,“I believe everything is deeply connected and I try to help others see that truth”],
-[“ideation”,“futuristic”,“I love generating fresh novel ideas and finding truly unexpected connections”,“I am inspired by vivid compelling visions of future possibilities and what could be”],
-[“includer”,“relator”,“I make sure absolutely everyone in a group feels fully welcome and included”,“I prefer investing deeply in a small number of truly trusted close relationships”],
-[“individualization”,“developer”,“I notice what makes each person completely unique and engage them accordingly”,“I spot potential in each person and genuinely invest in their ongoing development”],
-[“input”,“context”,“I collect and archive information from an extremely wide variety of sources”,“I research history and background carefully to better understand the present moment”],
-[“intellection”,“analytical”,“I enjoy deep unstructured private thinking and rich mental exploration time”,“I apply systematic logical analysis to understand underlying patterns and their causes”],
-[“learner”,“context”,“I love acquiring new skills and knowledge in a very structured organized way”,“I look to history and past experiences to understand fully what is happening now”],
-[“maximizer”,“strategic”,“I focus on turning what is already strong into something truly exceptional”,“I quickly map multiple options and confidently select the very best path forward”],
-[“positivity”,“includer”,“I bring natural enthusiasm and energy that makes any environment feel better”,“I actively look for those who feel left out and genuinely work to include them”],
-[“relator”,“developer”,“I invest deeply in the people I am already close to and fully trust”,“I look for potential in people at all stages and help them realize their growth”],
-[“responsibility”,“focus”,“I feel personally accountable for fulfilling every single commitment I make”,“I zero in on the highest priority and resist all distractions completely and relentlessly”],
-[“restorative”,“achiever”,“I am energized by diagnosing fixing and completely solving difficult problems”,“I am driven to produce real results and accomplish as many tasks as I possibly can”],
-[“selfassurance”,“activator”,“I trust my instincts and act with quiet personal confidence in my choices”,“I push for immediate action and feel genuinely impatient when forward progress stalls”],
-[“significance”,“maximizer”,“I want my work to be publicly recognized as significant and truly outstanding”,“I focus on excellence and on making strong things even more exceptionally great”],
-[“strategic”,“futuristic”,“I quickly see clear alternative paths and pick the very best route forward”,“I am deeply motivated by a vivid and compelling vision of what the future holds”],
-[“woo”,“communication”,“I love meeting new people and quickly making absolutely everyone feel comfortable”,“I express ideas clearly and persuasively to engage and inspire a very wide audience”],
-[“achiever”,“maximizer”,“I am completely driven to produce as many solid results as possible every day”,“I focus my energy on making excellent things even more genuinely exceptional”],
-[“activator”,“focus”,“I push hard to begin immediately and believe doing is the best real teacher”,“I pick the most important goal and pursue it with complete total concentration”],
-[“adaptability”,“positivity”,“I stay comfortable and fully flexible when circumstances shift unexpectedly”,“I bring natural enthusiasm and easily see the good in absolutely any situation”],
-[“analytical”,“context”,“I analyze data and actively seek logical patterns and underlying root causes”,“I research the past carefully to understand exactly why current circumstances exist”],
-[“arranger”,“strategic”,“I find the optimal configuration of people and resources for every success”,“I see multiple paths forward and quickly identify the very best option available”],
-[“belief”,“connectedness”,“My core values completely define who I am and anchor every decision I make”,“I believe in the links between all things and naturally see a much larger purpose”],
-[“command”,“selfassurance”,“I assert my perspective confidently and clearly lead when any action is needed”,“I trust my own inner compass even when others strongly question my personal choices”],
-[“communication”,“developer”,“I communicate ideas clearly and in truly inspiring ways that engage others”,“I invest in helping others see their own potential and grow meaningfully over time”],
-[“competition”,“command”,“I am driven to win every time and measure myself against everyone around me”,“I naturally take charge and confidently direct others in genuinely high-pressure situations”],
-[“connectedness”,“includer”,“I see the deep bonds between all people and believe we are all linked”,“I make absolutely sure no one is left out of any group or important conversation”],
-[“consistency”,“focus”,“I believe clear rules and equal treatment create truly reliable outcomes”,“I concentrate relentlessly on my most important goal or highest priority at all times”],
-[“context”,“deliberative”,“I study history and context carefully to make much more informed decisions”,“I think carefully and very cautiously through all risks before I commit to anything”],
-[“deliberative”,“analytical”,“I carefully weigh all potential risks before committing to any course of action”,“I analyze all available information systematically to identify underlying patterns and causes”],
-[“developer”,“relator”,“I invest in people at all levels and help them realize their full growth”,“I build deep trust with a small number of people and invest truly in all of them”],
-[“empathy”,“connectedness”,“I feel what others are feeling deeply and respond to their emotional needs”,“I see the deep invisible links between people events and broader outcomes clearly”],
-[“focus”,“responsibility”,“I stay completely locked onto my key priority and eliminate what is irrelevant”,“I feel a deep personal obligation to deliver fully on every commitment I ever make”],
-[“futuristic”,“learner”,“I paint a vivid and exciting picture of what true success could look like ahead”,“I am genuinely excited by the ongoing process of learning and growing my skills”],
-[“harmony”,“adaptability”,“I seek real agreement and actively try to reduce all conflict wherever possible”,“I stay flexible and adjust naturally and easily when the situation around me shifts”],
-[“ideation”,“strategic”,“I generate genuinely novel concepts and surprising completely unexpected connections”,“I quickly identify the absolute best path forward by clearly seeing multiple options”],
-[“includer”,“connectedness”,“I bring people together actively and make sure no one is ever left behind”,“I see the deeper connections that genuinely bind people and events together always”],
-[“individualization”,“communication”,“I notice what is truly unique about each person and deeply honor those differences”,“I communicate ideas in a clear engaging way that resonates broadly with many people”],
-[“input”,“ideation”,“I collect and archive interesting information from many truly diverse fields”,“I love generating fresh ideas and making surprisingly new and unexpected connections”],
-[“intellection”,“strategic”,“I enjoy rich deep private thinking about complex and genuinely layered problems”,“I rapidly see clear patterns and chart the most effective route forward in any situation”],
-[“learner”,“strategic”,“I love structured learning and continuously improving all my capabilities”,“I spot patterns quickly and identify the absolute best path through any real challenge”],
-[“maximizer”,“significance”,“I channel energy into turning good strengths into truly great performance”,“I want my work to be seen as significant and to leave a genuinely real impact”],
-[“positivity”,“communication”,“My natural enthusiasm and genuine warmth energizes all the people around me”,“I find it easy to express ideas compellingly and truly inspire others with my words”],
-[“relator”,“individualization”,“I build deep trusting bonds with a close inner circle of people I care about”,“I notice what makes each person unique and engage every individual as who they are”],
-[“responsibility”,“deliberative”,“I take complete and total personal ownership of every commitment I ever make”,“I think carefully through all risks and consequences before I commit to anything”],
-[“restorative”,“focus”,“I love diagnosing exactly what is broken and engineering the right real fix”,“I lock onto a completely clear priority and pursue it with total unwavering concentration”],
-[“selfassurance”,“competition”,“I act with quiet confident trust in my own judgment and personal instincts”,“I am genuinely fueled by measuring myself against others and aiming to win everything”],
-[“significance”,“command”,“I want my work to matter and to be recognized fully for what I contribute”,“I take charge confidently and lead others effectively in genuinely high-stakes situations”],
-[“strategic”,“intellection”,“I quickly see clear patterns and viable options across genuinely complex situations”,“I enjoy rich private thinking time to deeply explore and truly understand complexity”],
-[“woo”,“includer”,“I enjoy winning over strangers and turning them into genuine allies quickly”,“I make sure that no one is ever left out and absolutely everyone feels they belong”],
-[“achiever”,“belief”,“I feel driven every day to produce tangible real accomplishments at all times”,“My values and sense of purpose are the complete anchor behind everything I do”],
-[“activator”,“strategic”,“I believe starting now is always better than waiting to plan any more perfectly”,“I quickly see the best path forward by clearly mapping all available options”],
-[“adaptability”,“developer”,“I stay flexible and adjust naturally to absolutely whatever comes my way”,“I look for potential in the people around me and genuinely invest in their growth”],
-[“analytical”,“futuristic”,“I prefer to base all my decisions on solid evidence data and logical reasoning”,“I am inspired by vivid visions of what could truly be achieved in the future”],
-[“arranger”,“responsibility”,“I configure all people and resources to maximize the best overall result”,“I take complete personal ownership of every commitment I make and honor it fully”],
-[“belief”,“learner”,“My core values create a deep sense of mission and real purpose in my work”,“I love continuously expanding my knowledge and developing entirely new skills”],
-[“command”,“competition”,“I take charge and direct others with real authority and genuine confidence”,“I push myself hard to outperform others and measure success primarily by rankings”],
-[“communication”,“significance”,“I love expressing ideas in ways that are compelling truly memorable and clear”,“I want my contributions to be seen as significant and genuinely worth remembering”],
-[“competition”,“woo”,“I am driven to win and rank above everyone else in everything I do”,“I love meeting people I do not know yet and winning their full trust very quickly”],
-[“connectedness”,“harmony”,“I believe in the unseen links between people events and deeper meaning”,“I seek peaceful agreement and try actively to lower friction in all groups”],
-[“consistency”,“arranger”,“I value completely fair and equal treatment for everyone through clear rules”,“I enjoy rearranging all the available variables to discover a much better configuration”],
-[“context”,“consistency”,“I research history and precedent carefully to better understand my decisions”,“I believe rules should apply completely equally to everyone without any exception”],
-[“deliberative”,“developer”,“I take careful measured deliberate steps and avoid all unnecessary risks”,“I invest real energy in developing the talents and potential of those around me”],
-[“developer”,“includer”,“I help people grow by recognizing and truly nurturing their real potential”,“I ensure no one is left out by actively welcoming all people into every group”],
-[“empathy”,“developer”,“I can truly feel what others are experiencing and respond with genuine care”,“I help people grow by recognizing and investing meaningfully in their real potential”],
-[“focus”,“learner”,“I concentrate completely and fully on the most important priority before me”,“I am genuinely energized by learning new things and continuously expanding what I know”],
-[“futuristic”,“significance”,“I am deeply motivated by a powerful vision of what could possibly be achieved”,“I want my work to truly matter and for others to recognize its real importance”],
-[“harmony”,“developer”,“I reduce all conflict and help groups find truly peaceful common ground”,“I invest in others and find deep personal satisfaction in watching them develop”],
-[“ideation”,“communication”,“I love generating new ideas and finding genuinely surprising connections”,“I enjoy putting ideas into words that truly resonate with and inspire other people”],
-[“includer”,“empathy”,“I make sure everyone in any group feels truly welcome and fully part of things”,“I tune into the emotions of others and respond to their deep inner experience”],
-[“individualization”,“maximizer”,“I see the unique talents of each person and engage every individual accordingly”,“I focus on turning what is already genuinely strong into something truly excellent”],
-[“input”,“responsibility”,“I gather and collect useful information across a very wide variety of areas”,“I take complete personal ownership of every promise and commitment I ever make”],
-[“intellection”,“futuristic”,“I prefer rich deep private thinking and genuine mental exploration time”,“I am deeply driven and inspired by imagining compelling future possibilities”],
-[“learner”,“ideation”,“I love structured growth and the ongoing acquisition of genuinely new skills”,“I love generating fresh ideas and connecting concepts in novel and unexpected ways”],
-[“maximizer”,“arranger”,“I focus on what is already genuinely strong and push it hard toward excellence”,“I enjoy orchestrating the best possible configuration of all resources and people”],
-[“positivity”,“relator”,“I bring natural enthusiasm and warmth that uplifts absolutely everyone around me”,“I find deep satisfaction in close trusted relationships with a very small number of people”],
-[“relator”,“empathy”,“I build deep bonds with a trusted inner circle of genuinely close friends”,“I can truly sense and feel the emotional experience of those directly around me”],
-[“responsibility”,“arranger”,“I honor every commitment I ever make with full and complete personal accountability”,“I find the optimal arrangement of all people and resources for any given task”],
-[“restorative”,“strategic”,“I am energized by finding and fixing what is broken or simply not working”,“I quickly see clear patterns and map the absolute best forward path in any situation”],
-[“selfassurance”,“futuristic”,“I trust my own inner compass completely and feel confident in my direction”,“I am deeply inspired and energized by vivid visions of future possibility”],
-[“significance”,“selfassurance”,“I want to be seen as truly significant and to leave a completely meaningful mark”,“I trust my instincts and act with quiet inner confidence without needing any approval”],
-[“strategic”,“context”,“I rapidly identify clear patterns and chart the very best possible path forward”,“I study history and context carefully to understand what is happening right now”],
-[“woo”,“significance”,“I love meeting new people and turning complete strangers into genuine connections”,“I am driven by the desire to do work that is truly important and worth remembering”],
-[“achiever”,“activator”,“I feel deeply satisfied when I check off every single item on my daily list”,“I feel a very strong urgency to begin acting on any idea as soon as it forms”],
-[“analytical”,“learner”,“I examine data carefully and systematically to uncover all underlying patterns”,“I find real joy in the genuine journey of learning new topics and building competence”],
-[“arranger”,“harmony”,“I find optimal configurations for all people and tasks in any given scenario”,“I reduce friction by carefully finding what everyone around me can truly agree on”],
-[“belief”,“futuristic”,“My personal values give every task I do a genuinely deep sense of meaning”,“I feel completely driven by a clear vision of what could be achieved in the years ahead”],
-[“command”,“relator”,“I lead with real authority and genuine presence in all high-stakes situations”,“I build deep trusting relationships within a very small circle of people I care about”],
-[“developer”,“strategic”,“I invest in growing the people around me at every single opportunity I have”,“I see the best path through complexity by quickly mapping all available options”],
-[“discipline”,“focus”,“I impose clear order on my environment through careful routines and processes”,“I zero in relentlessly on my most important goal and completely ignore everything else”],
-[“empathy”,“ideation”,“I sense and respond very deeply to the emotional experience of other people”,“I love generating creative ideas and finding genuinely surprising new connections”],
-[“includer”,“woo”,“I make absolutely sure no one in any group is ever left behind or overlooked”,“I enjoy meeting new people and building instant rapport and connection with them”],
-[“intellection”,“belief”,“I think very deeply about complex concepts and enjoy solo contemplation time”,“My values and deep purpose shape everything I do in a genuinely meaningful way”],
-[“maximizer”,“communication”,“I push relentlessly toward excellence by amplifying what is already genuinely strong”,“I engage audiences through clear compelling and truly memorable expression”],
-[“positivity”,“achiever”,“I bring natural warmth and enthusiasm that uplifts everyone around me always”,“I push hard every single day to complete everything and produce real tangible results”],
-[“relator”,“strategic”,“I build genuinely deep trust with those close to me over a very long time”,“I quickly identify multiple paths and confidently choose the most effective one”],
-[“restorative”,“developer”,“I love finding and genuinely fixing what is broken or performing very poorly”,“I love helping people unlock and truly develop their own hidden potential”],
-[“selfassurance”,“learner”,“I act from quiet inner confidence and completely trust my own judgment always”,“I am genuinely excited by the ongoing process of continuous learning and real growth”],
-[“woo”,“empathy”,“I thrive on winning over people I have genuinely never met before”,“I feel and truly understand the emotional experience of those directly around me”],
+["achiever","learner","I feel restless until I finish everything on my task list today","I am more excited by the process of learning than by the outcome"],
+["adaptability","focus","I prefer to stay flexible and adjust as new things come up","Once I set a goal I stay locked onto it until it is complete"],
+["analytical","positivity","I need data and evidence before I can commit to a decision","I naturally focus on what is good and possible in any situation"],
+["arranger","discipline","I enjoy rearranging multiple resources for maximum efficiency","I work best when I have a clear structured routine to follow"],
+["belief","strategic","My core values guide every major decision I make in life","I always see multiple pathways and options in any given situation"],
+["command","harmony","I am comfortable taking charge and challenging others directly","I seek consensus and avoid unnecessary conflict whenever possible"],
+["communication","intellection","I find it easy and natural to put complex ideas into words","I prefer deep private reflection over explaining my thoughts to others"],
+["competition","relator","I measure my own progress by comparing myself to others around me","I prefer a few deep meaningful relationships over many connections"],
+["connectedness","analytical","I believe events are linked and little happens purely by accident","I look for data patterns and logical cause-and-effect explanations"],
+["consistency","individualization","Everyone should be treated according to the same rules and standards","I am fascinated by what makes each individual person unique"],
+["context","futuristic","Understanding the past helps me make much better decisions today","I am energized by imagining what the future could possibly look like"],
+["deliberative","activator","I think carefully and anticipate all risks before taking any action","I believe the best way to learn and improve is by starting to act now"],
+["developer","competition","I feel rewarded when I help someone else grow and develop","I am driven by measuring my results directly against other people"],
+["empathy","command","I can easily sense and understand how others around me are feeling","I am comfortable taking full control and making tough calls quickly"],
+["focus","adaptability","I filter out distractions and stay laser-focused on my top priority","I adjust naturally and feel at ease even when plans change suddenly"],
+["futuristic","context","I love inspiring others with bold visions of what could be achieved","I research the history behind things to better understand the present"],
+["harmony","command","I find areas of agreement before pushing my own point of view","I do not hesitate to take charge and lead even in tough situations"],
+["ideation","consistency","I love generating fresh ideas and finding unexpected connections","I believe stable routines and clear rules produce the best outcomes"],
+["includer","competition","I notice when someone feels excluded and act to bring them in","Winning and outperforming others is a strong personal motivator for me"],
+["individualization","consistency","I tailor my approach to each person based on their unique traits","I apply the same fair standard to everyone in every situation"],
+["input","achiever","I love collecting information resources and facts from many fields","I work hard every single day and feel driven to complete tangible tasks"],
+["intellection","communication","I enjoy deep private contemplation and complex mental challenges","I think best when I can talk through ideas with other people"],
+["learner","achiever","The journey of learning new things excites me more than the outcome","I feel most satisfied when I produce concrete measurable results"],
+["maximizer","includer","I focus on developing strengths rather than fixing weaknesses","I try to ensure everyone feels welcome and part of the group"],
+["positivity","deliberative","I stay enthusiastic and upbeat even when facing major obstacles","I carefully think through risks and downsides before committing to anything"],
+["relator","woo","I prefer investing deeply in a small close circle of trusted friendships","I thrive on meeting new people and enjoy winning them over quickly"],
+["responsibility","adaptability","I feel a strong personal obligation to honor every commitment I make","I handle unexpected changes easily and adjust course without much stress"],
+["restorative","positivity","I feel energized when I can identify and fix a difficult problem","I naturally look for the bright side and keep morale high for others"],
+["selfassurance","harmony","I trust my own instincts and feel confident in my own judgment","I prefer to find common ground and build agreement among people"],
+["significance","relator","I want my work to be recognized as important and truly impactful","I find the most satisfaction in deep bonds with the people I trust"],
+["strategic","belief","I rapidly map out options and alternative paths in any scenario","My values and sense of purpose anchor every decision that I make"],
+["woo","relator","I love the challenge of meeting strangers and making them like me","I prefer going deeper with a small number of people I already trust"],
+["achiever","responsibility","I push hard to accomplish as many tasks as possible each single day","I take full personal ownership of every commitment I make to others"],
+["activator","deliberative","I prefer to start moving immediately rather than planning extensively","I prefer to gather information and anticipate all problems before acting"],
+["adaptability","consistency","I am comfortable when priorities shift and routines change frequently","I prefer predictable processes and consistent rules that apply to everyone"],
+["analytical","empathy","I rely primarily on logic data and evidence to understand situations","I rely on sensing how others feel to understand what is really happening"],
+["arranger","focus","I enjoy orchestrating people and resources for the most optimal results","I eliminate distractions and concentrate intensely on a single priority"],
+["belief","ideation","My work needs to align closely with my core values and life mission","I am constantly generating novel ideas and making surprising new connections"],
+["command","developer","I naturally take charge and make clear decisions under any pressure","I love seeing people grow and invest real energy into their development"],
+["communication","relator","I enjoy presenting ideas and engaging broad audiences in conversation","I prefer intimate one-on-one conversations with the people I trust most"],
+["competition","includer","I am driven to outperform others and win in competitive situations","I make absolutely sure no one is left out and everyone feels they belong"],
+["connectedness","restorative","I believe in the deeper links between all people events and outcomes","I am energized by diagnosing problems and finding clever solutions to fix them"],
+["consistency","adaptability","I value clear rules that apply equally to everyone at all times","I prefer staying flexible and adapting my approach freely to the moment"],
+["context","ideation","I ground my thinking in historical research and past experiences","I prefer generating new ideas and imagining entirely novel possibilities"],
+["deliberative","woo","I take my time to carefully evaluate risks before committing to anything","I enjoy meeting strangers and quickly winning their trust and warmth"],
+["developer","maximizer","I find reward in nurturing potential in people at any skill level","I focus my energy on those already excellent to make them truly exceptional"],
+["empathy","competition","I tune into the emotional experience of the people directly around me","I use competition with others as fuel to push my own performance forward"],
+["focus","arranger","I concentrate on a single priority and strongly resist task-switching","I enjoy juggling multiple threads and finding the best overall configuration"],
+["futuristic","restorative","I am motivated by painting a vision of what is possible ahead","I am energized by diagnosing and solving the problems that already exist"],
+["harmony","selfassurance","I try to reduce friction by finding what everyone around me can agree on","I trust my own inner compass and feel fully confident acting on my instincts"],
+["ideation","input","I love creating novel connections and generating completely new concepts","I love collecting information facts and resources across many diverse areas"],
+["includer","harmony","I actively work to bring people who feel excluded into any group","I seek peaceful agreement and try to minimize tension or conflict always"],
+["individualization","arranger","I see each person as unique and adapt my style to who they are","I enjoy coordinating people and resources to achieve the best possible outcome"],
+["input","intellection","I gather and archive diverse information from across many different fields","I enjoy long deep dives into complex topics that really challenge my thinking"],
+["intellection","learner","I value private contemplation and rich internal thinking time deeply","I love acquiring new skills and knowledge through deliberate structured learning"],
+["learner","input","I am excited by the personal growth that comes from deliberate learning","I love accumulating a broad archive of interesting ideas and useful facts"],
+["maximizer","developer","I channel my energy toward people who are already highly talented","I invest in people at all levels to help them develop meaningfully over time"],
+["positivity","empathy","I bring energy and genuine enthusiasm that lifts the mood of others","I sense and respond warmly to the emotional needs of those around me"],
+["relator","communication","I prefer deep honest conversations with a trusted inner circle of people","I enjoy expressing ideas clearly to a wide range of different audiences"],
+["responsibility","consistency","I hold myself personally accountable for delivering on every single promise","I believe equal treatment and fair rules create the best possible environment"],
+["restorative","deliberative","I am energized by diagnosing and solving what is broken or not working","I carefully consider all risks and potential problems before taking any action"],
+["selfassurance","command","I navigate ambiguity with quiet internal confidence in my own judgment","I openly assert my views and take control of uncertain situations directly"],
+["significance","competition","I want my contributions to truly matter and to leave a lasting mark","I am driven by the desire to outperform and outrank everyone around me"],
+["strategic","analytical","I quickly see patterns and chart the absolute best forward path forward","I systematically analyze data to understand the real underlying cause and effect"],
+["woo","positivity","I love the challenge of winning over people I have never yet met","I bring natural enthusiasm and optimism that genuinely energizes those around me"],
+["achiever","discipline","I push myself every day to complete as much as I possibly can","I thrive when my schedule is structured and all my processes are carefully ordered"],
+["activator","command","I believe in starting now and adjusting course as things naturally unfold","I take charge decisively and direct others with clear authority and confidence"],
+["adaptability","harmony","I go with the flow and adjust naturally as my circumstances evolve","I seek smooth consensus and actively avoid unnecessary friction among people"],
+["analytical","input","I analyze data and identify patterns to find the root cause of issues","I collect vast amounts of interesting information and archive it all for later use"],
+["arranger","activator","I orchestrate the best possible combination of people and resources for a task","I prefer to launch directly into action immediately rather than overpreparing"],
+["belief","responsibility","My values give me purpose and I need work that truly aligns with them","I take deep personal ownership of everything I commit myself to doing"],
+["command","activator","I step up clearly to lead and direct others when a situation demands it","I push hard to start moving forward rather than spending more time planning"],
+["communication","positivity","I easily put thoughts into engaging words that truly resonate with others","I bring natural optimism and enthusiasm that uplifts and energizes everyone"],
+["competition","significance","I am motivated by outperforming others and being ranked right at the top","I am motivated by doing work that is important recognized and truly impactful"],
+["connectedness","empathy","I believe in the deep invisible links between all people and events","I tune into the feelings of others and share their emotional experience fully"],
+["consistency","deliberative","I want clear rules applied equally to absolutely everyone without exception","I take my time carefully thinking through all potential consequences before acting"],
+["context","learner","I study the past carefully to better understand what is happening right now","I love the ongoing process of acquiring new knowledge and developing my skills"],
+["deliberative","responsibility","I anticipate problems and think carefully before committing to anything at all","Once I commit to something I take full and complete personal ownership of it"],
+["developer","communication","I invest in others and help them see their own full growth potential","I communicate ideas in ways that are consistently clear compelling and memorable"],
+["empathy","harmony","I sense and respond to the emotional undercurrent running through any group","I try to reduce conflict and help people find peaceful common ground together"],
+["focus","deliberative","I lock onto the most important priority and pursue it with great relentlessness","I take time to carefully evaluate all risks before deciding exactly where to focus"],
+["futuristic","activator","I inspire the people around me with a compelling vision of what lies ahead","I push to move forward right now rather than waiting for perfect conditions"],
+["harmony","connectedness","I seek to minimize all conflict and build real consensus among the people around me","I believe everything is deeply connected and I try to help others see that truth"],
+["ideation","futuristic","I love generating fresh novel ideas and finding truly unexpected connections","I am inspired by vivid compelling visions of future possibilities and what could be"],
+["includer","relator","I make sure absolutely everyone in a group feels fully welcome and included","I prefer investing deeply in a small number of truly trusted close relationships"],
+["individualization","developer","I notice what makes each person completely unique and engage them accordingly","I spot potential in each person and genuinely invest in their ongoing development"],
+["input","context","I collect and archive information from an extremely wide variety of sources","I research history and background carefully to better understand the present moment"],
+["intellection","analytical","I enjoy deep unstructured private thinking and rich mental exploration time","I apply systematic logical analysis to understand underlying patterns and their causes"],
+["learner","context","I love acquiring new skills and knowledge in a very structured organized way","I look to history and past experiences to understand fully what is happening now"],
+["maximizer","strategic","I focus on turning what is already strong into something truly exceptional","I quickly map multiple options and confidently select the very best path forward"],
+["positivity","includer","I bring natural enthusiasm and energy that makes any environment feel better","I actively look for those who feel left out and genuinely work to include them"],
+["relator","developer","I invest deeply in the people I am already close to and fully trust","I look for potential in people at all stages and help them realize their growth"],
+["responsibility","focus","I feel personally accountable for fulfilling every single commitment I make","I zero in on the highest priority and resist all distractions completely and relentlessly"],
+["restorative","achiever","I am energized by diagnosing fixing and completely solving difficult problems","I am driven to produce real results and accomplish as many tasks as I possibly can"],
+["selfassurance","activator","I trust my instincts and act with quiet personal confidence in my choices","I push for immediate action and feel genuinely impatient when forward progress stalls"],
+["significance","maximizer","I want my work to be publicly recognized as significant and truly outstanding","I focus on excellence and on making strong things even more exceptionally great"],
+["strategic","futuristic","I quickly see clear alternative paths and pick the very best route forward","I am deeply motivated by a vivid and compelling vision of what the future holds"],
+["woo","communication","I love meeting new people and quickly making absolutely everyone feel comfortable","I express ideas clearly and persuasively to engage and inspire a very wide audience"],
+["achiever","maximizer","I am completely driven to produce as many solid results as possible every day","I focus my energy on making excellent things even more genuinely exceptional"],
+["activator","focus","I push hard to begin immediately and believe doing is the best real teacher","I pick the most important goal and pursue it with complete total concentration"],
+["adaptability","positivity","I stay comfortable and fully flexible when circumstances shift unexpectedly","I bring natural enthusiasm and easily see the good in absolutely any situation"],
+["analytical","context","I analyze data and actively seek logical patterns and underlying root causes","I research the past carefully to understand exactly why current circumstances exist"],
+["arranger","strategic","I find the optimal configuration of people and resources for every success","I see multiple paths forward and quickly identify the very best option available"],
+["belief","connectedness","My core values completely define who I am and anchor every decision I make","I believe in the links between all things and naturally see a much larger purpose"],
+["command","selfassurance","I assert my perspective confidently and clearly lead when any action is needed","I trust my own inner compass even when others strongly question my personal choices"],
+["communication","developer","I communicate ideas clearly and in truly inspiring ways that engage others","I invest in helping others see their own potential and grow meaningfully over time"],
+["competition","command","I am driven to win every time and measure myself against everyone around me","I naturally take charge and confidently direct others in genuinely high-pressure situations"],
+["connectedness","includer","I see the deep bonds between all people and believe we are all linked","I make absolutely sure no one is left out of any group or important conversation"],
+["consistency","focus","I believe clear rules and equal treatment create truly reliable outcomes","I concentrate relentlessly on my most important goal or highest priority at all times"],
+["context","deliberative","I study history and context carefully to make much more informed decisions","I think carefully and very cautiously through all risks before I commit to anything"],
+["deliberative","analytical","I carefully weigh all potential risks before committing to any course of action","I analyze all available information systematically to identify underlying patterns and causes"],
+["developer","relator","I invest in people at all levels and help them realize their full growth","I build deep trust with a small number of people and invest truly in all of them"],
+["empathy","connectedness","I feel what others are feeling deeply and respond to their emotional needs","I see the deep invisible links between people events and broader outcomes clearly"],
+["focus","responsibility","I stay completely locked onto my key priority and eliminate what is irrelevant","I feel a deep personal obligation to deliver fully on every commitment I ever make"],
+["futuristic","learner","I paint a vivid and exciting picture of what true success could look like ahead","I am genuinely excited by the ongoing process of learning and growing my skills"],
+["harmony","adaptability","I seek real agreement and actively try to reduce all conflict wherever possible","I stay flexible and adjust naturally and easily when the situation around me shifts"],
+["ideation","strategic","I generate genuinely novel concepts and surprising completely unexpected connections","I quickly identify the absolute best path forward by clearly seeing multiple options"],
+["includer","connectedness","I bring people together actively and make sure no one is ever left behind","I see the deeper connections that genuinely bind people and events together always"],
+["individualization","communication","I notice what is truly unique about each person and deeply honor those differences","I communicate ideas in a clear engaging way that resonates broadly with many people"],
+["input","ideation","I collect and archive interesting information from many truly diverse fields","I love generating fresh ideas and making surprisingly new and unexpected connections"],
+["intellection","strategic","I enjoy rich deep private thinking about complex and genuinely layered problems","I rapidly see clear patterns and chart the most effective route forward in any situation"],
+["learner","strategic","I love structured learning and continuously improving all my capabilities","I spot patterns quickly and identify the absolute best path through any real challenge"],
+["maximizer","significance","I channel energy into turning good strengths into truly great performance","I want my work to be seen as significant and to leave a genuinely real impact"],
+["positivity","communication","My natural enthusiasm and genuine warmth energizes all the people around me","I find it easy to express ideas compellingly and truly inspire others with my words"],
+["relator","individualization","I build deep trusting bonds with a close inner circle of people I care about","I notice what makes each person unique and engage every individual as who they are"],
+["responsibility","deliberative","I take complete and total personal ownership of every commitment I ever make","I think carefully through all risks and consequences before I commit to anything"],
+["restorative","focus","I love diagnosing exactly what is broken and engineering the right real fix","I lock onto a completely clear priority and pursue it with total unwavering concentration"],
+["selfassurance","competition","I act with quiet confident trust in my own judgment and personal instincts","I am genuinely fueled by measuring myself against others and aiming to win everything"],
+["significance","command","I want my work to matter and to be recognized fully for what I contribute","I take charge confidently and lead others effectively in genuinely high-stakes situations"],
+["strategic","intellection","I quickly see clear patterns and viable options across genuinely complex situations","I enjoy rich private thinking time to deeply explore and truly understand complexity"],
+["woo","includer","I enjoy winning over strangers and turning them into genuine allies quickly","I make sure that no one is ever left out and absolutely everyone feels they belong"],
+["achiever","belief","I feel driven every day to produce tangible real accomplishments at all times","My values and sense of purpose are the complete anchor behind everything I do"],
+["activator","strategic","I believe starting now is always better than waiting to plan any more perfectly","I quickly see the best path forward by clearly mapping all available options"],
+["adaptability","developer","I stay flexible and adjust naturally to absolutely whatever comes my way","I look for potential in the people around me and genuinely invest in their growth"],
+["analytical","futuristic","I prefer to base all my decisions on solid evidence data and logical reasoning","I am inspired by vivid visions of what could truly be achieved in the future"],
+["arranger","responsibility","I configure all people and resources to maximize the best overall result","I take complete personal ownership of every commitment I make and honor it fully"],
+["belief","learner","My core values create a deep sense of mission and real purpose in my work","I love continuously expanding my knowledge and developing entirely new skills"],
+["command","competition","I take charge and direct others with real authority and genuine confidence","I push myself hard to outperform others and measure success primarily by rankings"],
+["communication","significance","I love expressing ideas in ways that are compelling truly memorable and clear","I want my contributions to be seen as significant and genuinely worth remembering"],
+["competition","woo","I am driven to win and rank above everyone else in everything I do","I love meeting people I do not know yet and winning their full trust very quickly"],
+["connectedness","harmony","I believe in the unseen links between people events and deeper meaning","I seek peaceful agreement and try actively to lower friction in all groups"],
+["consistency","arranger","I value completely fair and equal treatment for everyone through clear rules","I enjoy rearranging all the available variables to discover a much better configuration"],
+["context","consistency","I research history and precedent carefully to better understand my decisions","I believe rules should apply completely equally to everyone without any exception"],
+["deliberative","developer","I take careful measured deliberate steps and avoid all unnecessary risks","I invest real energy in developing the talents and potential of those around me"],
+["developer","includer","I help people grow by recognizing and truly nurturing their real potential","I ensure no one is left out by actively welcoming all people into every group"],
+["empathy","developer","I can truly feel what others are experiencing and respond with genuine care","I help people grow by recognizing and investing meaningfully in their real potential"],
+["focus","learner","I concentrate completely and fully on the most important priority before me","I am genuinely energized by learning new things and continuously expanding what I know"],
+["futuristic","significance","I am deeply motivated by a powerful vision of what could possibly be achieved","I want my work to truly matter and for others to recognize its real importance"],
+["harmony","developer","I reduce all conflict and help groups find truly peaceful common ground","I invest in others and find deep personal satisfaction in watching them develop"],
+["ideation","communication","I love generating new ideas and finding genuinely surprising connections","I enjoy putting ideas into words that truly resonate with and inspire other people"],
+["includer","empathy","I make sure everyone in any group feels truly welcome and fully part of things","I tune into the emotions of others and respond to their deep inner experience"],
+["individualization","maximizer","I see the unique talents of each person and engage every individual accordingly","I focus on turning what is already genuinely strong into something truly excellent"],
+["input","responsibility","I gather and collect useful information across a very wide variety of areas","I take complete personal ownership of every promise and commitment I ever make"],
+["intellection","futuristic","I prefer rich deep private thinking and genuine mental exploration time","I am deeply driven and inspired by imagining compelling future possibilities"],
+["learner","ideation","I love structured growth and the ongoing acquisition of genuinely new skills","I love generating fresh ideas and connecting concepts in novel and unexpected ways"],
+["maximizer","arranger","I focus on what is already genuinely strong and push it hard toward excellence","I enjoy orchestrating the best possible configuration of all resources and people"],
+["positivity","relator","I bring natural enthusiasm and warmth that uplifts absolutely everyone around me","I find deep satisfaction in close trusted relationships with a very small number of people"],
+["relator","empathy","I build deep bonds with a trusted inner circle of genuinely close friends","I can truly sense and feel the emotional experience of those directly around me"],
+["responsibility","arranger","I honor every commitment I ever make with full and complete personal accountability","I find the optimal arrangement of all people and resources for any given task"],
+["restorative","strategic","I am energized by finding and fixing what is broken or simply not working","I quickly see clear patterns and map the absolute best forward path in any situation"],
+["selfassurance","futuristic","I trust my own inner compass completely and feel confident in my direction","I am deeply inspired and energized by vivid visions of future possibility"],
+["significance","selfassurance","I want to be seen as truly significant and to leave a completely meaningful mark","I trust my instincts and act with quiet inner confidence without needing any approval"],
+["strategic","context","I rapidly identify clear patterns and chart the very best possible path forward","I study history and context carefully to understand what is happening right now"],
+["woo","significance","I love meeting new people and turning complete strangers into genuine connections","I am driven by the desire to do work that is truly important and worth remembering"],
+["achiever","activator","I feel deeply satisfied when I check off every single item on my daily list","I feel a very strong urgency to begin acting on any idea as soon as it forms"],
+["analytical","learner","I examine data carefully and systematically to uncover all underlying patterns","I find real joy in the genuine journey of learning new topics and building competence"],
+["arranger","harmony","I find optimal configurations for all people and tasks in any given scenario","I reduce friction by carefully finding what everyone around me can truly agree on"],
+["belief","futuristic","My personal values give every task I do a genuinely deep sense of meaning","I feel completely driven by a clear vision of what could be achieved in the years ahead"],
+["command","relator","I lead with real authority and genuine presence in all high-stakes situations","I build deep trusting relationships within a very small circle of people I care about"],
+["developer","strategic","I invest in growing the people around me at every single opportunity I have","I see the best path through complexity by quickly mapping all available options"],
+["discipline","focus","I impose clear order on my environment through careful routines and processes","I zero in relentlessly on my most important goal and completely ignore everything else"],
+["empathy","ideation","I sense and respond very deeply to the emotional experience of other people","I love generating creative ideas and finding genuinely surprising new connections"],
+["includer","woo","I make absolutely sure no one in any group is ever left behind or overlooked","I enjoy meeting new people and building instant rapport and connection with them"],
+["intellection","belief","I think very deeply about complex concepts and enjoy solo contemplation time","My values and deep purpose shape everything I do in a genuinely meaningful way"],
+["maximizer","communication","I push relentlessly toward excellence by amplifying what is already genuinely strong","I engage audiences through clear compelling and truly memorable expression"],
+["positivity","achiever","I bring natural warmth and enthusiasm that uplifts everyone around me always","I push hard every single day to complete everything and produce real tangible results"],
+["relator","strategic","I build genuinely deep trust with those close to me over a very long time","I quickly identify multiple paths and confidently choose the most effective one"],
+["restorative","developer","I love finding and genuinely fixing what is broken or performing very poorly","I love helping people unlock and truly develop their own hidden potential"],
+["selfassurance","learner","I act from quiet inner confidence and completely trust my own judgment always","I am genuinely excited by the ongoing process of continuous learning and real growth"],
+["woo","empathy","I thrive on winning over people I have genuinely never met before","I feel and truly understand the emotional experience of those directly around me"],
 ];
 
-function buildQuestions() {
-return RAW.map(([tA, tB, stmtA, stmtB]) => ({themeA:tA, themeB:tB, stmtA, stmtB}));
-}
+const QUESTIONS = RAW.map(([tA,tB,sA,sB])=>({tA,tB,sA,sB}));
 
-const QUESTIONS = buildQuestions();
-
-// ─── STATE ───
-let currentQ = 0;
-let answers = [];
-let scores = {};
-let saveTimer = null;
-const AUTOSAVE_KEY = ‘sf_autosave’;
-const SLOTS_KEY    = ‘sf_slots’;
-const MAX_SLOTS    = 5;
-
-function initState() {
-answers = new Array(QUESTIONS.length).fill(null);
-scores  = {};
-THEMES.forEach(t => { scores[t.id] = 0; });
-}
-
-// ─── SAVE / LOAD ───
-function buildSaveData() {
-return {
-answers:    answers,
-currentQ:   currentQ,
-savedAt:    Date.now(),
-answered:   answers.filter(a => a !== null).length,
-total:      QUESTIONS.length,
-};
-}
+// ── SAVE / RESUME ─────────────────────────────────────────────────
+const AK = 'sf_auto', SK = 'sf_slots';
 
 function saveProgress(label) {
-try {
-const data = buildSaveData();
-// Always write autosave
-localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(data));
-// If a label is provided, also write a named slot
-if (label) {
-const slots = loadSlots();
-const slot = { …data, label: label, id: Date.now() };
-// Replace existing slot with same label, else prepend
-const idx = slots.findIndex(s => s.label === label);
-if (idx >= 0) slots[idx] = slot;
-else slots.unshift(slot);
-// Trim to max
-localStorage.setItem(SLOTS_KEY, JSON.stringify(slots.slice(0, MAX_SLOTS)));
-}
-flashSaveIndicator();
-} catch(e) { /* localStorage unavailable */ }
+  try {
+    const d = {answers, currentQ, answeredCount: answers.filter(a=>a!==null).length, total: QUESTIONS.length, savedAt: Date.now()};
+    localStorage.setItem(AK, JSON.stringify(d));
+    if (label) {
+      let slots = getSlots();
+      const slot = {...d, label, id: Date.now()};
+      const i = slots.findIndex(s=>s.label===label);
+      if (i>=0) slots[i]=slot; else slots.unshift(slot);
+      localStorage.setItem(SK, JSON.stringify(slots.slice(0,5)));
+    }
+    flashSaved();
+  } catch(e){}
 }
 
-function loadSlots() {
-try { return JSON.parse(localStorage.getItem(SLOTS_KEY) || ‘[]’); } catch(e) { return []; }
+function getSlots(){try{return JSON.parse(localStorage.getItem(SK)||'[]')}catch(e){return[]}}
+function getAuto(){try{return JSON.parse(localStorage.getItem(AK)||'null')}catch(e){return null}}
+function clearAuto(){try{localStorage.removeItem(AK)}catch(e){}}
+function delSlot(id){try{localStorage.setItem(SK,JSON.stringify(getSlots().filter(s=>s.id!==id)))}catch(e){}}
+
+let saveTimer=null;
+function flashSaved(){
+  const el=document.getElementById('saveInd');
+  el.classList.add('show');
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>el.classList.remove('show'),2000);
+}
+function schedSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveProgress(),600)}
+
+function timeAgo(ts){
+  const s=Math.floor((Date.now()-ts)/1000);
+  if(s<60) return 'just now';
+  if(s<3600) return Math.floor(s/60)+'m ago';
+  if(s<86400) return Math.floor(s/3600)+'h ago';
+  return Math.floor(s/86400)+'d ago';
 }
 
-function loadAutosave() {
-try { return JSON.parse(localStorage.getItem(AUTOSAVE_KEY) || ‘null’); } catch(e) { return null; }
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+// ── STATE ─────────────────────────────────────────────────────────
+let currentQ=0, answers=[], scores={};
+
+function initState(){
+  answers=new Array(QUESTIONS.length).fill(null);
+  scores={};
+  THEMES.forEach(t=>{scores[t.id]=0});
 }
 
-function applySession(data) {
-answers  = data.answers.map(a => (a === undefined ? null : a));
-// Pad in case QUESTIONS length changed
-while (answers.length < QUESTIONS.length) answers.push(null);
-currentQ = Math.min(data.currentQ || 0, QUESTIONS.length - 1);
-scores   = {};
-THEMES.forEach(t => { scores[t.id] = 0; });
+// ── SCREEN ────────────────────────────────────────────────────────
+function show(id){
+  ['intro','quiz','loading','results'].forEach(s=>{
+    document.getElementById(s).style.display=(s===id)?'':'none';
+  });
+  window.scrollTo(0,0);
+  const el=document.getElementById(id);
+  if(!el) return;
+  const f=el.querySelector('button,[href],input,h1,h2,[tabindex="0"]');
+  if(f){try{f.focus({preventScroll:true})}catch(e){}}
 }
 
-function clearAutosave() {
-try { localStorage.removeItem(AUTOSAVE_KEY); } catch(e) {}
+// ── INTRO BANNER ──────────────────────────────────────────────────
+function checkBanner(){
+  const d=getAuto();
+  if(!d||!d.answeredCount) return;
+  const pct=Math.round(d.answeredCount/d.total*100);
+  document.getElementById('resumeMeta').textContent=d.answeredCount+' of '+d.total+' answered ('+pct+'%) · saved '+timeAgo(d.savedAt);
+  document.getElementById('resumeProgBar').style.width=pct+'%';
+  document.getElementById('resumeBanner').style.display='block';
 }
 
-function deleteSlot(id) {
-try {
-const slots = loadSlots().filter(s => s.id !== id);
-localStorage.setItem(SLOTS_KEY, JSON.stringify(slots));
-} catch(e) {}
+// ── MODAL ─────────────────────────────────────────────────────────
+function openModal(showSaveInput){
+  const row=document.getElementById('saveInputRow');
+  const inp=document.getElementById('saveNameInput');
+  const fb=document.getElementById('saveFeedback');
+  if(showSaveInput){
+    row.style.display='';
+    fb.textContent='';
+    inp.value='Session · '+answers.filter(a=>a!==null).length+' of '+QUESTIONS.length+' answered';
+    setTimeout(()=>{inp.select();inp.focus()},60);
+  } else {
+    row.style.display='none';
+  }
+  renderSlots();
+  document.getElementById('saveModal').classList.add('open');
+}
+function closeModal(){document.getElementById('saveModal').classList.remove('open')}
+
+function renderSlots(){
+  const el=document.getElementById('slotsList');
+  const slots=getSlots();
+  if(!slots.length){el.innerHTML='<div class="slot-empty">No saved sessions yet. Progress is auto-saved as you answer.</div>';return}
+  el.innerHTML='';
+  slots.forEach(s=>{
+    const pct=Math.round(s.answeredCount/s.total*100);
+    const div=document.createElement('div');
+    div.className='slot';
+    div.innerHTML='<div class="slot-info"><div class="slot-name">'+esc(s.label||'Untitled')+'</div><div class="slot-detail">'+s.answeredCount+'/'+s.total+' answered ('+pct+'%) · '+timeAgo(s.savedAt)+'</div></div>'
+      +'<div class="slot-acts"><button class="btn-slot-load" data-id="'+s.id+'" type="button">Resume</button><button class="btn-slot-del" data-id="'+s.id+'" type="button" aria-label="Delete">✕</button></div>';
+    el.appendChild(div);
+  });
+  el.querySelectorAll('.btn-slot-load').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const s=getSlots().find(x=>x.id===parseInt(b.dataset.id));
+      if(s){closeModal();resumeSession(s)}
+    });
+  });
+  el.querySelectorAll('.btn-slot-del').forEach(b=>{
+    b.addEventListener('click',()=>{delSlot(parseInt(b.dataset.id));renderSlots();checkBanner()});
+  });
 }
 
-// ─── AUTOSAVE FLASH ───
-function flashSaveIndicator() {
-const el = document.getElementById(‘saveIndicator’);
-if (!el) return;
-el.classList.add(‘visible’);
-clearTimeout(saveTimer);
-saveTimer = setTimeout(() => el.classList.remove(‘visible’), 2000);
+function confirmSave(){
+  const inp=document.getElementById('saveNameInput');
+  const fb=document.getElementById('saveFeedback');
+  const name=inp.value.trim();
+  if(!name){fb.textContent='Please enter a name.';inp.focus();return}
+  saveProgress(name);
+  fb.textContent='✓ Saved as "'+esc(name)+'"';
+  renderSlots();
+  setTimeout(closeModal,900);
 }
 
-// ─── SCHEDULE AUTOSAVE ───
-function scheduleAutosave() {
-clearTimeout(saveTimer);
-saveTimer = setTimeout(() => saveProgress(), 600);
+// ── QUIZ ──────────────────────────────────────────────────────────
+function startQuiz(){initState();clearAuto();currentQ=0;show('quiz');renderQ()}
+
+function resumeSession(d){
+  answers=(d.answers||[]).map(a=>a??null);
+  while(answers.length<QUESTIONS.length)answers.push(null);
+  currentQ=Math.min(d.currentQ||0,QUESTIONS.length-1);
+  scores={};THEMES.forEach(t=>{scores[t.id]=0});
+  show('quiz');renderQ();
 }
 
-// ─── RESUME BANNER ───
-function checkResumeBanner() {
-const data = loadAutosave();
-if (!data || data.answered === 0) return;
-const pct = Math.round((data.answered / data.total) * 100);
-const ago = formatTimeAgo(data.savedAt);
-document.getElementById(‘resumeTitle’).textContent = ‘Continue where you left off’;
-document.getElementById(‘resumeMeta’).textContent = data.answered + ’ of ’ + data.total + ’ answered (’ + pct + ’%) — saved ’ + ago;
-document.getElementById(‘resumeBar’).style.width = pct + ‘%’;
-document.getElementById(‘resumeBanner’).style.display = ‘block’;
-document.getElementById(‘startBtn’).textContent = ‘Begin New Assessment →’;
+function renderQ(){
+  const q=QUESTIONS[currentQ], total=QUESTIONS.length;
+  document.getElementById('qTag').textContent='Question '+(currentQ+1)+' of '+total;
+  document.getElementById('qText').textContent='Which statement feels more like you?';
+  document.getElementById('lblA').textContent='A — "'+q.sA+'"';
+  document.getElementById('lblB').textContent='B — "'+q.sB+'"';
+  const pct=currentQ/total*100;
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progText').textContent=currentQ+' / '+total;
+  document.getElementById('progWrap').setAttribute('aria-valuenow',currentQ);
+  const val=answers[currentQ];
+  document.querySelectorAll('.scale-btn').forEach(b=>{
+    const sel=parseInt(b.dataset.val)===val;
+    b.classList.toggle('sel',sel);
+    b.setAttribute('aria-pressed',sel?'true':'false');
+  });
+  updateHint(val);
+  document.getElementById('btnBack').disabled=(currentQ===0);
+  const nx=document.getElementById('btnNext');
+  const last=currentQ===total-1;
+  nx.textContent=last?'See Results →':'Next →';
+  nx.setAttribute('aria-label',last?'Submit and see results':'Next question');
+  if(val!==null){nx.classList.add('on');nx.removeAttribute('aria-disabled')}
+  else{nx.classList.remove('on');nx.setAttribute('aria-disabled','true')}
 }
 
-function formatTimeAgo(ts) {
-const diff = Date.now() - ts;
-const m = Math.floor(diff / 60000);
-const h = Math.floor(diff / 3600000);
-const d = Math.floor(diff / 86400000);
-if (d > 0) return d + ’ day’ + (d>1?‘s’:’’) + ’ ago’;
-if (h > 0) return h + ’ hour’ + (h>1?‘s’:’’) + ’ ago’;
-if (m > 0) return m + ’ min ago’;
-return ‘just now’;
+function updateHint(val){
+  const h={1:'Strongly A',2:'Leaning A',3:'Neutral',4:'Leaning B',5:'Strongly B'};
+  document.getElementById('scaleHint').textContent=val?h[val]:'← Strongly A · Neutral · Strongly B →';
 }
 
-// ─── SAVE MODAL ───
-function openSlotsModal(showQuickSave) {
-const qsr = document.getElementById(‘quickSaveRow’);
-const inp = document.getElementById(‘saveNameInput’);
-const fb  = document.getElementById(‘saveNameFeedback’);
-if (showQuickSave) {
-qsr.style.display = ‘’;
-inp.value = ‘’;
-fb.textContent = ‘’;
-// Pre-fill a default name
-const n = answers.filter(a=>a!==null).length;
-inp.value = ‘Session — ’ + n + ’ of ’ + QUESTIONS.length + ’ answered’;
-inp.select();
-} else {
-qsr.style.display = ‘none’;
-}
-renderSlots();
-document.getElementById(‘saveModal’).classList.add(‘open’);
-if (showQuickSave) { setTimeout(() => inp.focus(), 60); }
-else { document.getElementById(‘btnModalClose’).focus(); }
+function pick(val){
+  answers[currentQ]=val;
+  document.querySelectorAll('.scale-btn').forEach(b=>{
+    const sel=parseInt(b.dataset.val)===val;
+    b.classList.toggle('sel',sel);
+    b.setAttribute('aria-pressed',sel?'true':'false');
+  });
+  updateHint(val);
+  const nx=document.getElementById('btnNext');
+  nx.classList.add('on');nx.removeAttribute('aria-disabled');
+  const last=currentQ===QUESTIONS.length-1;
+  nx.textContent=last?'See Results →':'Next →';
+  schedSave();
 }
 
-function closeSlotsModal() {
-document.getElementById(‘saveModal’).classList.remove(‘open’);
+function next(){
+  if(answers[currentQ]===null)return;
+  if(currentQ<QUESTIONS.length-1){currentQ++;renderQ()}else{finish()}
+}
+function back(){if(currentQ>0){currentQ--;renderQ()}}
+
+function finish(){
+  scores={};THEMES.forEach(t=>{scores[t.id]=0});
+  QUESTIONS.forEach((q,i)=>{
+    const v=answers[i];
+    if(v===1)scores[q.tA]=(scores[q.tA]||0)+3;
+    else if(v===2)scores[q.tA]=(scores[q.tA]||0)+1;
+    else if(v===4)scores[q.tB]=(scores[q.tB]||0)+1;
+    else if(v===5)scores[q.tB]=(scores[q.tB]||0)+3;
+  });
+  clearAuto();
+  show('loading');
+  setTimeout(()=>{show('results');renderResults()},2200);
 }
 
-function confirmSaveName() {
-const inp = document.getElementById(‘saveNameInput’);
-const fb  = document.getElementById(‘saveNameFeedback’);
-const name = inp.value.trim();
-if (!name) { fb.textContent = ‘Please enter a name.’; inp.focus(); return; }
-saveProgress(name);
-fb.textContent = ‘✓ Saved as “’ + name + ‘”’;
-renderSlots();
-setTimeout(closeSlotsModal, 900);
+function restart(){initState();clearAuto();checkBanner();show('intro')}
+
+// ── RESULTS ───────────────────────────────────────────────────────
+function renderResults(){
+  const sorted=THEMES.slice().sort((a,b)=>(scores[b.id]||0)-(scores[a.id]||0));
+  const top5=sorted.slice(0,5);
+  const max=Math.max(...THEMES.map(t=>scores[t.id]||0),1);
+
+  // Top 5
+  const g=document.getElementById('top5');g.innerHTML='';
+  top5.forEach((t,i)=>{
+    const sv=Math.round(((scores[t.id]||0)/max)*100);
+    const tc=domainColor(t.d);
+    const c=document.createElement('article');
+    c.className='theme-card';
+    c.style.cssText='--tc:'+tc+';animation-delay:'+(i*.12)+'s';
+    c.setAttribute('aria-label','Rank '+(i+1)+': '+t.name+', '+t.d+', score '+sv);
+    c.innerHTML='<div class="theme-rank" style="color:'+tc+'" aria-hidden="true">'+(i+1)+'</div>'
+      +'<div><div class="theme-name">'+t.name+'</div><div class="theme-domain" style="color:'+tc+'">'+t.d+'</div><div class="theme-desc">'+t.desc+'</div></div>'
+      +'<div class="theme-score" aria-hidden="true"><div class="theme-score-n" style="color:'+tc+'">'+sv+'</div><div class="theme-score-l">score</div></div>';
+    g.appendChild(c);
+  });
+
+  // Domains
+  const dt={},dc={};
+  THEMES.forEach(t=>{dt[t.d]=(dt[t.d]||0)+(scores[t.id]||0);dc[t.d]=(dc[t.d]||0)+1});
+  const dg=document.getElementById('domainsGrid');dg.innerHTML='';
+  Object.entries(DOMAINS).forEach(([d,meta],i)=>{
+    const avg=Math.round((dt[d]/(dc[d]*max))*100);
+    const tc=domainColor(d);
+    const c=document.createElement('div');
+    c.className='dom-card';c.style.animationDelay=(i*.1)+'s';
+    c.setAttribute('aria-label',d+' domain: '+avg+'%');
+    c.innerHTML='<span class="dom-icon" role="img" aria-label="'+d+'">'+meta.icon+'</span>'
+      +'<div class="dom-name">'+d+'</div>'
+      +'<div class="dom-score" style="color:'+tc+'">'+avg+'%</div>'
+      +'<div class="dom-label">'+meta.desc+'</div>';
+    dg.appendChild(c);
+  });
+
+  // All 34
+  const tbl=document.getElementById('allTable');tbl.innerHTML='';
+  sorted.forEach((t,i)=>{
+    const pct=Math.round(((scores[t.id]||0)/max)*100);
+    const tc=domainColor(t.d);
+    const r=document.createElement('div');
+    r.className='t-row'+(i<5?' top':'');
+    r.setAttribute('role','listitem');
+    r.setAttribute('aria-label','Rank '+(i+1)+': '+t.name+' ('+t.d+') — '+pct+'%'+(i<5?' Top 5':''));
+    r.style.animationDelay=(i*.03)+'s';
+    r.innerHTML='<div class="t-rank" aria-hidden="true">'+(i+1)+'</div>'
+      +'<div class="t-name">'+t.name+(i<5?' <span aria-hidden="true">★</span>':'')+'</div>'
+      +'<div class="t-domain">'+t.d+'</div>'
+      +'<div class="t-bar-wrap" aria-hidden="true"><div class="t-bar" style="width:'+pct+'%;background:'+tc+'"></div></div>';
+    tbl.appendChild(r);
+  });
+
+  genInsights(top5);
 }
 
-function renderSlots() {
-const slots = loadSlots();
-const el = document.getElementById(‘saveSlotsList’);
-if (slots.length === 0) {
-el.innerHTML = ‘<div class="slot-empty">No saved sessions yet. Progress is saved automatically as you go.</div>’;
-return;
-}
-el.innerHTML = ‘’;
-slots.forEach(slot => {
-const pct = Math.round((slot.answered / slot.total) * 100);
-const ago = formatTimeAgo(slot.savedAt);
-const div = document.createElement(‘div’);
-div.className = ‘save-slot’;
-div.innerHTML =
-‘<div class="slot-info">’ +
-‘<div class="slot-name">’ + escHtml(slot.label || ‘Untitled’) + ‘</div>’ +
-‘<div class="slot-detail">’ + slot.answered + ‘/’ + slot.total + ’ answered (’ + pct + ’%) · ’ + ago + ‘</div>’ +
-‘</div>’ +
-‘<div class="slot-actions">’ +
-‘<button class="btn-slot-load" type="button" data-id="' + slot.id + '">Resume</button>’ +
-‘<button class="btn-slot-del" type="button" data-id="' + slot.id + '" aria-label="Delete this saved session">✕</button>’ +
-‘</div>’;
-el.appendChild(div);
-});
-
-el.querySelectorAll(’.btn-slot-load’).forEach(btn => {
-btn.addEventListener(‘click’, () => {
-const id = parseInt(btn.dataset.id);
-const slot = loadSlots().find(s => s.id === id);
-if (slot) { closeSlotsModal(); resumeSession(slot); }
-});
-});
-el.querySelectorAll(’.btn-slot-del’).forEach(btn => {
-btn.addEventListener(‘click’, () => {
-deleteSlot(parseInt(btn.dataset.id));
-renderSlots();
-checkResumeBanner();
-});
-});
+function genInsights(top5){
+  const el=document.getElementById('insightsBody');
+  // Try Anthropic API (works in Claude.ai sandbox) then fall back to local
+  const names=top5.map(t=>t.name);
+  const domains=[...new Set(top5.map(t=>t.d))];
+  const prompt='A person completed the CliftonStrengths 2.0 assessment. Their top 5 themes are: '+names.join(', ')+'. Their strengths lean toward '+domains.join(' and ')+' domains.\n\nWrite 3 paragraphs of personalized coaching insights:\n1. What makes this specific combination uniquely powerful together\n2. Work environments and roles where they will naturally thrive\n3. One key blind spot and a practical way to manage it\n\nAddress them as "you". Be specific and warm. No bullets. 3-4 sentences each.';
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,messages:[{role:'user',content:prompt}]})
+  }).then(r=>{if(!r.ok)throw new Error();return r.json()})
+    .then(d=>{const t=(d.content||[]).map(b=>b.text||'').join('');el.textContent=t||localInsights(top5)})
+    .catch(()=>{el.textContent=localInsights(top5)});
 }
 
-function escHtml(s) {
-return s.replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’).replace(/”/g,’"’);
+function localInsights(top5){
+  const names=top5.map(t=>t.name);
+  const domains=[...new Set(top5.map(t=>t.d))];
+  const pd=domains[0]||'Strategic';
+  const power={Executing:'a rare ability to follow through and deliver when others stall',Influencing:'a natural capacity to move people and drive momentum',Relationship:'a deep talent for building trust and genuine human connection',Strategic:'an exceptional ability to spot patterns and think ahead'};
+  const env={Executing:'structured environments where outcomes are measurable and accountability is clear',Influencing:'visible roles where you can present ideas, lead change, and rally others',Relationship:'collaborative teams where relationships and trust are the engine of success',Strategic:'roles that reward deep thinking, research, and complex problem-solving'};
+  const blind={Executing:'you may push for closure before others feel heard — pause to invite input before finalising',Influencing:'you may move too fast for those who need time to process — build in deliberate checkpoints',Relationship:'you may avoid difficult conversations to protect harmony — practice naming tension early',Strategic:'you may over-analyse before acting — set time-boxed decisions to stop the loop'};
+  return 'Your combination of '+names.join(', ')+' creates a genuinely distinctive strength signature. At the core, '+names[0]+' and '+names[1]+' work together to give you '+(power[pd]||'a powerful edge')+'. When '+names[2]+' enters the picture it adds a third dimension that multiplies your impact — you bring something genuinely hard to replicate to every team and challenge.\n\nYou will thrive most in '+(env[pd]||'dynamic environments that reward your strengths')+'. Your '+names[0]+' theme means you are energised when there is real work to own, while '+names[1]+' ensures you approach it with your own distinct style. Look for roles that give you both autonomy and visibility — places where results matter and your particular way of working is valued rather than managed away.\n\nEvery strength profile carries a shadow worth knowing. Because of your '+names.slice(0,2).join(' and ')+', '+(blind[pd]||'you may underestimate how your pace lands on others wired differently')+'. This is not a flaw — it is the natural edge of a sharp strength. Build one or two relationships with people whose profiles complement yours and treat their friction as signal rather than obstacle — that single habit will make your already-strong profile significantly more effective.';
 }
 
-// ─── SCREEN MANAGEMENT ───
-function show(id) {
-[“intro”,“quiz”,“loading”,“results”].forEach(s => {
-document.getElementById(s).style.display = (s === id) ? ‘’ : ‘none’;
-});
-window.scrollTo(0,0);
-const target = document.getElementById(id);
-if (target) {
-const focusable = target.querySelector(‘button, [href], input, [tabindex=“0”], h1, h2, [role=“heading”]’);
-if (focusable) { focusable.focus({ preventScroll: true }); }
-else { target.setAttribute(‘tabindex’,’-1’); target.focus({ preventScroll: true }); }
-}
-}
+// ── WIRING ────────────────────────────────────────────────────────
 
-// ─── INIT ───
+// Theme toggle
+(function(){
+  const root=document.documentElement;
+  const btn=document.getElementById('themeToggle');
+  let dark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  function apply(d){
+    root.setAttribute('data-theme',d?'dark':'light');
+    btn.textContent=d?'🌙':'☀️';
+    btn.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');
+  }
+  apply(dark);
+  btn.addEventListener('click',()=>{dark=!dark;apply(dark)});
+})();
+
+// Init
 initState();
-checkResumeBanner();
+checkBanner();
 
-document.getElementById(‘startBtn’).addEventListener(‘click’, startQuiz);
-document.getElementById(‘btnBack’).addEventListener(‘click’, prevQuestion);
-document.getElementById(‘btnNext’).addEventListener(‘click’, nextQuestion);
-document.getElementById(‘restartBtn’).addEventListener(‘click’, restart);
-document.getElementById(‘btnResume’).addEventListener(‘click’, () => {
-const data = loadAutosave();
-if (data) resumeSession(data);
-});
-document.getElementById(‘btnDismiss’).addEventListener(‘click’, () => {
-clearAutosave();
-document.getElementById(‘resumeBanner’).style.display = ‘none’;
-document.getElementById(‘startBtn’).textContent = ‘Begin Assessment →’;
-});
-document.getElementById(‘btnSave’).addEventListener(‘click’, () => {
-openSlotsModal(true); // true = show quiz is active, reveal quick-save row
-});
-document.getElementById(‘btnOpenSlots’).addEventListener(‘click’, () => openSlotsModal(false));
-document.getElementById(‘btnModalClose’).addEventListener(‘click’, closeSlotsModal);
-document.getElementById(‘btnConfirmSave’).addEventListener(‘click’, confirmSaveName);
-document.getElementById(‘saveNameInput’).addEventListener(‘keydown’, e => {
-if (e.key === ‘Enter’) confirmSaveName();
-});
-document.getElementById(‘saveModal’).addEventListener(‘click’, e => {
-if (e.target === document.getElementById(‘saveModal’)) closeSlotsModal();
-});
-document.addEventListener(‘keydown’, e => {
-if (e.key === ‘Escape’ && document.getElementById(‘saveModal’).classList.contains(‘open’)) closeSlotsModal();
-});
-document.querySelectorAll(’.scale-btn’).forEach(btn => {
-btn.addEventListener(‘click’, () => selectScore(parseInt(btn.dataset.val)));
+// Buttons
+document.getElementById('startBtn').addEventListener('click',startQuiz);
+document.getElementById('btnBack').addEventListener('click',back);
+document.getElementById('btnNext').addEventListener('click',next);
+document.getElementById('btnRestart').addEventListener('click',restart);
+document.getElementById('btnResume').addEventListener('click',()=>{const d=getAuto();if(d)resumeSession(d)});
+document.getElementById('btnDismiss').addEventListener('click',()=>{clearAuto();document.getElementById('resumeBanner').style.display='none'});
+document.getElementById('btnSave').addEventListener('click',()=>openModal(true));
+document.getElementById('btnOpenSlots').addEventListener('click',()=>openModal(false));
+document.getElementById('btnModalClose').addEventListener('click',closeModal);
+document.getElementById('btnConfirmSave').addEventListener('click',confirmSave);
+document.getElementById('saveNameInput').addEventListener('keydown',e=>{if(e.key==='Enter')confirmSave()});
+document.getElementById('saveModal').addEventListener('click',e=>{if(e.target.id==='saveModal')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+document.querySelectorAll('.scale-btn').forEach(b=>{
+  b.addEventListener('click',()=>pick(parseInt(b.dataset.val)));
 });
 
-// ─── QUIZ LOGIC ───
-function startQuiz() {
-initState();
-clearAutosave();
-currentQ = 0;
-show(‘quiz’);
-renderQuestion();
-}
-
-function resumeSession(data) {
-applySession(data);
-show(‘quiz’);
-renderQuestion();
-}
-
-function renderQuestion() {
-const q = QUESTIONS[currentQ];
-const total = QUESTIONS.length;
-document.getElementById(‘sectionTag’).textContent = ‘Question ’ + (currentQ + 1) + ’ of ’ + total;
-document.getElementById(‘questionText’).textContent = ‘Which statement feels more like you?’;
-document.getElementById(‘labelA’).textContent = ‘A — “’ + q.stmtA + ‘”’;
-document.getElementById(‘labelB’).textContent = ‘B — “’ + q.stmtB + ‘”’;
-const pct = (currentQ / total) * 100;
-document.getElementById(‘progressBar’).style.width = pct + ‘%’;
-document.getElementById(‘progressText’).textContent = currentQ + ’ / ’ + total;
-const pw = document.getElementById(‘progressWrap’);
-if (pw) { pw.setAttribute(‘aria-valuenow’, currentQ); }
-const val = answers[currentQ];
-document.querySelectorAll(’.scale-btn’).forEach(btn => {
-const isSelected = parseInt(btn.dataset.val) === val;
-btn.classList.toggle(‘selected’, isSelected);
-btn.setAttribute(‘aria-pressed’, isSelected ? ‘true’ : ‘false’);
-});
-updateScaleDesc(val);
-document.getElementById(‘btnBack’).disabled = (currentQ === 0);
-const btnNext = document.getElementById(‘btnNext’);
-btnNext.textContent = (currentQ === total - 1) ? ‘See Results →’ : ‘Next →’;
-btnNext.setAttribute(‘aria-label’, currentQ === total - 1 ? ‘Submit and see your results’ : ‘Go to next question’);
-const ready = val !== null;
-if (ready) { btnNext.classList.add(‘ready’); btnNext.removeAttribute(‘aria-disabled’); }
-else { btnNext.classList.remove(‘ready’); btnNext.setAttribute(‘aria-disabled’,‘true’); }
-}
-
-function selectScore(val) {
-answers[currentQ] = val;
-document.querySelectorAll(’.scale-btn’).forEach(btn => {
-const isSelected = parseInt(btn.dataset.val) === val;
-btn.classList.toggle(‘selected’, isSelected);
-btn.setAttribute(‘aria-pressed’, isSelected ? ‘true’ : ‘false’);
-});
-updateScaleDesc(val);
-const btnNext = document.getElementById(‘btnNext’);
-btnNext.classList.add(‘ready’);
-btnNext.removeAttribute(‘aria-disabled’);
-btnNext.textContent = (currentQ === QUESTIONS.length - 1) ? ‘See Results →’ : ‘Next →’;
-btnNext.setAttribute(‘aria-label’, currentQ === QUESTIONS.length - 1 ? ‘Submit and see your results’ : ‘Go to next question’);
-// Autosave on every answer
-scheduleAutosave();
-}
-
-function updateScaleDesc(val) {
-const labels = {1:‘Strongly A’, 2:‘Leaning A’, 3:‘Neutral — both feel equal’, 4:‘Leaning B’, 5:‘Strongly B’};
-document.getElementById(‘scaleDesc’).textContent = val ? labels[val] : ‘← Strongly A   ·   Neutral   ·   Strongly B →’;
-}
-
-function nextQuestion() {
-if (answers[currentQ] === null) return;
-if (currentQ < QUESTIONS.length - 1) {
-currentQ++;
-renderQuestion();
-} else {
-finishQuiz();
-}
-}
-
-function prevQuestion() {
-if (currentQ > 0) { currentQ–; renderQuestion(); }
-}
-
-function finishQuiz() {
-scores = {};
-THEMES.forEach(t => { scores[t.id] = 0; });
-QUESTIONS.forEach((q, i) => {
-const v = answers[i];
-if (v === null) return;
-if (v === 1) scores[q.themeA] = (scores[q.themeA]||0) + 3;
-else if (v === 2) scores[q.themeA] = (scores[q.themeA]||0) + 1;
-else if (v === 4) scores[q.themeB] = (scores[q.themeB]||0) + 1;
-else if (v === 5) scores[q.themeB] = (scores[q.themeB]||0) + 3;
-});
-clearAutosave(); // test complete — no need to keep autosave
-show(‘loading’);
-setTimeout(() => { show(‘results’); renderResults(); }, 2200);
-}
-
-function renderResults() {
-const sorted = THEMES.slice().sort((a,b) => (scores[b.id]||0) - (scores[a.id]||0));
-const top5 = sorted.slice(0,5);
-const maxScore = Math.max(…THEMES.map(t => scores[t.id]||0), 1);
-
-// Map domain → CSS variable name (theme-mode-aware)
-function domainVar(domain) {
-const map = { ‘Executing’:’–th-exec’, ‘Influencing’:’–th-infl’, ‘Relationship’:’–th-rel’, ‘Strategic’:’–th-strat’ };
-return ‘var(’ + (map[domain] || ‘–gold’) + ‘)’;
-}
-
-// Top 5
-const grid = document.getElementById(‘top5Grid’);
-grid.innerHTML = ‘’;
-top5.forEach((theme, i) => {
-const sv = Math.round(((scores[theme.id]||0) / maxScore) * 100);
-const tc = domainVar(theme.domain);
-const card = document.createElement(‘article’);
-card.className = ‘theme-card’;
-card.setAttribute(‘aria-label’, ’Rank ’ + (i+1) + ’: ’ + theme.name + ’, ’ + theme.domain + ’ domain, score ’ + sv);
-card.style.cssText = ‘–tc:’ + tc + ‘; animation-delay:’ + (i*0.12) + ‘s’;
-card.innerHTML =
-‘<div class="theme-rank" style="color:' + tc + '" aria-hidden="true">’ + (i+1) + ‘</div>’ +
-‘<div class="theme-info">’ +
-‘<div class="theme-name">’ + theme.name + ‘</div>’ +
-‘<div class="theme-domain" style="color:' + tc + '">’ + theme.domain + ‘</div>’ +
-‘<div class="theme-desc">’ + theme.desc + ‘</div>’ +
-‘</div>’ +
-‘<div class="theme-score-wrap" aria-hidden="true">’ +
-‘<div class="theme-score" style="color:' + tc + '">’ + sv + ‘</div>’ +
-‘<div class="theme-score-label">score</div>’ +
-‘</div>’;
-grid.appendChild(card);
-});
-
-// Domains
-const dt = {}, dc = {};
-THEMES.forEach(t => {
-dt[t.domain] = (dt[t.domain]||0) + (scores[t.id]||0);
-dc[t.domain] = (dc[t.domain]||0) + 1;
-});
-const dg = document.getElementById(‘domainsGrid’);
-dg.innerHTML = ‘’;
-Object.entries(DOMAIN_META).forEach(([domain, meta], i) => {
-const avg = Math.round((dt[domain] / (dc[domain] * maxScore)) * 100);
-const tc = domainVar(domain);
-const card = document.createElement(‘div’);
-card.className = ‘domain-card’;
-card.style.animationDelay = (i*0.1) + ‘s’;
-card.setAttribute(‘aria-label’, domain + ’ domain: ’ + avg + ‘%’);
-card.innerHTML =
-‘<span class="domain-icon" role="img" aria-label="' + domain + '">’ + meta.icon + ‘</span>’ +
-‘<div class="domain-name">’ + domain + ‘</div>’ +
-‘<div class="domain-score" style="color:' + tc + '">’ + avg + ‘%</div>’ +
-‘<div class="domain-label">’ + meta.desc + ‘</div>’;
-dg.appendChild(card);
-});
-
-// All 34
-const table = document.getElementById(‘allThemesTable’);
-table.innerHTML = ‘’;
-sorted.forEach((theme, i) => {
-const pct = Math.round(((scores[theme.id]||0) / maxScore) * 100);
-const tc = domainVar(theme.domain);
-const row = document.createElement(‘div’);
-row.className = ‘theme-row’ + (i < 5 ? ’ top5’ : ‘’);
-row.setAttribute(‘role’,‘listitem’);
-row.setAttribute(‘aria-label’, ‘Rank ’ + (i+1) + ‘: ’ + theme.name + ’ (’ + theme.domain + ‘) — ’ + pct + ‘% relative score’ + (i<5?’ — Top 5 theme’:’’));
-row.style.animationDelay = (i*0.03) + ‘s’;
-row.innerHTML =
-‘<div class="row-rank" aria-hidden="true">’ + (i+1) + ‘</div>’ +
-‘<div class="row-name">’ + theme.name + (i<5?’ <span aria-hidden="true">★</span>’:’’) + ‘</div>’ +
-‘<div class="row-domain">’ + theme.domain + ‘</div>’ +
-‘<div class="row-bar-wrap" aria-hidden="true"><div class="row-bar" style="width:' + pct + '%;background:' + tc + '"></div></div>’;
-table.appendChild(row);
-});
-
-fetchInsights(top5);
-}
-
-async function fetchInsights(top5) {
-// NOTE: Direct Anthropic API calls only work inside Claude.ai’s sandbox.
-// When hosted on GitHub Pages or opened as a local file, we generate
-// rich insights client-side instead — no server or API key needed.
-try {
-const res = await fetch(‘https://api.anthropic.com/v1/messages’, {
-method: ‘POST’,
-headers: {‘Content-Type’:‘application/json’},
-body: JSON.stringify({model:‘claude-sonnet-4-20250514’, max_tokens:1000, messages:[{role:‘user’, content:buildInsightPrompt(top5)}]})
-});
-if (!res.ok) throw new Error(‘API unavailable’);
-const data = await res.json();
-const text = (data.content||[]).map(b => b.text||’’).join(’’);
-if (text) { document.getElementById(‘insightsText’).textContent = text; return; }
-} catch(e) { /* fall through to local generation */ }
-// Local generation — works everywhere, no dependencies
-document.getElementById(‘insightsText’).textContent = generateInsightsLocally(top5);
-}
-
-function buildInsightPrompt(top5) {
-const names = top5.map(t => t.name).join(’, ‘);
-const domains = […new Set(top5.map(t => t.domain))].join(’ and ’);
-return ’A person completed the CliftonStrengths 2.0 assessment. Their top 5 themes are: ’ + names + ‘. Their strengths lean toward ’ + domains + ’ domains.\n\nWrite 3 paragraphs of personalized coaching insights:\n1. What makes this specific combination of strengths uniquely powerful together\n2. Work environments, roles, and activities where they will naturally thrive\n3. One key blind spot this profile tends to create, and a practical way to manage it\n\nSpeak directly to the person as “you”. Be specific, warm, and actionable. No bullet points. Each paragraph 3-4 sentences.’;
-}
-
-function generateInsightsLocally(top5) {
-const names  = top5.map(t => t.name);
-const domains = […new Set(top5.map(t => t.domain))];
-
-// Domain-based power statements
-const domainPower = {
-‘Executing’:    ‘a rare ability to follow through and get things done when others stall’,
-‘Influencing’:  ‘a natural capacity to move people, shape opinions, and drive momentum’,
-‘Relationship’: ‘a deep talent for building trust, loyalty, and genuine human connection’,
-‘Strategic’:    ‘an exceptional ability to absorb complexity, spot patterns, and think ahead’,
-};
-const domainEnv = {
-‘Executing’:    ‘structured environments where outcomes are measurable and accountability is clear’,
-‘Influencing’:  ‘visible roles where you can present ideas, lead change, and rally others’,
-‘Relationship’: ‘collaborative teams where relationships and trust are the engine of success’,
-‘Strategic’:    ‘roles that reward deep thinking, research, planning, or complex problem-solving’,
-};
-const domainBlind = {
-‘Executing’:    ‘you may push for closure before others feel heard — pause to invite input before finalising decisions’,
-‘Influencing’:  ‘you may move too fast for those who need time to process — build in deliberate checkpoints’,
-‘Relationship’: ‘you may avoid difficult conversations to protect harmony — practice naming tension early’,
-‘Strategic’:    ‘you may over-analyse before acting — set time-boxed decisions to stop the loop’,
-};
-
-const primaryDomain = domains[0] || ‘Strategic’;
-const n1 = names[0], n2 = names[1], n3 = names[2];
-
-const para1 = ‘Your combination of ’ + names.join(’, ’) + ’ creates a genuinely distinctive strength signature. ’
-+ ’At the core, ’ + n1 + ’ and ’ + n2 + ’ work together to give you ’ + (domainPower[primaryDomain] || ‘a powerful and focused edge’) + ’. ’
-+ ’When ’ + n3 + ’ enters the picture, it adds a third dimension that multiplies your impact — you are not just strong in one area, you are integrated across several. ’
-+ ‘Few people carry this particular combination, which means you bring something genuinely hard to replicate to every team and challenge.’;
-
-const envDomain = domains[domains.length - 1] || primaryDomain;
-const para2 = ’You will thrive most in ’ + (domainEnv[primaryDomain] || ‘dynamic environments’) + ’. ’
-+ ’Your ’ + n1 + ’ theme means you are energised when there is real work to own and finish, while ’ + n2 + ’ ensures you approach it with your own distinct perspective and style. ’
-+ ’Look for roles that give you both autonomy and visibility — places where results matter and where your particular way of working is valued rather than managed away. ’
-+ ‘Environments that are stagnant or overly bureaucratic will frustrate you; seek contexts where growth and initiative are genuinely rewarded.’;
-
-const blindDomain = domains.find(d => d !== primaryDomain) || primaryDomain;
-const para3 = ‘Every strength profile carries a shadow, and yours is worth knowing. Because of your ’ + names.slice(0,2).join(’ and ’) + ’, ’
-+ (domainBlind[primaryDomain] || ‘you may underestimate how your pace or approach lands on others who are wired differently’) + ’. ’
-+ ’This is not a flaw — it is the natural edge of a sharp strength. ’
-+ ’The practical fix is simple: build one or two relationships with people whose profiles complement yours, and treat their friction as signal rather than obstacle. ’
-+ ‘That single habit will make your already-strong profile significantly more effective.’;
-
-return para1 + ‘\n\n’ + para2 + ‘\n\n’ + para3;
-}
-
-function restart() {
-initState();
-clearAutosave();
-checkResumeBanner();
-show(‘intro’);
-}
 </script>
-
 </body>
 </html>
