@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StrengthsFinder 2.0 — Discover Your Talents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ── DARK MODE (default) ── */
+:root {
+  --bg:#0a0a0f; --card:#1a1a26; --card2:#1f1f30; --border:#656579;
+  --gold:#c9a84c; --gold2:#e8c97a; --golddim:rgba(201,168,76,.15);
+  --text:#e8e8f0; --strong:#ffffff; --muted:#8080a0; --accent:#7e6ffa;
+  --hbg:rgba(10,10,15,.92); --shadow:0 2px 16px rgba(0,0,0,.4);
+  --rowhov:rgba(255,255,255,.04); --rowtop:rgba(201,168,76,.06);
+  --seltext:#0a0a0f;
+  --th-exec:#e75c5c; --th-infl:#e7935c; --th-rel:#5c8ee7; --th-strat:#a85ce7;
+  --h1g:linear-gradient(135deg,#fff 30%,#e8c97a);
+  --herobg:linear-gradient(180deg,rgba(201,168,76,.05) 0%,transparent 100%);
+  color-scheme:dark;
+}
+/* ── DARK MODE (explicit, for toggle) ── */
+[data-theme="dark"] {
+  --bg:#0a0a0f; --card:#1a1a26; --card2:#1f1f30; --border:#656579;
+  --gold:#c9a84c; --gold2:#e8c97a; --golddim:rgba(201,168,76,.15);
+  --text:#e8e8f0; --strong:#ffffff; --muted:#8080a0; --accent:#7e6ffa;
+  --hbg:rgba(10,10,15,.92); --shadow:0 2px 16px rgba(0,0,0,.4);
+  --rowhov:rgba(255,255,255,.04); --rowtop:rgba(201,168,76,.06);
+  --seltext:#0a0a0f;
+  --th-exec:#e75c5c; --th-infl:#e7935c; --th-rel:#5c8ee7; --th-strat:#a85ce7;
+  --h1g:linear-gradient(135deg,#fff 30%,#e8c97a);
+  --herobg:linear-gradient(180deg,rgba(201,168,76,.05) 0%,transparent 100%);
+  color-scheme:dark;
+}
+
+/* ── LIGHT MODE ── */
+[data-theme="light"] {
+  --bg:#f5f4f0; --card:#ffffff; --card2:#fafaf8; --border:#918d85;
+  --gold:#8e6a18; --gold2:#a07820; --golddim:rgba(142,106,24,.1);
+  --text:#2c2a24; --strong:#111008; --muted:#776f61; --accent:#5548c8;
+  --hbg:rgba(245,244,240,.94); --shadow:0 2px 16px rgba(0,0,0,.08);
+  --rowhov:rgba(0,0,0,.03); --rowtop:rgba(142,106,24,.06);
+  --seltext:#ffffff;
+  --th-exec:#c83d3d; --th-infl:#ad5922; --th-rel:#3b6dc6; --th-strat:#964ad5;
+  --h1g:linear-gradient(135deg,#111008 30%,#8e6a18);
+  --herobg:linear-gradient(180deg,rgba(142,106,24,.05) 0%,transparent 100%);
+  color-scheme:light;
+}
+@media(prefers-color-scheme:light){
+  :root:not([data-theme]){
+    --bg:#f5f4f0; --card:#ffffff; --card2:#fafaf8; --border:#918d85;
+    --gold:#8e6a18; --gold2:#a07820; --golddim:rgba(142,106,24,.1);
+    --text:#2c2a24; --strong:#111008; --muted:#776f61; --accent:#5548c8;
+    --hbg:rgba(245,244,240,.94); --shadow:0 2px 16px rgba(0,0,0,.08);
+    --rowhov:rgba(0,0,0,.03); --rowtop:rgba(142,106,24,.06);
+    --seltext:#ffffff;
+    --th-exec:#c83d3d; --th-infl:#ad5922; --th-rel:#3b6dc6; --th-strat:#964ad5;
+    --h1g:linear-gradient(135deg,#111008 30%,#8e6a18);
+    --herobg:linear-gradient(180deg,rgba(142,106,24,.05) 0%,transparent 100%);
+    color-scheme:light;
+  }
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif;min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;top:-30%;left:-20%;width:60%;height:60%;background:radial-gradient(ellipse,rgba(126,111,250,.07) 0%,transparent 70%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:50%;height:50%;background:radial-gradient(ellipse,var(--golddim) 0%,transparent 70%);pointer-events:none;z-index:0}
+
+/* ── KEYBOARD HINT ── */
+.kbd-hint{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;
+  margin-top:14px;font-size:12px;color:var(--muted);opacity:0;
+  transition:opacity .5s ease;pointer-events:none;user-select:none;
+}
+.kbd-hint.show{opacity:1}
+.kbd-hint-label{margin-right:2px;font-weight:500;font-size:14px}
+kbd{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:22px;height:22px;padding:0 5px;
+  background:var(--card2);border:1px solid var(--border);border-bottom-width:2px;
+  border-radius:5px;font-family:'DM Sans',ui-sans-serif,sans-serif;
+  font-size:11px;font-weight:600;color:var(--text);line-height:1;
+  box-shadow:0 1px 0 var(--border);transition:background .1s,color .1s,transform .1s,box-shadow .1s;
+  vertical-align:middle;
+}
+kbd.flash{
+  background:var(--gold);border-color:var(--gold);color:var(--seltext);
+  transform:translateY(-2px);box-shadow:0 4px 10px var(--golddim);
+}
+.kbd-sep{color:var(--border);font-size:10px}
+
+/* ── SCALE BTN KEY-FLASH ── */
+@keyframes keyflash{
+  0%{transform:scale(1)}
+  35%{transform:scale(1.25);box-shadow:0 0 28px var(--golddim)}
+  100%{transform:scale(1.12)}
+}
+.scale-btn.key-flash{animation:keyflash .22s ease}
+
+@media(max-width:600px){.kbd-hint{display:none}}
+
+/* ── Focus ── */
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+.scale-btn:focus-visible,.btn-primary:focus-visible,.btn-next:focus-visible,.btn-nav:focus-visible,.btn-restart:focus-visible,#themeToggle:focus-visible{outline-offset:4px;border-radius:50px}
+.scale-btn:focus-visible{border-radius:50%}
+
+/* Screen */
+.screen{position:relative;z-index:1}
+
+/* Sr-only */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ── THEME TOGGLE ── */
+#themeToggle{position:fixed;top:16px;right:20px;z-index:999;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;box-shadow:var(--shadow)}
+#themeToggle:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.08)}
+
+/* ── INTRO ── */
+#intro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.logo-mark{width:64px;height:64px;background:linear-gradient(135deg,var(--gold),var(--accent));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 32px;box-shadow:0 0 40px var(--golddim)}
+.eyebrow{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+h1{font-family:'Playfair Display','Georgia',serif;font-size:clamp(36px,6vw,68px);font-weight:900;line-height:1.05;margin-bottom:24px;background:var(--h1g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.intro-desc{font-size:17px;line-height:1.7;color:var(--muted);max-width:560px;margin:0 auto 48px}
+.intro-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
+.stat-num{font-family:'Playfair Display','Georgia',serif;font-size:36px;font-weight:700;color:var(--gold);display:block}
+.stat-label{font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.btn-primary{background:linear-gradient(135deg,var(--gold),#a87c2e);color:#fff;border:none;padding:18px 48px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;border-radius:50px;cursor:pointer;transition:all .3s;box-shadow:0 8px 30px var(--golddim)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px var(--golddim)}
+.intro-note{margin-top:16px;font-size:13px;color:var(--muted)}
+.btn-slots{margin-top:14px;padding:10px 22px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.btn-slots:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── RESUME BANNER ── */
+#resumeBanner{display:none;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 28px;max-width:480px;margin:0 auto 32px;box-shadow:var(--shadow);animation:fadeUp .4s ease both}
+.resume-row{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.resume-info{flex:1}
+.resume-title{font-family:'Playfair Display','Georgia',serif;font-size:16px;font-weight:700;color:var(--strong);margin-bottom:4px}
+.resume-meta{font-size:13px;color:var(--muted)}
+.resume-prog{background:var(--border);height:4px;border-radius:4px;overflow:hidden;margin-top:10px}
+.resume-prog-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));border-radius:4px}
+.resume-btns{display:flex;gap:8px;flex-shrink:0}
+.btn-resume{padding:10px 20px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--gold),#a87c2e);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-dismiss{padding:10px 16px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.btn-dismiss:hover{border-color:var(--text);color:var(--text)}
+
+/* ── QUIZ ── */
+#quiz{min-height:100vh}
+.quiz-header{position:sticky;top:0;background:var(--hbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;z-index:100}
+.quiz-logo{font-family:'Playfair Display','Georgia',serif;font-size:15px;color:var(--gold);white-space:nowrap}
+.prog-wrap{flex:1;background:var(--border);height:4px;border-radius:4px;overflow:hidden}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));border-radius:4px;transition:width .4s ease;width:0}
+.prog-text{font-size:13px;color:var(--muted);white-space:nowrap}
+.save-ind{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px;white-space:nowrap;opacity:0;transition:opacity .4s}
+.save-ind.show{opacity:1}
+.save-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.btn-save{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.btn-save:hover{border-color:var(--gold);color:var(--gold)}
+
+.quiz-body{max-width:780px;margin:0 auto;padding:60px 24px 80px}
+.q-tag{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.q-text{font-family:'Playfair Display','Georgia',serif;font-size:clamp(20px,3vw,26px);line-height:1.35;margin-bottom:48px;color:var(--strong)}
+.scale-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;box-shadow:var(--shadow)}
+.scale-ends{display:flex;justify-content:space-between;margin-bottom:24px;gap:16px}
+.scale-lbl{font-size:16px;color:var(--muted);flex:1;line-height:1.55}
+.scale-lbl.r{text-align:right}
+.scale-btns{display:flex;justify-content:center;gap:24px;align-items:center}
+.scale-btn{border-radius:50%;border:2px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all .2s}
+.scale-btn:nth-child(1){width:48px;height:48px;font-size:14px}
+.scale-btn:nth-child(2){width:56px;height:56px;font-size:15px}
+.scale-btn:nth-child(3){width:64px;height:64px;font-size:17px}
+.scale-btn:nth-child(4){width:56px;height:56px;font-size:15px}
+.scale-btn:nth-child(5){width:48px;height:48px;font-size:14px}
+.scale-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--golddim);transform:scale(1.08)}
+.scale-btn.sel{background:var(--gold);border-color:var(--gold);color:var(--seltext);transform:scale(1.12);box-shadow:0 0 20px var(--golddim)}
+.scale-hint{text-align:center;margin-top:18px;font-size:16px;color:var(--muted);min-height:18px}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:40px}
+.btn-nav{padding:12px 28px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all .2s}
+.btn-nav:hover{border-color:var(--text);color:var(--text)}
+.btn-nav:disabled{opacity:.3;cursor:not-allowed}
+.btn-next{padding:14px 36px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--gold),#a87c2e);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;opacity:.35;pointer-events:none}
+.btn-next.on{opacity:1;pointer-events:all}
+.btn-next.on:hover{transform:translateY(-1px);box-shadow:0 6px 20px var(--golddim)}
+
+/* ── LOADING ── */
+#loading{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;padding:24px}
+.spinner{width:60px;height:60px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-t{font-family:'Playfair Display','Georgia',serif;font-size:22px;color:var(--strong)}
+.loading-s{font-size:14px;color:var(--muted)}
+
+/* ── RESULTS ── */
+#results{min-height:100vh;padding-bottom:80px}
+.results-hero{text-align:center;padding:80px 24px 60px;border-bottom:1px solid var(--border);background:var(--herobg)}
+.results-eyebrow{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.results-title{font-family:'Playfair Display','Georgia',serif;font-size:clamp(30px,5vw,54px);font-weight:900;margin-bottom:16px;background:var(--h1g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.results-sub{font-size:16px;color:var(--muted);max-width:500px;margin:0 auto}
+.results-body{max-width:900px;margin:0 auto;padding:60px 24px 0}
+.sec-title{font-family:'Playfair Display','Georgia',serif;font-size:24px;margin-bottom:32px;color:var(--strong)}
+.top5{display:grid;gap:16px;margin-bottom:64px}
+.theme-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 32px;display:grid;grid-template-columns:48px 1fr auto;gap:20px;align-items:start;transition:all .3s;animation:fadeUp .5s ease both;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.theme-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--tc,var(--gold))}
+.theme-card:hover{transform:translateX(4px);background:var(--card2)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.theme-rank{font-family:'Playfair Display','Georgia',serif;font-size:36px;font-weight:700;line-height:1}
+.theme-name{font-family:'Playfair Display','Georgia',serif;font-size:21px;font-weight:700;color:var(--strong);margin-bottom:6px}
+.theme-domain{font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.theme-desc{font-size:14px;line-height:1.65;color:var(--muted)}
+.theme-score{text-align:right}
+.theme-score-n{font-family:'Playfair Display','Georgia',serif;font-size:28px;font-weight:700}
+.theme-score-l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.domains{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:64px}
+.dom-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center;animation:fadeUp .5s ease both;box-shadow:var(--shadow);transition:background .2s}
+.dom-card:hover{background:var(--card2)}
+.dom-icon{font-size:28px;margin-bottom:12px;display:block}
+.dom-name{font-family:'Playfair Display','Georgia',serif;font-size:16px;font-weight:700;margin-bottom:8px;color:var(--strong)}
+.dom-score{font-size:28px;font-weight:700;font-family:'Playfair Display','Georgia',serif;margin-bottom:4px}
+.dom-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.insights-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;margin-bottom:40px;animation:fadeUp .5s ease both;box-shadow:var(--shadow)}
+.insights-head{font-family:'Playfair Display','Georgia',serif;font-size:20px;margin-bottom:16px;color:var(--gold)}
+.insights-body{font-size:15px;line-height:1.75;color:var(--muted);white-space:pre-wrap}
+.ai-dots{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 1.2s ease infinite}
+.ai-dot:nth-child(2){animation-delay:.2s}
+.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.all-table{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:64px;box-shadow:var(--shadow)}
+.t-row{display:grid;grid-template-columns:32px 1fr 110px 120px;gap:16px;align-items:center;padding:14px 24px;border-bottom:1px solid var(--border);transition:background .15s;animation:fadeUp .3s ease both}
+.t-row:last-child{border-bottom:none}
+.t-row:hover{background:var(--rowhov)}
+.t-row.top{background:var(--rowtop)}
+.t-rank{font-size:13px;color:var(--muted);font-weight:600}
+.t-name{font-size:14px;font-weight:500;color:var(--text)}
+.t-domain{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.t-bar-wrap{background:var(--border);height:6px;border-radius:6px;overflow:hidden}
+.t-bar{height:100%;border-radius:6px}
+.btn-restart{display:block;margin:0 auto;padding:14px 40px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all .2s}
+.btn-restart:hover{border-color:var(--gold);color:var(--gold);background:var(--golddim)}
+/* ── PRINT / PDF EXPORT ── */
+.btn-export{display:inline-flex;align-items:center;gap:8px;margin:0 auto 32px;padding:13px 28px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',ui-sans-serif,sans-serif;font-size:14px;cursor:pointer;transition:all .2s}
+.btn-export:hover{border-color:var(--gold);color:var(--gold);background:var(--golddim)}
+.btn-export svg{flex-shrink:0}
+.export-row{display:flex;justify-content:center;gap:12px;margin-bottom:48px;flex-wrap:wrap}
+
+/* Theme explanation panel */
+.theme-exp{background:var(--card2);border-radius:12px;padding:16px 20px;margin-top:12px;border-left:3px solid var(--tc,var(--gold))}
+.theme-exp-title{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.theme-exp-body{font-size:14px;line-height:1.65;color:var(--text)}
+.theme-exp-list{margin:8px 0 0 16px;font-size:13px;color:var(--muted);line-height:1.8}
+.theme-exp-list li{margin-bottom:2px}
+
+
+/* ── RESET CONFIRMATION ── */
+.reset-warning{
+  display:flex;align-items:flex-start;gap:10px;
+  background:rgba(231,92,92,.1);border:1px solid rgba(231,92,92,.3);
+  border-radius:10px;padding:14px 16px;margin-bottom:24px;
+  font-size:13px;color:var(--text);line-height:1.5;
+}
+.reset-warning-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.btn-reset-confirm{
+  padding:11px 24px;border-radius:50px;border:none;
+  background:#c0392b;color:#fff;
+  font-family:'DM Sans',ui-sans-serif,sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all .2s;
+}
+.btn-reset-confirm:hover{background:#a93226;transform:translateY(-1px);box-shadow:0 4px 12px rgba(192,57,43,.35)}
+.btn-reset-confirm:focus-visible{outline:3px solid #e74c3c;outline-offset:3px}
+
+/* Reset button in quiz header */
+.btn-reset-quiz{
+  width:34px;height:34px;border-radius:8px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-size:15px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;flex-shrink:0;
+}
+.btn-reset-quiz:hover{border-color:rgba(231,92,92,.6);color:#e75c5c;}
+.btn-reset-quiz:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+
+@media print{
+  #themeToggle,#btnSave,.save-ind,.quiz-header,.btn-export,.btn-restart,.export-row,
+  #intro,#quiz,#loading,#saveModal{display:none!important}
+  #results{display:block!important}
+  body{background:#fff!important;color:#111!important}
+  .results-hero{background:none!important;padding:24px 24px 16px!important}
+  .results-title,.sec-title,.theme-name{color:#111!important;-webkit-text-fill-color:#111!important}
+  .results-body{padding:16px 0 0!important}
+  .theme-card,.insights-box,.dom-card,.all-table{box-shadow:none!important;border-color:#ccc!important}
+  .theme-desc,.insights-body,.results-sub,.theme-exp-body{color:#444!important}
+  .muted,.dom-label,.t-domain,.theme-score-l{color:#666!important}
+  .t-row{break-inside:avoid}
+  .theme-card{break-inside:avoid;margin-bottom:8px}
+  .prog-bar,.t-bar{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  a[href]:after{content:none}
+  .screen{display:none!important}
+  #results.screen{display:block!important}
+}
+
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;max-width:480px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:fadeUp .3s ease both}
+.modal-title{font-family:'Playfair Display','Georgia',serif;font-size:22px;font-weight:700;color:var(--strong);margin-bottom:8px}
+.modal-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
+.save-input-row{margin-bottom:20px}
+.save-input-label{font-size:13px;color:var(--muted);margin-bottom:8px}
+.save-input-wrap{display:flex;gap:8px}
+.save-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s}
+.save-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--golddim)}
+.save-feedback{font-size:12px;color:var(--gold);margin-top:6px;min-height:16px}
+.slots-list{display:grid;gap:10px;margin-bottom:24px}
+.slot{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:border-color .2s}
+.slot:hover{border-color:var(--gold)}
+.slot-info{flex:1;min-width:0}
+.slot-name{font-size:14px;font-weight:600;color:var(--strong);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slot-detail{font-size:12px;color:var(--muted)}
+.slot-acts{display:flex;gap:6px;flex-shrink:0}
+.btn-slot-load{padding:7px 14px;border-radius:50px;border:none;background:var(--gold);color:var(--seltext);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s}
+.btn-slot-load:hover{opacity:.85}
+.btn-slot-del{padding:7px 10px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;transition:all .2s}
+.btn-slot-del:hover{border-color:#e75c5c;color:#e75c5c}
+.slot-empty{text-align:center;padding:20px;color:var(--muted);font-size:14px}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end}
+.btn-modal-close{padding:11px 24px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all .2s}
+.btn-modal-close:hover{border-color:var(--text);color:var(--text)}
+
+@media(max-width:600px){
+  .theme-card{grid-template-columns:40px 1fr}
+  .theme-score{grid-column:2}
+  .t-row{grid-template-columns:28px 1fr 80px}
+  .t-domain{display:none}
+  .scale-btn{width:40px!important;height:40px!important;font-size:13px!important}
+  .scale-btns{gap:12px}
+  #themeToggle{top:12px;right:12px}
+}
+
+/* ── THEME EXPLANATIONS ── */
+.theme-body{grid-column:2}
+.theme-exp{background:var(--card2);border-radius:10px;padding:14px 16px;margin-top:14px;border-left:3px solid var(--tc,var(--gold))}
+.theme-exp-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:600}
+.theme-exp-list{margin:0 0 0 16px;font-size:13px;color:var(--text);line-height:1.8}
+.theme-exp-list li{margin-bottom:2px}
+.theme-exp-avoid{font-size:13px;color:var(--muted);line-height:1.6;margin-top:4px}
+
+/* ── EXPORT / PRINT ── */
+.export-row{display:flex;justify-content:center;gap:12px;margin-bottom:48px;flex-wrap:wrap}
+.btn-export{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',ui-sans-serif,sans-serif;font-size:14px;cursor:pointer;transition:all .2s}
+.btn-export:hover{border-color:var(--gold);color:var(--gold);background:var(--golddim)}
+.btn-export svg{flex-shrink:0}
+
+@media print{
+  #themeToggle,#btnSave,.save-ind,.quiz-header,.btn-export,.btn-restart,.export-row,
+  #intro,#quiz,#loading,#saveModal{display:none!important}
+  #results{display:block!important}
+  body{background:#fff!important;color:#111!important}
+  :root,[data-theme="dark"],[data-theme="light"]{
+    --bg:#fff;--card:#fff;--card2:#f5f5f5;--border:#ccc;
+    --text:#111;--strong:#000;--muted:#555;
+  }
+  .results-hero{background:none!important;padding:24px 24px 16px!important;border-bottom:1px solid #ccc!important}
+  h2.results-title{-webkit-text-fill-color:#000!important;color:#000!important}
+  .sec-title{color:#000!important}
+  .theme-card,.insights-box,.dom-card,.all-table{box-shadow:none!important;border:1px solid #ccc!important}
+  .theme-name{color:#000!important}
+  .t-bar,.prog-bar{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .t-row,.theme-card{break-inside:avoid}
+  .screen{display:none!important}
+  #results.screen{display:block!important}
+}
+
+
+</style>
+</head>
+<body>
+
+
+<button id="themeToggle" type="button" aria-label="Switch to light mode">🌙</button>
+
+<main>
+
+<!-- INTRO -->
+<div id="intro" class="screen">
+  <div class="logo-mark" aria-hidden="true">◈</div>
+  <p class="eyebrow">Gallup CliftonStrengths</p>
+  <h1>Discover Your<br>Signature Strengths</h1>
+  <p class="intro-desc">177 questions · 34 strength themes · ~20 minutes. The most widely used talent assessment in the world.</p>
+  <div class="intro-stats" aria-label="Assessment overview">
+    <div><span class="stat-num">177</span><span class="stat-label">Questions</span></div>
+    <div><span class="stat-num">34</span><span class="stat-label">Themes</span></div>
+    <div><span class="stat-num">4</span><span class="stat-label">Domains</span></div>
+    <div><span class="stat-num">~20</span><span class="stat-label">Minutes</span></div>
+  </div>
+
+  <div id="resumeBanner" role="region" aria-label="Resume saved progress">
+    <div class="resume-row">
+      <div class="resume-info">
+        <div class="resume-title">Continue where you left off</div>
+        <div class="resume-meta" id="resumeMeta"></div>
+        <div class="resume-prog"><div class="resume-prog-bar" id="resumeProgBar" style="width:0%"></div></div>
+      </div>
+      <div class="resume-btns">
+        <button class="btn-resume" id="btnResume" type="button">Resume →</button>
+        <button class="btn-dismiss" id="btnDismiss" type="button" aria-label="Dismiss and start fresh">✕ Start fresh</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-primary" id="startBtn" type="button">Begin Assessment →</button>
+  <p class="intro-note">Answer instinctively — your first reaction is most accurate.</p>
+  <button class="btn-slots" id="btnOpenSlots" type="button">📋 Saved Sessions</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="screen" style="display:none">
+  <header class="quiz-header">
+    <span class="quiz-logo" aria-hidden="true">◈ SF</span>
+    <div class="prog-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="177" aria-valuenow="0" aria-label="Progress" id="progWrap">
+      <div class="prog-bar" id="progBar"></div>
+    </div>
+    <span class="prog-text" id="progText" aria-live="polite">0 / 177</span>
+    <span class="save-ind" id="saveInd" aria-live="polite"><span class="save-dot" aria-hidden="true"></span>Saved</span>
+    <button class="btn-save" id="btnSave" type="button" aria-label="Save and name this session">💾</button>
+    <button class="btn-reset-quiz" id="btnResetQuiz" type="button" aria-label="Reset assessment">↺</button>
+  </header>
+  <div class="quiz-body">
+    <p class="q-tag" id="qTag" aria-live="polite"></p>
+    <p class="q-text" id="qText" role="heading" aria-level="2"></p>
+    <div class="scale-card">
+      <div class="scale-ends">
+        <span class="scale-lbl" id="lblA"></span>
+        <span class="scale-lbl r" id="lblB"></span>
+      </div>
+      <div class="scale-btns" role="group" aria-label="Your answer">
+        <button class="scale-btn" data-val="1" type="button" aria-label="1 — Strongly A" aria-pressed="false">1</button>
+        <button class="scale-btn" data-val="2" type="button" aria-label="2 — Leaning A"  aria-pressed="false">2</button>
+        <button class="scale-btn" data-val="3" type="button" aria-label="3 — Neutral"    aria-pressed="false">3</button>
+        <button class="scale-btn" data-val="4" type="button" aria-label="4 — Leaning B"  aria-pressed="false">4</button>
+        <button class="scale-btn" data-val="5" type="button" aria-label="5 — Strongly B" aria-pressed="false">5</button>
+      </div>
+      <p class="scale-hint" id="scaleHint" aria-live="polite">← Strongly A · Neutral · Strongly B →</p>
+      <div class="kbd-hint" id="kbdHint" aria-hidden="true">
+        <span class="kbd-hint-label">Keyboard:</span>
+        <kbd>1</kbd>–<kbd>5</kbd> to select
+        <span class="kbd-sep">·</span>
+        <kbd>Enter</kbd> to continue
+        <span class="kbd-sep">·</span>
+        <kbd>←</kbd> to go back
+      </div>
+    </div>
+    <div class="quiz-nav">
+      <button class="btn-nav" id="btnBack" type="button" aria-label="Previous question">← Back</button>
+      <button class="btn-next" id="btnNext" type="button" aria-label="Next question" aria-disabled="true">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loading" class="screen" style="display:none" role="status" aria-live="polite">
+  <div class="spinner" aria-hidden="true"></div>
+  <p class="loading-t">Analyzing your responses…</p>
+  <p class="loading-s">Mapping your talent profile across 34 themes</p>
+</div>
+
+<!-- RESULTS -->
+<div id="results" class="screen" style="display:none">
+  <div class="results-hero">
+    <p class="results-eyebrow">Your Talent Profile</p>
+    <h2 class="results-title">Your Signature Strengths</h2>
+    <p class="results-sub">Based on your responses, here are your talent themes ranked.</p>
+  </div>
+  <div class="results-body">
+    <h3 class="sec-title">Your Top 5 Signature Themes</h3>
+    <div class="top5" id="top5"></div>
+    <h3 class="sec-title">Strength Domain Overview</h3>
+    <div class="domains" id="domainsGrid"></div>
+    <h3 class="sec-title" style="margin-bottom:20px">Personalized Insights</h3>
+    <div class="insights-box">
+      <h4 class="insights-head">Your Unique Strength Signature</h4>
+      <div class="insights-body" id="insightsBody" aria-live="polite">
+        <div class="ai-dots">
+          <div class="ai-dot" aria-hidden="true"></div>
+          <div class="ai-dot" aria-hidden="true"></div>
+          <div class="ai-dot" aria-hidden="true"></div>
+          <span>Generating insights…</span>
+        </div>
+      </div>
+    </div>
+    <h3 class="sec-title">All 34 Themes Ranked</h3>
+    <div class="all-table" id="allTable" role="list" aria-label="All 34 themes ranked"></div>
+    <div class="export-row">
+      <button class="btn-export" id="btnExport" type="button" aria-label="Export results as PDF">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        Export PDF
+      </button>
+      <button class="btn-restart" id="btnRestart" type="button">Retake Assessment</button>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- SAVE MODAL -->
+<div class="modal-overlay" id="saveModal" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+  <div class="modal-box">
+    <h2 class="modal-title" id="modalHeading">Saved Sessions</h2>
+    <p class="modal-sub">Save your progress or resume a previous session.</p>
+    <div class="save-input-row" id="saveInputRow" style="display:none">
+      <p class="save-input-label">Save current progress as:</p>
+      <div class="save-input-wrap">
+        <input class="save-input" id="saveNameInput" type="text" maxlength="40" autocomplete="off"
+          placeholder='e.g. "First attempt"' aria-label="Session name" />
+        <button class="btn-resume" id="btnConfirmSave" type="button">Save</button>
+      </div>
+      <p class="save-feedback" id="saveFeedback"></p>
+    </div>
+    <div class="slots-list" id="slotsList"></div>
+    <div class="modal-footer">
+      <button class="btn-modal-close" id="btnModalClose" type="button">Close</button>
+    </div>
+  </div>
+
+<!-- RESET CONFIRMATION MODAL -->
+<div class="modal-overlay" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="resetModalHeading">
+  <div class="modal-box">
+    <h2 class="modal-title" id="resetModalHeading">Reset Assessment?</h2>
+    <p class="modal-sub" id="resetModalMsg">Your progress will be permanently cleared and you will start a fresh assessment with a new set of questions.</p>
+    <div class="reset-warning">
+      <span class="reset-warning-icon" aria-hidden="true">⚠️</span>
+      <span>This cannot be undone. All saved progress for the current session will be lost.</span>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-modal-close" id="btnResetCancel" type="button">Keep going</button>
+      <button class="btn-reset-confirm" id="btnResetConfirm" type="button">Yes, reset everything</button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<script>
+const THEMES = [
+  {id:'achiever',        name:'Achiever',         d:'Executing',    desc:"You have a great deal of stamina and work hard. You take great satisfaction from being busy and productive."},
+  {id:'activator',       name:'Activator',         d:'Influencing',  desc:"You can make things happen by turning thoughts into action. You are impatient with inaction."},
+  {id:'adaptability',    name:'Adaptability',      d:'Relationship', desc:"You prefer to go with the flow. You tend to be a 'now' person who takes things as they come."},
+  {id:'analytical',      name:'Analytical',        d:'Strategic',    desc:"You search for reasons and causes. You have the ability to think about all the factors that might affect a situation."},
+  {id:'arranger',        name:'Arranger',           d:'Executing',    desc:"You can organize, but you also have flexibility. You like to figure out the best configuration."},
+  {id:'belief',          name:'Belief',             d:'Executing',    desc:"You have certain core values that are unchanging. Out of these values emerges a defined purpose for your life."},
+  {id:'command',         name:'Command',            d:'Influencing',  desc:"You have presence. You can take control of a situation and make decisions. Others are comfortable letting you lead."},
+  {id:'communication',   name:'Communication',      d:'Influencing',  desc:"You generally find it easy to put your thoughts into words. You are a good conversationalist and presenter."},
+  {id:'competition',     name:'Competition',        d:'Influencing',  desc:"You measure your progress against the performance of others. You strive to win."},
+  {id:'connectedness',   name:'Connectedness',      d:'Relationship', desc:"You have faith in the links between all things. You believe there are few coincidences."},
+  {id:'consistency',     name:'Consistency',        d:'Executing',    desc:"You are keenly aware of the need to treat people the same. You crave stable routines and clear rules."},
+  {id:'context',         name:'Context',            d:'Strategic',    desc:"You enjoy thinking about the past. You understand the present by researching its history."},
+  {id:'deliberative',    name:'Deliberative',       d:'Executing',    desc:"You are best described by the serious care you take in making decisions. You anticipate obstacles."},
+  {id:'developer',       name:'Developer',          d:'Relationship', desc:"You recognize and cultivate the potential in others. You spot the signs of each small improvement."},
+  {id:'discipline',      name:'Discipline',         d:'Executing',    desc:"Your world needs to be ordered and planned. You automatically impose structure on your life and work."},
+  {id:'empathy',         name:'Empathy',            d:'Relationship', desc:"You can sense the feelings of other people by imagining yourself in others' lives or situations."},
+  {id:'focus',           name:'Focus',              d:'Executing',    desc:"You can take a direction, follow through, and make the corrections necessary to stay on track."},
+  {id:'futuristic',      name:'Futuristic',         d:'Strategic',    desc:"You are inspired by the future and what could be. You inspire others with your visions of what lies ahead."},
+  {id:'harmony',         name:'Harmony',            d:'Relationship', desc:"You look for consensus. You don't enjoy conflict; rather, you seek areas of agreement."},
+  {id:'ideation',        name:'Ideation',           d:'Strategic',    desc:"You are fascinated by ideas. You are able to find connections between seemingly disparate phenomena."},
+  {id:'includer',        name:'Includer',           d:'Relationship', desc:"You are accepting of others. You show awareness of those who feel left out and make an effort to include them."},
+  {id:'individualization',name:'Individualization', d:'Relationship', desc:"You are intrigued with the unique qualities of each person. You figure out how different people can work together."},
+  {id:'input',           name:'Input',              d:'Strategic',    desc:"You have a craving to know more. Often you like to collect and archive all kinds of information."},
+  {id:'intellection',    name:'Intellection',       d:'Strategic',    desc:"You are characterized by your intellectual activity. You are introspective and appreciate intellectual discussions."},
+  {id:'learner',         name:'Learner',            d:'Strategic',    desc:"You have a great desire to learn and want to continuously improve. The process of learning excites you."},
+  {id:'maximizer',       name:'Maximizer',          d:'Influencing',  desc:"You focus on strengths as a way to stimulate excellence. You seek to transform something strong into something superb."},
+  {id:'positivity',      name:'Positivity',         d:'Relationship', desc:"You have an enthusiasm that is contagious. You are upbeat and can get others excited about what they are going to do."},
+  {id:'relator',         name:'Relator',            d:'Relationship', desc:"You enjoy close relationships with others. You find deep satisfaction in working hard with friends to achieve a goal."},
+  {id:'responsibility',  name:'Responsibility',     d:'Executing',    desc:"You take psychological ownership of what you say you will do. You are committed to stable values such as honesty and loyalty."},
+  {id:'restorative',     name:'Restorative',        d:'Executing',    desc:"You are adept at dealing with problems. You are good at figuring out what is wrong and resolving it."},
+  {id:'selfassurance',   name:'Self-Assurance',     d:'Influencing',  desc:"You feel confident in your ability to manage your own life. You possess an inner compass that gives you confidence."},
+  {id:'significance',    name:'Significance',       d:'Influencing',  desc:"You want to be very significant in the eyes of others. You want to be known and recognized for your contributions."},
+  {id:'strategic',       name:'Strategic',          d:'Strategic',    desc:"You create alternative ways to proceed. Faced with any given scenario, you can quickly spot the relevant patterns."},
+  {id:'woo',             name:'Woo',                d:'Influencing',  desc:"Woo stands for winning others over. You enjoy the challenge of meeting new people and getting them to like you."},
+];
+
+const DOMAINS = {
+  Executing:   {icon:'⚙️', desc:'Making things happen'},
+  Influencing: {icon:'🔥', desc:'Taking charge & speaking up'},
+  Relationship:{icon:'🤝', desc:'Building strong connections'},
+  Strategic:   {icon:'💡', desc:'Absorbing & analyzing information'},
+};
+
+function domainColor(d){
+  return 'var(--th-'+(d==='Executing'?'exec':d==='Influencing'?'infl':d==='Relationship'?'rel':'strat')+')';
+}
+
+const THEME_EXP = {
+  achiever:         {at:'Your best:',items:['Productive, high-output environments','Roles with clear deliverables and daily goals','Teams that value hard work and follow-through'],avoid:'Drifting without goals or letting perfectionism block progress'},
+  activator:        {at:'Your best:',items:['Fast-moving environments that reward action','Roles where starting initiatives matters','Teams stuck in analysis paralysis'],avoid:'Impatience when others need time to plan — slow down to bring them along'},
+  adaptability:     {at:'Your best:',items:['Dynamic roles with changing priorities','Crisis management and real-time problem solving','Environments where flexibility is an asset'],avoid:'Drifting without direction — pair with someone strong in Focus or Strategic'},
+  analytical:       {at:'Your best:',items:['Data-rich environments where evidence drives decisions','Strategy, research, and finance roles','Teams that need rigorous thinking before acting'],avoid:'Analysis paralysis — set time limits on research before deciding'},
+  arranger:         {at:'Your best:',items:['Complex projects with many moving parts','Operations, logistics, and coordination roles','Environments that reward creative resource use'],avoid:'Rearranging things without communicating changes to those affected'},
+  belief:           {at:'Your best:',items:['Purpose-driven organizations aligned with your values','Roles where your work creates meaningful impact','Teams that need a moral compass'],avoid:'Becoming rigid when others operate from different value systems'},
+  command:          {at:'Your best:',items:['Leadership roles requiring decisive action','High-stakes situations needing someone to take charge','Environments where directness is valued'],avoid:'Coming across as controlling — use Command to clarify, not dominate'},
+  communication:    {at:'Your best:',items:['Presenting, teaching, and storytelling roles','Sales, marketing, and public-facing work','Environments that reward clear expression of ideas'],avoid:'Talking without listening — ensure two-way communication'},
+  competition:      {at:'Your best:',items:['Performance-driven environments with clear metrics','Roles where ranking and results are tracked','Teams that respond well to healthy rivalry'],avoid:'Seeing colleagues as competitors — redirect toward external benchmarks'},
+  connectedness:    {at:'Your best:',items:['Roles that bridge teams, disciplines, or communities','Environments that value meaning over metrics','Work that creates visible impact on people or society'],avoid:'Struggling to prioritize when everything feels equally meaningful'},
+  consistency:      {at:'Your best:',items:['Roles requiring fair, repeatable processes','Compliance, HR, and operations environments','Teams that need reliable, equal treatment of everyone'],avoid:'Applying rules when flexibility would serve people better'},
+  context:          {at:'Your best:',items:['Research, history, and policy roles','Strategy work that requires understanding precedent','Teams that keep repeating past mistakes'],avoid:'Getting stuck in the past when forward motion is what is needed'},
+  deliberative:     {at:'Your best:',items:['Risk management and quality assurance roles','High-stakes decisions requiring careful analysis','Environments where caution prevents costly mistakes'],avoid:'Slowing teams down — communicate your risk-thinking early and concisely'},
+  developer:        {at:'Your best:',items:['Coaching, mentoring, and teaching roles','Management positions where growing people matters','Environments where developing talent is part of the mission'],avoid:'Investing in people who do not want to grow — focus energy on those ready'},
+  discipline:       {at:'Your best:',items:['Roles requiring precision, deadlines, and order','Project management and structured environments','Work where systematic follow-through matters'],avoid:'Becoming rigid when the situation genuinely requires flexibility'},
+  empathy:          {at:'Your best:',items:['Counseling, HR, healthcare, and social roles','Team environments requiring emotional intelligence','Situations needing sensitive communication'],avoid:'Absorbing others emotions as your own — maintain healthy boundaries'},
+  focus:            {at:'Your best:',items:['Roles requiring deep concentration and goal pursuit','Individual contributor work with clear priorities','Environments where distraction is the enemy of results'],avoid:'Narrowing so tightly that you miss important context or people needs'},
+  futuristic:       {at:'Your best:',items:['Strategy, vision, and innovation roles','Organizations navigating change or uncertainty','Environments that need someone to inspire possibility'],avoid:'Living so far in the future that you lose connection with today\'s reality'},
+  harmony:          {at:'Your best:',items:['Collaborative environments with diverse perspectives','Mediation, facilitation, and consensus-building roles','Teams that value smooth working relationships'],avoid:'Avoiding necessary conflict — some tension moves things forward'},
+  ideation:         {at:'Your best:',items:['Creative, innovation, and strategy roles','Environments that value novel thinking','Teams stuck in conventional approaches'],avoid:'Generating more ideas than you can ever execute — select and commit'},
+  includer:         {at:'Your best:',items:['Community building and team culture roles','Environments where diversity and belonging matter','Leadership roles that need to bring people together'],avoid:'Including people out of habit when the situation needs selectivity'},
+  individualization:{at:'Your best:',items:['Coaching, talent development, and HR roles','Management roles requiring tailored approaches','Customer-facing work needing personalized attention'],avoid:'Spending too long customizing when a standard approach is sufficient'},
+  input:            {at:'Your best:',items:['Research, journalism, and knowledge-intensive roles','Roles requiring up-to-date expertise','Environments that value broad knowledge and curiosity'],avoid:'Collecting information without converting it into action or insight'},
+  intellection:     {at:'Your best:',items:['Research, writing, philosophy, and strategy roles','Independent contributor roles with thinking time','Environments that value deep and original ideas'],avoid:'Overthinking to the point of inaction — set processing deadlines'},
+  learner:          {at:'Your best:',items:['Fast-changing industries requiring constant upskilling','Roles with varied projects and growth opportunities','Environments that invest in development'],avoid:'Chasing the next learning without fully deploying what you already know'},
+  maximizer:        {at:'Your best:',items:['Excellence-driven environments and high-performance teams','Coaching and talent amplification roles','Organizations committed to best-in-class work'],avoid:'Neglecting weaknesses that genuinely threaten performance when left unaddressed'},
+  positivity:       {at:'Your best:',items:['Client-facing and team morale roles','Environments navigating difficulty or change','Roles that benefit from sustained enthusiasm'],avoid:'Dismissing real problems with optimism — let people name what is hard'},
+  relator:          {at:'Your best:',items:['Deep partnership and collaboration roles','Environments where trust is the primary currency','Long-term client or colleague relationships'],avoid:'Limiting yourself to a small circle — stretch to include new relationships'},
+  responsibility:   {at:'Your best:',items:['Roles requiring high trust and personal accountability','Independent contributor and ownership roles','Environments where follow-through is critical'],avoid:'Taking on too much because you cannot say no — protect your capacity'},
+  restorative:      {at:'Your best:',items:['Problem-solving, troubleshooting, and turnaround roles','Technical, operational, and diagnostic work','Environments dealing with dysfunction or failure'],avoid:'Creating problems to solve when none exist — channel energy into genuine needs'},
+  selfassurance:    {at:'Your best:',items:['Leadership and entrepreneurial roles','Environments requiring confident independent judgment','High-ambiguity situations needing decisive action'],avoid:'Overconfidence that closes you off to feedback — stay genuinely curious'},
+  significance:     {at:'Your best:',items:['Visible leadership and public-facing roles','Environments that recognize and celebrate contributions','Work tied to meaningful and lasting impact'],avoid:'Seeking recognition to the point that it drives decisions more than outcomes'},
+  strategic:        {at:'Your best:',items:['Strategy, planning, and organizational design roles','Environments facing complex problems or major change','Leadership roles requiring clear direction-setting'],avoid:'Presenting only the end strategy — take others through your thinking process'},
+  woo:              {at:'Your best:',items:['Networking, business development, and sales roles','Environments requiring rapid relationship building','Community and public-facing leadership roles'],avoid:'Spreading yourself thin across too many connections — invest in depth too'},
+};
+
+const POOL = {
+  achiever: [
+    {a:"I feel like every day starts from zero and I need to accomplish something before I sleep",b:"I feel content ending the day whether or not I crossed everything off my list",c:null},
+    {a:"Working hard and staying productive gives me deep satisfaction",b:"I prefer to pace myself and focus on quality over quantity",c:null},
+    {a:"I push myself to get as much done as possible every single day",b:"I prioritise rest and recovery just as much as output",c:null},
+    {a:"The feeling of a full, accomplished day energises me",b:"I find meaning in the pace and journey, not just the output",c:null},
+    {a:"I keep a mental scorecard of what I have achieved each day",b:"I rarely track daily output — I focus on the longer arc",c:null},
+    {a:"I feel restless if I end the day without having produced something tangible",b:"A quiet, unproductive day can feel like a welcome break",c:null},
+    {a:"I take on more tasks than others think is wise because I need to feel productive",b:"I prefer to do fewer things but do them extraordinarily well",c:"maximizer"},
+    {a:"Checking things off a list gives me genuine energy and momentum",b:"I care more about the meaning behind the work than the volume",c:"belief"},
+    {a:"I have a drive to be busy and useful that never fully switches off",b:"I know when to rest and have no trouble switching off from work",c:null},
+    {a:"I measure a good day by what I got done",b:"I measure a good day by the quality of my connections and interactions",c:"relator"},
+  ],
+  arranger: [
+    {a:"I enjoy figuring out the most efficient way to combine people and resources",b:"I prefer a stable setup and get uncomfortable when things keep being rearranged",c:null},
+    {a:"I like having many variables in play because I can find creative configurations",b:"I prefer fewer variables so things stay manageable and predictable",c:null},
+    {a:"When I see a better way to organise something, I feel compelled to act on it",b:"I prefer not to reorganise things unless there is a clear urgent problem",c:null},
+    {a:"I am a natural conductor — I can orchestrate multiple moving parts simultaneously",b:"I prefer to focus on one thing at a time and do it thoroughly",c:"focus"},
+    {a:"I get satisfaction from reconfiguring a system to work more smoothly",b:"I get satisfaction from following a proven system consistently",c:"consistency"},
+    {a:"I thrive when I can adjust who does what depending on changing circumstances",b:"I prefer clear role definitions that do not shift often",c:null},
+    {a:"I often see opportunities to streamline operations that others miss",b:"I often see the human dynamics in a situation that others miss",c:"empathy"},
+    {a:"I can manage complexity by seeing how the pieces fit together",b:"I manage complexity by simplifying ruthlessly until a clear direction emerges",c:"focus"},
+    {a:"Coordinating multiple projects and people simultaneously is energising to me",b:"Coordinating multiple projects and people simultaneously is draining for me",c:null},
+    {a:"I mentally reconfigure plans on the fly when circumstances change",b:"I document and follow plans carefully to ensure nothing is missed",c:"discipline"},
+  ],
+  belief: [
+    {a:"My core values shape almost every significant decision I make",b:"I adjust my values and principles depending on what the situation requires",c:null},
+    {a:"I need to feel that my work connects to a purpose bigger than myself",b:"I can find satisfaction in my work regardless of whether it feels purposeful",c:null},
+    {a:"There are certain things I will not compromise on, no matter what",b:"I approach most situations pragmatically and can be flexible about principles",c:null},
+    {a:"My faith in what is right gives me stability when things are uncertain",b:"I find stability through analysis and facts rather than values or beliefs",c:"analytical"},
+    {a:"I am drawn to organisations and causes that align with my personal values",b:"I am drawn to organisations that offer the best opportunities for growth",c:"learner"},
+    {a:"I feel unfulfilled in work that does not connect to what I deeply care about",b:"I can find meaning in the craft of any work, regardless of the underlying cause",c:null},
+    {a:"My values are my anchor — they keep me grounded when everything else is shifting",b:"Adaptability is my anchor — I stay grounded by staying flexible",c:"adaptability"},
+    {a:"I make sacrifices for what I believe in even when it is costly",b:"I weigh costs and benefits before committing to a position or cause",c:"analytical"},
+    {a:"The direction of my life is shaped more by purpose than by opportunity",b:"The direction of my life is shaped more by opportunity and possibility",c:"futuristic"},
+    {a:"I am motivated by altruistic goals — doing good for others and for the world",b:"I am motivated by personal achievement — reaching goals that matter to me",c:"achiever"},
+  ],
+  consistency: [
+    {a:"I believe the same rules should apply to everyone, no matter their status",b:"I believe rules should be applied with flexibility based on circumstances",c:null},
+    {a:"It bothers me when some people get special treatment others do not",b:"I accept that different people need different treatment to achieve fair outcomes",c:null},
+    {a:"I prefer clear, stable processes that everyone understands and follows",b:"I prefer flexible processes that adapt to the needs of the moment",c:"adaptability"},
+    {a:"Predictability and routine help me feel productive and secure",b:"Novelty and variety make me feel productive and alive",c:"activator"},
+    {a:"I believe consistency is a form of respect — everyone deserves the same standard",b:"I believe personalisation is a form of respect — everyone deserves a tailored approach",c:"individualization"},
+    {a:"I work best when expectations are clearly defined and applied uniformly",b:"I work best when I have freedom to define my own expectations and standards",c:null},
+    {a:"I feel uncomfortable when processes keep changing for no clear reason",b:"I feel energised when processes are regularly reviewed and improved",c:"ideation"},
+    {a:"Fairness through sameness matters deeply to me",b:"Fairness through equity — giving each person what they need — matters more to me",c:null},
+    {a:"I find comfort in routines that have been proven to work",b:"I am always looking for a better way, even when the current way works",c:"ideation"},
+    {a:"Reliable, repeatable results matter more to me than occasional flashes of brilliance",b:"Occasional breakthroughs matter more to me than steady, reliable performance",c:"maximizer"},
+  ],
+  deliberative: [
+    {a:"I identify potential problems before they happen, which others sometimes call overthinking",b:"I tend to deal with problems as they arise rather than anticipate them far in advance",c:null},
+    {a:"I take risks seriously and think carefully before exposing myself or others to them",b:"I accept that some risk is necessary and do not dwell on it before acting",c:"activator"},
+    {a:"I prefer to under-promise and over-deliver",b:"I prefer to set ambitious targets even if I occasionally fall short",c:"significance"},
+    {a:"I think twice before speaking, especially on consequential matters",b:"I tend to think out loud — speaking helps me figure out what I think",c:"communication"},
+    {a:"I am careful about who I trust and build trust slowly over time",b:"I am open and trusting by default and revise that view if given a reason",c:null},
+    {a:"I am known for being thorough and careful, not impulsive",b:"I am known for being decisive and fast, not overly cautious",c:"activator"},
+    {a:"I weigh the downside of decisions at least as carefully as the upside",b:"I tend to focus on the upside and not dwell too long on potential downsides",c:"positivity"},
+    {a:"I prefer to say less until I am sure, rather than speak before I am ready",b:"I prefer to be expressive and share my thinking as it develops",c:"communication"},
+    {a:"I see caution as a form of care — for myself, my work, and others involved",b:"I see speed as a form of respect — people appreciate decisiveness",c:"command"},
+    {a:"I feel better about decisions when I have had time to sleep on them",b:"I trust my in-the-moment judgment and rarely second-guess fast decisions",c:null},
+  ],
+  discipline: [
+    {a:"I like having a structured routine that I follow consistently",b:"I prefer to approach each day fresh without a fixed routine",c:null},
+    {a:"I work best when I can plan my time and stick to that plan",b:"I work best when I have the freedom to respond to what each moment requires",c:"adaptability"},
+    {a:"I feel most productive when there is order in my environment and schedule",b:"I can be productive in almost any environment — order does not matter much to me",c:null},
+    {a:"I find it satisfying to execute a well-organised plan precisely",b:"I find it more satisfying to improvise and respond creatively to changing conditions",c:null},
+    {a:"I naturally impose structure on my work even when it is not required",b:"I naturally push back on structure that feels unnecessary or constraining",c:null},
+    {a:"Deadlines and timelines feel like useful guides, not just external pressures",b:"Deadlines and timelines feel like constraints that limit my best work",c:null},
+    {a:"I keep detailed records and track progress against clear milestones",b:"I prefer to work without detailed tracking and trust my judgment about progress",c:null},
+    {a:"I am bothered when things are disorganised or people are not following the plan",b:"I accept disorder as a natural part of complex work and adapt easily",c:"adaptability"},
+    {a:"I believe precision and systematic follow-through are underrated virtues",b:"I believe flexibility and improvisation are underrated virtues",c:"adaptability"},
+    {a:"My consistent habits and routines are a core part of how I get good results",b:"I deliberately vary my approaches to stay sharp and avoid becoming too formulaic",c:null},
+  ],
+  focus: [
+    {a:"Once I have a goal, I filter out almost everything that does not serve it",b:"I like to keep my options open and explore multiple directions simultaneously",c:"ideation"},
+    {a:"I find it easy to stay on task even in distracting environments",b:"I get pulled in multiple directions easily and need external help to stay on track",c:null},
+    {a:"I regularly ask whether an activity is truly moving me toward my most important goal",b:"I tend to follow my curiosity and see where it leads without strict prioritisation",c:"learner"},
+    {a:"I am known for the depth and persistence I bring to important goals",b:"I am known for the breadth of my interests and the variety of things I explore",c:"input"},
+    {a:"I get frustrated when meetings or conversations drift away from the key point",b:"I enjoy exploratory conversations even when they meander away from the agenda",c:"communication"},
+    {a:"Having a clear priority gives me energy — without it I feel scattered",b:"I prefer a wide range of tasks — a single priority would feel limiting",c:null},
+    {a:"I do not take on new commitments easily because I protect my focus carefully",b:"I enjoy taking on new commitments because I thrive on variety and stimulus",c:"activator"},
+    {a:"I evaluate every opportunity through the lens of my primary goal",b:"I evaluate every opportunity on its own merits without a fixed lens",c:null},
+    {a:"I am more effective when I go deep on a few things than when I spread myself wide",b:"I am more effective when I juggle many things rather than tunnel into one",c:"arranger"},
+    {a:"My ability to stay on target is one of my most valuable professional qualities",b:"My ability to work across many fronts simultaneously is one of my greatest strengths",c:"arranger"},
+  ],
+  responsibility: [
+    {a:"When I commit to something, I will find a way to deliver it, no matter what",b:"I commit to things I believe I can deliver and renegotiate if circumstances change",c:null},
+    {a:"I feel a physical discomfort when I have not followed through on a commitment",b:"I can let go of missed commitments relatively easily and focus on what is next",c:null},
+    {a:"I have a deep sense of ownership over anything I put my name on",b:"I prefer clear boundaries around my accountability so I know exactly what I own",c:null},
+    {a:"I would rather do something myself than hand it off and risk it not being done right",b:"I trust others to handle their part and reserve my energy for what is truly mine to own",c:null},
+    {a:"My word is everything to me — I keep it even when it costs me",b:"I keep my word when I can, but I am realistic about changing circumstances",c:null},
+    {a:"I take mistakes personally and feel compelled to make them right",b:"I treat mistakes as information and move on without carrying them",c:null},
+    {a:"I find it hard to delegate fully — I always feel some responsibility for the outcome",b:"I delegate clearly and feel free once I have handed something off properly",c:"arranger"},
+    {a:"Ethics and integrity are not negotiable — they define how I operate",b:"Ethics matter deeply to me, but I accept that real situations involve complex trade-offs",c:null},
+    {a:"I would feel deeply uncomfortable letting someone take the blame for something I was part of",b:"I keep role accountability separate — each person is responsible for their own actions",c:null},
+    {a:"I am the person people trust to come through, especially when it really matters",b:"I am the person people trust to think clearly and find the best path, especially under pressure",c:"strategic"},
+  ],
+  restorative: [
+    {a:"I am energised by the challenge of diagnosing what is wrong and fixing it",b:"I prefer to focus on building new things rather than fixing old ones",c:"futuristic"},
+    {a:"I am at my best when something is broken and needs to be made right",b:"I am at my best when something is working and needs to be scaled up",c:"maximizer"},
+    {a:"I notice problems that others overlook and feel an itch to address them",b:"I notice opportunities that others overlook and feel an itch to seize them",c:"ideation"},
+    {a:"The greater the problem, the more engaged I become",b:"The greater the opportunity, the more engaged I become",c:"futuristic"},
+    {a:"I find debugging, troubleshooting, and diagnosis genuinely satisfying",b:"I find designing, building, and innovating genuinely satisfying",c:"ideation"},
+    {a:"I am comfortable sitting with a difficult, messy problem until I find the root cause",b:"I prefer to move quickly, try potential solutions, and see what works",c:"activator"},
+    {a:"I feel a particular satisfaction in making something that was broken work again",b:"I feel a particular satisfaction in making something that was good even better",c:"maximizer"},
+    {a:"Turnaround situations attract me — I like stepping into organisations with real problems",b:"Growth situations attract me — I like stepping into organisations with real momentum",c:"futuristic"},
+    {a:"I am rarely satisfied until I understand exactly why something went wrong",b:"I prefer to understand well enough to fix it and move on quickly",c:"activator"},
+    {a:"I believe most problems are solvable if you think carefully enough about them",b:"I believe some problems are unsolvable and the real skill is knowing which to walk away from",c:null},
+  ],
+  activator: [
+    {a:"When a decision is made, I want to act on it immediately",b:"I prefer to wait until all preparation is complete before acting",c:null},
+    {a:"I believe you learn more by doing than by planning",b:"I believe you save time in the long run by planning thoroughly upfront",c:null},
+    {a:"I become impatient when meetings keep discussing without deciding",b:"I find thorough discussion before a decision to be time well spent",c:null},
+    {a:"I would rather make a move and correct course than wait for perfect conditions",b:"I would rather wait for perfect conditions than risk a false start",c:null},
+    {a:"I am often the one who says 'let us just start and figure it out as we go'",b:"I am usually the one asking for one more round of analysis before we begin",c:null},
+    {a:"Once I am excited about an idea, I want to begin immediately",b:"Once I am excited about an idea, I want to think it through carefully before starting",c:"deliberative"},
+    {a:"Momentum matters more to me than a perfect plan",b:"A well-thought-out plan matters more to me than early momentum",c:"analytical"},
+    {a:"I think the best ideas reveal themselves through action, not contemplation",b:"I think the best ideas reveal themselves through careful reflection and analysis",c:"intellection"},
+    {a:"I feel stifled in environments that require excessive approval before acting",b:"I feel reassured in environments that have clear approval processes before acting",c:null},
+    {a:"Starting something new gives me a surge of energy",b:"Completing something already in motion gives me the greatest satisfaction",c:"achiever"},
+  ],
+  command: [
+    {a:"I do not shy away from confrontation when I believe I am right",b:"I avoid confrontation and prefer to find diplomatic ways through disagreement",c:null},
+    {a:"I am comfortable telling people things they do not necessarily want to hear",b:"I tend to soften difficult messages to preserve the relationship",c:"harmony"},
+    {a:"I naturally step into leadership roles when groups are uncertain or stuck",b:"I prefer to let the designated leader lead and support from within the group",c:null},
+    {a:"I feel comfortable taking charge even without formal authority",b:"I prefer to operate within clear structures of formal authority",c:null},
+    {a:"I do not need consensus to move forward — I am willing to make the call",b:"I work hard to get buy-in from everyone before moving forward",c:"harmony"},
+    {a:"I am drawn to high-stakes situations that require decisive leadership",b:"I prefer situations with lower stakes where I can operate carefully",c:null},
+    {a:"I speak directly and expect others to do the same",b:"I communicate carefully, adapting my style to what each person needs",c:"communication"},
+    {a:"I am energised by responsibility and accountability",b:"I feel most energised when I have freedom and minimal accountability overhead",c:null},
+    {a:"I find it easy to make difficult decisions quickly under pressure",b:"I prefer to slow down and think carefully before making difficult decisions",c:"deliberative"},
+    {a:"People tend to look to me for direction even in informal settings",b:"People tend to look to me for support and connection rather than direction",c:"relator"},
+  ],
+  communication: [
+    {a:"I have a natural ability to put ideas into words that others can easily understand",b:"I tend to process ideas internally and find it hard to articulate them quickly",c:null},
+    {a:"I love presenting to groups and holding an audience's attention",b:"I prefer one-on-one or small group conversations over presenting to large groups",c:null},
+    {a:"I find stories and anecdotes are the best way to make a point",b:"I find data and evidence are the best way to make a point",c:"analytical"},
+    {a:"I am always looking for the right words to express what I mean",b:"I focus more on getting things done than on articulating them perfectly",c:"achiever"},
+    {a:"I can take a complex idea and make it accessible to almost anyone",b:"I tend to leave complex ideas in their natural complexity rather than simplify them",c:null},
+    {a:"The way something is expressed matters as much to me as what is being said",b:"Content matters more to me than style — I care about substance over delivery",c:null},
+    {a:"I enjoy writing, speaking, and other forms of expression",b:"I prefer to show my capabilities through action and results rather than expression",c:"achiever"},
+    {a:"I feel most alive when I am in conversation or presenting",b:"I feel most alive when I am alone thinking deeply or solving a hard problem",c:"intellection"},
+    {a:"I often find myself putting others' vague ideas into clear, compelling language",b:"I often find myself identifying the logical gaps in others' clear-sounding ideas",c:"analytical"},
+    {a:"I believe good communication is one of the most important skills in any field",b:"I believe deep expertise and knowledge matter more than how they are communicated",c:"input"},
+  ],
+  competition: [
+    {a:"I track how I am doing relative to others even when no one is keeping score",b:"I measure my progress only against my own past performance",c:null},
+    {a:"Winning matters to me — coming second does not feel like success",b:"Participating and improving matters more to me than whether I win",c:null},
+    {a:"I am energised by knowing who I am up against",b:"I prefer to focus on my own work without worrying about what others are doing",c:null},
+    {a:"Rankings and metrics that compare me to peers sharpen my motivation",b:"Rankings and metrics that compare me to peers distract me from my real goals",c:null},
+    {a:"I want to be the best, not just good",b:"I want to be excellent at what I do but I do not need to be ranked first",c:"maximizer"},
+    {a:"Competing against strong opponents brings out my best performance",b:"Competing against strong opponents makes me anxious rather than motivated",c:null},
+    {a:"I celebrate wins and feel the sting of losses acutely",b:"I treat wins and losses as data points and move on quickly from both",c:null},
+    {a:"I look for opportunities to demonstrate that I am better than the alternatives",b:"I look for opportunities to collaborate and make the whole team better",c:"developer"},
+    {a:"I am uncomfortable with mediocrity in myself and others around me",b:"I accept that different people have different levels of drive and that is fine",c:null},
+    {a:"I use others' success as fuel — it makes me want to outperform them",b:"I use others' success as inspiration — it shows me what is possible",c:"futuristic"},
+  ],
+  maximizer: [
+    {a:"I would rather help excellent people become exceptional than help struggling people become average",b:"I believe the biggest gains come from helping those who are furthest behind",c:null},
+    {a:"I focus on strengths — mine and others' — as the primary path to excellence",b:"I focus on identifying and addressing weaknesses as the primary path to improvement",c:null},
+    {a:"Good enough is never really enough for me",b:"I believe good enough often is enough — perfection has diminishing returns",c:null},
+    {a:"I am drawn to situations where the raw materials are already strong",b:"I am drawn to situations where the raw materials are weak and need rebuilding",c:"restorative"},
+    {a:"I find average performance frustrating even when it meets the required standard",b:"I find average performance acceptable as long as it meets the standard",c:null},
+    {a:"I believe the best teams are built around strengths, not balanced to cover all weaknesses",b:"I believe the best teams have no serious weaknesses, even if their strengths are less extreme",c:null},
+    {a:"I invest most of my energy in the areas where I am already naturally talented",b:"I invest proportionally more in areas where I have gaps that matter",c:null},
+    {a:"I help people see potential in themselves they were not previously aware of",b:"I help people see gaps in themselves they were not previously aware of",c:"restorative"},
+    {a:"Excellence in one area matters more to me than mediocrity across many",b:"Competence across many areas matters more to me than excellence in one",c:null},
+    {a:"I feel alive when I am working with high performers on something that could be truly great",b:"I feel alive when I am working with a struggling team that is gradually coming together",c:"developer"},
+  ],
+  selfassurance: [
+    {a:"I trust my own judgment even when others question it",b:"I actively seek input and adjust my view when others raise valid concerns",c:null},
+    {a:"I feel confident navigating ambiguous situations where there is no clear right answer",b:"I feel most confident in situations where there are clear standards and criteria",c:null},
+    {a:"I rarely second-guess major decisions once I have made them",b:"I regularly revisit major decisions to make sure I got them right",c:null},
+    {a:"I have a strong sense of what I am capable of and what I am not",b:"I find it hard to predict my own capabilities — I surprise myself regularly in both directions",c:null},
+    {a:"I am comfortable being in the minority on an opinion if I believe I am right",b:"When I am in the minority, I take it as a signal to reconsider my view carefully",c:null},
+    {a:"Other people's opinions of my decisions rarely shake my confidence",b:"Other people's feedback and opinions genuinely influence how confident I feel",c:null},
+    {a:"I have an internal compass that guides me even in entirely unfamiliar territory",b:"In unfamiliar territory, I lean heavily on input from others who know it better",c:null},
+    {a:"I know what I stand for and do not spend much energy wondering about it",b:"I am still exploring what I stand for and see that as a live and important question",c:null},
+    {a:"Criticism bounces off me more than it does most people",b:"I take criticism seriously and let it shape how I see myself and my work",c:null},
+    {a:"I believe in myself in a way that is not dependent on external validation",b:"External recognition and validation are genuinely important to how I see myself",c:"significance"},
+  ],
+  significance: [
+    {a:"I want my work to matter and to be seen to matter by others",b:"I find the most satisfaction in work that I know is good, regardless of recognition",c:null},
+    {a:"I am drawn to large, important challenges where success would be genuinely significant",b:"I am drawn to roles where I can do deep, careful work without necessarily being in the spotlight",c:"intellection"},
+    {a:"I want to be known for excellent work, not just for doing a job",b:"I prefer to do excellent work quietly and let the results speak for themselves",c:null},
+    {a:"I feel most alive when I am working on something that could have lasting impact",b:"I feel most alive when I am deepening relationships and making an immediate human difference",c:"relator"},
+    {a:"I am comfortable in the spotlight and find it motivating",b:"I prefer to operate behind the scenes and find the spotlight uncomfortable",c:null},
+    {a:"Recognition from people I respect matters more to me than I usually admit",b:"I am largely indifferent to recognition — I know when I have done something well",c:null},
+    {a:"I want to be associated with the best — best organisations, best projects, best teams",b:"I care more about doing meaningful work than about the prestige of the project or team",c:"belief"},
+    {a:"I am aware of my reputation and actively manage it",b:"I focus on my work and trust my reputation will take care of itself",c:null},
+    {a:"I want to leave a legacy that people will remember",b:"I want to live well and do good work — what others remember is secondary to me",c:null},
+    {a:"I am energised by ambitious goals that have the potential to change things at scale",b:"I am energised by personal relationships and immediate, tangible human impact",c:"relator"},
+  ],
+  woo: [
+    {a:"Meeting a stranger and quickly making them feel comfortable is something I genuinely enjoy",b:"Meeting strangers requires effort for me — I am much more comfortable with people I already know",c:null},
+    {a:"I naturally put people at ease in social situations",b:"I tend to observe social situations carefully before engaging rather than diving in",c:"deliberative"},
+    {a:"I get energy from meeting new people, even in large groups",b:"I lose energy in large social gatherings and prefer smaller, more intimate settings",c:"relator"},
+    {a:"I can work a room and feel natural doing it",b:"Working a room feels performative to me and I prefer genuine one-on-one connection",c:"relator"},
+    {a:"I enjoy the challenge of winning someone over who starts out indifferent or resistant",b:"I prefer to invest in people who are already open and interested",c:null},
+    {a:"I introduce myself to people others would be too hesitant to approach",b:"I wait for natural openings to connect rather than engineering introductions",c:null},
+    {a:"The beginning of relationships is the most exciting part for me",b:"The deepest and most meaningful part of relationships is what develops over years",c:"relator"},
+    {a:"I can establish rapport with almost anyone within minutes",b:"I form genuine rapport slowly and only with people I have genuinely connected with",c:"relator"},
+    {a:"I believe networking is not a dirty word — it creates real value",b:"I find networking transactional and prefer authentic relationship building",c:"relator"},
+    {a:"I am genuinely curious about people I have just met and show it naturally",b:"My deepest curiosity is reserved for people I have known long enough to understand well",c:"relator"},
+  ],
+  adaptability: [
+    {a:"I prefer to take things as they come rather than plan far ahead",b:"I prefer to have a clear plan and feel uncomfortable when it is disrupted",c:null},
+    {a:"I am comfortable not knowing exactly what tomorrow looks like",b:"Uncertainty about the future makes it hard for me to focus on the present",c:null},
+    {a:"When plans change at the last minute, I adjust without much stress",b:"Last-minute changes tend to throw off my productivity and focus",c:null},
+    {a:"I thrive in unpredictable environments where every day is different",b:"I thrive in stable environments where I can build reliable routines",c:"discipline"},
+    {a:"I live mostly in the present and respond to what the moment demands",b:"I am always thinking several steps ahead and preparing for what is coming",c:"futuristic"},
+    {a:"I find it energising when unexpected situations require me to pivot",b:"I find unexpected situations more draining than energising",c:null},
+    {a:"I do not need a long-range vision to feel motivated — today is enough",b:"I need a long-range vision to stay motivated — the future inspires me",c:"futuristic"},
+    {a:"I am at my best when I can respond fluidly to whatever arises",b:"I am at my best when I have a clear structure and defined priorities",c:"focus"},
+    {a:"Flexibility is one of my most valuable qualities",b:"Consistency and reliability are among my most valuable qualities",c:"consistency"},
+    {a:"I accept that some things cannot be controlled and I make peace with that easily",b:"I work hard to anticipate and control as many variables as possible",c:"deliberative"},
+  ],
+  connectedness: [
+    {a:"I believe everything happens for a reason, even when I cannot see it yet",b:"I believe things mostly happen by chance or as the result of human decisions",c:null},
+    {a:"I find meaning in the links between people, events, and outcomes",b:"I prefer to analyse things individually rather than look for hidden connections",c:null},
+    {a:"I see myself as part of something much larger than my individual life",b:"I see my life as my own project, shaped primarily by my own choices",c:null},
+    {a:"I believe all people are fundamentally linked regardless of background",b:"I focus more on what distinguishes people and groups than on what unites them",c:"individualization"},
+    {a:"Coincidences rarely feel like coincidences to me — I look for the deeper pattern",b:"I tend to take events at face value rather than search for deeper meaning",c:null},
+    {a:"I find spiritual or philosophical frameworks helpful for making sense of the world",b:"I find empirical and rational frameworks more useful than spiritual ones",c:"analytical"},
+    {a:"I naturally think about how my actions affect people beyond my immediate circle",b:"I tend to focus on what is directly in front of me rather than distant ripple effects",c:null},
+    {a:"I am moved by the sense that humans share a common thread across all cultures",b:"I am more interested in the rich diversity of human cultures than in what we share",c:null},
+    {a:"I feel a sense of responsibility toward the broader world, not just my own community",b:"I feel my primary responsibility is to my immediate community and those close to me",c:"relator"},
+    {a:"I believe small acts can have ripple effects far beyond what we can see",b:"I am pragmatic about impact — I focus on what can be directly measured",c:"analytical"},
+  ],
+  developer: [
+    {a:"I notice small signs of growth in people that most others overlook",b:"I notice small inefficiencies in processes that most others overlook",c:"restorative"},
+    {a:"I feel a genuine thrill when someone I have invested in reaches a new level",b:"I feel a genuine thrill when I reach a new level myself",c:"learner"},
+    {a:"I believe almost everyone has more potential than they currently show",b:"I believe people's capabilities are relatively fixed and should be matched to roles",c:null},
+    {a:"I naturally find myself coaching, encouraging, and cheering people on",b:"I naturally find myself questioning, challenging, and pressure-testing people's ideas",c:"analytical"},
+    {a:"The most satisfying relationships for me involve helping someone grow",b:"The most satisfying relationships for me involve deep mutual trust and loyalty",c:"relator"},
+    {a:"I can see the potential in people who do not yet see it in themselves",b:"I focus my energy on people who have already demonstrated exceptional talent",c:"maximizer"},
+    {a:"I enjoy patient, incremental investment in people's growth over time",b:"I prefer projects with a clear endpoint where I can see the final outcome",c:null},
+    {a:"I get frustrated when organisations write off people who just need the right support",b:"I get frustrated when organisations keep investing in people who are not ready to grow",c:null},
+    {a:"I find meaning in the act of developing others, not just in the outcomes they produce",b:"I find meaning in the outcomes people produce, not in the development process itself",c:"achiever"},
+    {a:"I am often the person who sees what someone could become rather than what they are now",b:"I am often the person who sees what a situation is rather than what it could become",c:null},
+  ],
+  empathy: [
+    {a:"I can often tell how someone is feeling before they say a word",b:"I generally take people's stated feelings at face value rather than reading between the lines",c:null},
+    {a:"I naturally imagine how a situation feels from another person's perspective",b:"I tend to evaluate situations from an objective, analytical standpoint",c:"analytical"},
+    {a:"I feel others' pain and joy almost as if it were my own",b:"I observe others' emotions but maintain a clear emotional boundary",c:null},
+    {a:"When someone is struggling, my first instinct is to understand how they feel",b:"When someone is struggling, my first instinct is to help them solve the problem",c:"restorative"},
+    {a:"I am sensitive to the emotional undercurrents in any group or meeting",b:"I tend to focus on the content of what is being discussed rather than emotional dynamics",c:null},
+    {a:"People often tell me things they have not told others because they feel understood",b:"People often come to me for advice because they know I will be honest and direct",c:"command"},
+    {a:"I need to acknowledge emotions before I can move to problem-solving",b:"I prefer to move to problem-solving quickly and not dwell on emotions",c:"restorative"},
+    {a:"I instinctively soften my communication when I sense someone is vulnerable",b:"I maintain my directness even when someone is in a vulnerable state",c:"command"},
+    {a:"I find it difficult to be harsh even when harshness is warranted",b:"I can be direct and critical when a situation calls for it without much discomfort",c:"command"},
+    {a:"I pick up on what is unspoken in conversations and respond to that as much as the words",b:"I respond primarily to what is explicitly communicated and ask for clarity when needed",c:null},
+  ],
+  harmony: [
+    {a:"I actively look for the common ground in any disagreement",b:"I engage with disagreement directly and believe tension produces better ideas",c:"command"},
+    {a:"I am uncomfortable when people in a group are in conflict",b:"I am relatively comfortable with conflict and see it as a normal part of collaboration",c:null},
+    {a:"I believe it is possible to find a path that works for most people most of the time",b:"I believe good decisions often require someone to be unhappy — that is just reality",c:null},
+    {a:"I try to build consensus before moving forward with a decision",b:"I prefer to make decisions efficiently and let people adjust to them",c:"command"},
+    {a:"I am good at identifying where people's interests overlap even when they seem opposed",b:"I tend to identify where interests genuinely diverge and name that clearly",c:null},
+    {a:"I am uncomfortable being at the centre of interpersonal conflict",b:"I can step into the centre of interpersonal conflict without feeling destabilised",c:"command"},
+    {a:"I soften disagreements by finding what everyone can agree on first",b:"I surface disagreements early to make sure they get properly addressed",c:null},
+    {a:"I would rather find a workable compromise than win the argument",b:"I would rather find the right answer than ensure everyone feels comfortable",c:"analytical"},
+    {a:"I believe harmony in a team significantly improves results",b:"I believe productive tension in a team significantly improves results",c:null},
+    {a:"I often act as a translator between people with different perspectives",b:"I often act as a challenger who names the difficult thing no one else will say",c:"command"},
+  ],
+  includer: [
+    {a:"I notice immediately when someone is on the outside of a group and feel the urge to bring them in",b:"I focus on building deep connections with the people already in my circle",c:"relator"},
+    {a:"I am uncomfortable in settings where some people are clearly left out",b:"I accept that not every group can or should include everyone",c:null},
+    {a:"I believe every person deserves to feel they belong",b:"I believe belonging is earned through contribution and shared values",c:"belief"},
+    {a:"I find it rewarding to make room for people who are different from the rest of the group",b:"I find it rewarding to find and work with people who share my values and ways of working",c:"belief"},
+    {a:"I instinctively expand the circle rather than maintain an exclusive inner group",b:"I invest deeply in a small number of close relationships rather than broadening the circle",c:"relator"},
+    {a:"I make special effort to draw out the quietest people in a room",b:"I naturally engage with the most energetic and responsive people in a room",c:"woo"},
+    {a:"I feel responsible for making sure no one feels invisible",b:"I focus on ensuring the core group is functioning well before thinking about the periphery",c:null},
+    {a:"I believe diversity makes teams stronger, even when it is harder to manage",b:"I believe alignment and cohesion make teams stronger, even if they are less diverse",c:"harmony"},
+    {a:"I am aware of who is missing from the room as much as who is present",b:"I focus on the people who are present and what they bring to the situation",c:null},
+    {a:"I think inclusiveness is not just morally right but strategically smart",b:"I think selectivity is sometimes more strategically important than broad inclusion",c:null},
+  ],
+  individualization: [
+    {a:"I am fascinated by what makes each person tick — their unique motivations and way of thinking",b:"I am more interested in what people have in common than in what makes them different",c:"connectedness"},
+    {a:"I naturally adjust how I communicate based on who I am talking to",b:"I communicate in a consistent style and expect others to adapt to it",c:null},
+    {a:"I can usually tell within minutes what someone's strengths and blind spots are",b:"I prefer to wait until I have seen someone in multiple situations before forming a view",c:"deliberative"},
+    {a:"I build teams by thinking about how specific individuals' strengths complement each other",b:"I build teams by ensuring clear role definitions and processes that anyone could follow",c:"consistency"},
+    {a:"I am drawn to understanding the particular rather than the general",b:"I am drawn to identifying general patterns that apply across many people or situations",c:"analytical"},
+    {a:"I find it effortless to tailor my approach to each individual",b:"I find it more efficient to use a consistent approach and adapt at the margins",c:"consistency"},
+    {a:"I believe the best leaders treat different people differently — not the same",b:"I believe the best leaders treat people consistently and without favouritism",c:"consistency"},
+    {a:"I am at my best in relationships when I can respond to the unique person in front of me",b:"I am at my best in relationships when there is a clear and consistent framework for interaction",c:null},
+    {a:"I can read a room and know exactly which people need what from me",b:"I prefer to understand group dynamics before adjusting my style to individual needs",c:null},
+    {a:"I often think 'this is the right approach for this person' rather than 'this is the right approach'",b:"I often think 'there is a right approach here' and apply it consistently regardless of who is involved",c:"consistency"},
+  ],
+  positivity: [
+    {a:"I naturally find the good in most situations, even difficult ones",b:"I am realistic about difficulties and do not look for silver linings that are not there",c:null},
+    {a:"My enthusiasm tends to lift the energy of groups I am part of",b:"I have a calming, grounding effect on groups rather than an energising one",c:null},
+    {a:"I believe optimism is not naive — it is a practical advantage",b:"I believe realism, not optimism, is the practical advantage in most situations",c:null},
+    {a:"I make a point of celebrating small wins and recognising what is going right",b:"I focus on what needs to improve and do not dwell on celebrating what already works",c:null},
+    {a:"I find it easy to generate excitement around new initiatives",b:"I find it more important to generate clarity and rigour around new initiatives",c:"analytical"},
+    {a:"My default lens on people is generous — I tend to see what is good in them",b:"My default lens on people is discerning — I notice their limitations as clearly as their strengths",c:"analytical"},
+    {a:"Even in hard times, I find energy and reasons to keep going",b:"In hard times, I become more measured and careful rather than energised",c:null},
+    {a:"People describe me as someone who makes them feel better just by being present",b:"People describe me as someone who makes them think more clearly just by being present",c:"analytical"},
+    {a:"I am genuinely excited about the future and communicate that naturally",b:"I am cautious about the future and prefer to communicate realistic expectations",c:"deliberative"},
+    {a:"I believe attitude is a choice, and I choose to bring a positive one",b:"I believe authentic reactions matter more than maintaining a positive facade",c:null},
+  ],
+  relator: [
+    {a:"I prefer a small number of deep, genuine friendships over a large social network",b:"I enjoy meeting many different people and love having a wide social network",c:"woo"},
+    {a:"I feel most myself with people I know really well",b:"I feel energised meeting strangers and exploring new relationships",c:"woo"},
+    {a:"I invest disproportionately in relationships that are already meaningful",b:"I invest broadly in building as many meaningful connections as possible",c:null},
+    {a:"Deep, authentic relationships are one of my greatest sources of satisfaction",b:"Visible achievement and impact are one of my greatest sources of satisfaction",c:"significance"},
+    {a:"I would rather deepen an existing friendship than make a new acquaintance",b:"I love the energy of new relationships and meeting people I have never known before",c:"woo"},
+    {a:"I am at my most productive working alongside people I deeply trust",b:"I can be productive with almost anyone — familiarity is not a prerequisite",c:null},
+    {a:"I am aware of the difference between acquaintances and real friends, and I value the latter highly",b:"I treat most people I meet warmly and invest in those connections regardless of depth",c:"woo"},
+    {a:"Transparency and honesty in relationships matter more to me than social smoothness",b:"Social ease and warmth matter more to me than total transparency in relationships",c:"woo"},
+    {a:"I find it hard to fully trust people I do not know well yet",b:"I extend trust readily and revise it based on experience over time",c:null},
+    {a:"The relationships I value most have been built over years, not months",b:"I form meaningful connections quickly and feel close to people I have just met",c:"woo"},
+  ],
+  analytical: [
+    {a:"I want to understand all the factors behind a situation before I form a view",b:"I tend to go with my gut and form a view quickly without deep analysis",c:null},
+    {a:"I am skeptical of claims that are not supported by solid data",b:"I am generally trusting of claims, especially from credible people",c:null},
+    {a:"I enjoy pulling apart complex problems to find the root cause",b:"I prefer finding quick practical solutions over deep root-cause analysis",c:null},
+    {a:"Before accepting a conclusion, I need to see the evidence",b:"I accept conclusions when they come from people I trust and respect",c:null},
+    {a:"I look for patterns in data that others tend to overlook",b:"I look for patterns in people and relationships that others tend to overlook",c:"individualization"},
+    {a:"Numbers and data help me feel confident in a decision",b:"Stories and human examples help me feel confident in a decision",c:"communication"},
+    {a:"I often question assumptions that others accept at face value",b:"I generally accept reasonable assumptions so we can move forward quickly",c:"activator"},
+    {a:"I find it satisfying to prove or disprove a hypothesis",b:"I find it satisfying to create and explore new possibilities and ideas",c:"ideation"},
+    {a:"I need logic and evidence to be persuaded",b:"I need emotional resonance and personal connection to be persuaded",c:"empathy"},
+    {a:"I am drawn to roles where precision and accuracy are rewarded",b:"I am drawn to roles where creativity and innovation are rewarded",c:"ideation"},
+  ],
+  context: [
+    {a:"Understanding how we got here is essential before deciding where to go next",b:"I prefer to focus on where we are going rather than how we arrived here",c:"futuristic"},
+    {a:"History is one of the most useful tools for navigating the present",b:"The present is unique enough that history rarely applies directly",c:null},
+    {a:"I often research the background of a situation before forming an opinion",b:"I form opinions quickly based on current information and instinct",c:"activator"},
+    {a:"I find that understanding precedents helps me avoid repeating past mistakes",b:"I prefer to treat each situation as new rather than be constrained by precedent",c:null},
+    {a:"I am drawn to stories of how things began — origins fascinate me",b:"I am drawn to visions of how things could be — possibilities fascinate me",c:"futuristic"},
+    {a:"Before making a major change, I want to understand why the current state exists",b:"Before resisting a major change, I want to understand what problem it solves",c:null},
+    {a:"I often find myself tracing problems back to their roots",b:"I often find myself projecting problems forward to anticipate future implications",c:"futuristic"},
+    {a:"Knowing the history of a relationship or organisation helps me work within it better",b:"Knowing the vision for a relationship or organisation energises me more than its history",c:"significance"},
+    {a:"I believe context shapes everything — the same action can be right or wrong depending on history",b:"I believe principles are relatively universal — context changes less than people think",c:"belief"},
+    {a:"I draw on past experiences — mine and others' — more than most people do",b:"I prefer to start fresh and not be weighed down by past patterns",c:"adaptability"},
+  ],
+  futuristic: [
+    {a:"I spend significant time imagining what could be possible in the future",b:"I spend most of my mental energy focused on the present and near-term realities",c:null},
+    {a:"Visions of a better future energise me more than most things",b:"Practical progress on today's problems energises me more than distant visions",c:null},
+    {a:"I naturally think in terms of what is coming next, not what is happening now",b:"I am deeply engaged with the present moment and rarely think far ahead",c:"adaptability"},
+    {a:"I am inspired by possibility — the gap between where things are and where they could be",b:"I am inspired by achievement — the satisfaction of making something real and complete",c:"achiever"},
+    {a:"I often find myself describing a better future to inspire and motivate others",b:"I find myself using concrete results and past successes to inspire others",c:"communication"},
+    {a:"The future feels vivid and real to me, almost as much as the present",b:"The future feels abstract — I prefer to deal with what is concrete and immediate",c:null},
+    {a:"I get bored when organisations only focus on maintaining what already exists",b:"I get frustrated when organisations keep chasing new things instead of mastering what works",c:"maximizer"},
+    {a:"I read widely about trends and future possibilities because I find them genuinely exciting",b:"I prefer to read about what is already working and proven over speculative future trends",c:null},
+    {a:"I am most energised at the beginning of a new initiative when possibilities are limitless",b:"I am most energised mid-project when momentum is building and the outcome is visible",c:null},
+    {a:"I can tolerate significant uncertainty today if I believe in where we are heading",b:"Uncertainty today is hard to tolerate regardless of how good the future looks",c:"deliberative"},
+  ],
+  ideation: [
+    {a:"I love making unexpected connections between ideas from completely different domains",b:"I prefer to go deep in one domain rather than make connections across many",c:"focus"},
+    {a:"A new idea excites me more than a proven approach, even if the new idea is untested",b:"A proven approach reassures me more than an untested new idea",c:null},
+    {a:"I generate ideas constantly — the challenge is figuring out which to pursue",b:"I prefer to have one clear focus and execute it well rather than generate many options",c:"focus"},
+    {a:"I find brainstorming sessions genuinely energising",b:"I find brainstorming sessions often frustrating because ideas rarely get implemented",c:"achiever"},
+    {a:"The best part of any project for me is the conceptual and creative phase",b:"The best part of any project for me is the execution and delivery phase",c:"achiever"},
+    {a:"I am drawn to abstract, theoretical thinking as much as practical application",b:"I prefer to keep my thinking grounded in practical, real-world application",c:null},
+    {a:"I get excited by questions that have no obvious answer yet",b:"I prefer questions that can be resolved with the right analysis and data",c:"analytical"},
+    {a:"I often see things from an angle that surprises other people",b:"I tend to see things clearly and directly, which is what people value about my perspective",c:null},
+    {a:"When something is not working, my first thought is 'what entirely new approach could we try?'",b:"When something is not working, my first thought is 'what specifically is broken and how do we fix it?'",c:"restorative"},
+    {a:"I believe the most valuable contribution I make is in the realm of ideas",b:"I believe the most valuable contribution I make is in the realm of execution",c:"achiever"},
+  ],
+  input: [
+    {a:"I collect information — books, articles, facts, links — even when I have no immediate use for them",b:"I seek out information only when I need it for a specific task",c:null},
+    {a:"I am genuinely curious about a wide range of subjects",b:"I prefer to focus my curiosity in one or two areas of deep expertise",c:"learner"},
+    {a:"I would rather know more than I need than risk not knowing enough",b:"I prefer to have just enough information to act rather than accumulate excess",c:"activator"},
+    {a:"My files, notes, and archives are a source of pride — I know I will use them eventually",b:"I prefer a clear desk and minimal archives — I trust myself to find information when needed",c:null},
+    {a:"I find it hard to throw away information or resources that might be useful someday",b:"I regularly declutter my information and discard what I have not used recently",c:null},
+    {a:"I read broadly across topics, not just in my professional area",b:"I read deeply in my field and rarely venture far outside it",c:null},
+    {a:"People often come to me because I tend to have just the right reference or resource",b:"People come to me for analysis and insight, not as a source of raw information",c:"analytical"},
+    {a:"I find it satisfying to archive and organise knowledge, not just to use it",b:"I find it satisfying to apply and deploy knowledge, not just accumulate it",c:"achiever"},
+    {a:"The more I know, the richer my thinking becomes — breadth is a genuine strength",b:"The more I focus, the sharper my thinking becomes — depth is a genuine strength",c:"focus"},
+    {a:"I get excited when I discover an entirely new field or subject I know nothing about yet",b:"I get excited when I reach a new level of mastery in a field I have been building for years",c:"learner"},
+  ],
+  intellection: [
+    {a:"I enjoy thinking for its own sake — not every thought needs to lead to action",b:"I prefer to direct my thinking toward practical outcomes and clear decisions",c:null},
+    {a:"I regularly set aside time just to think and reflect without a specific agenda",b:"I prefer to think in response to real problems rather than in the abstract",c:null},
+    {a:"Some of my best thinking happens when I am alone and undisturbed",b:"Some of my best thinking happens in conversation with others",c:"communication"},
+    {a:"I am drawn to big, complex questions that have no easy answer",b:"I prefer to spend my mental energy on problems that can realistically be solved",c:"restorative"},
+    {a:"I enjoy having long conversations about ideas, philosophy, or meaning",b:"I prefer conversations that are practical and lead to clear next steps",c:null},
+    {a:"I often work through personal and professional challenges by thinking them through deeply",b:"I often work through challenges by talking them through or writing them out with others",c:"communication"},
+    {a:"I value mental depth — I would rather understand something fully than know many things shallowly",b:"I value mental breadth — I would rather know something about many things than everything about one",c:"input"},
+    {a:"I am comfortable sitting with a problem for a long time before I feel ready to conclude",b:"I prefer to reach a conclusion and act, then adjust based on what I learn",c:"activator"},
+    {a:"My inner world is rich and I spend a lot of time there",b:"I am primarily oriented toward the external world — people, events, and actions",c:null},
+    {a:"Thinking deeply about something is itself a form of productivity for me",b:"I measure productivity by what gets done, not by how much I have thought about something",c:"achiever"},
+  ],
+  learner: [
+    {a:"The process of learning something new excites me even when the subject is difficult",b:"I prefer mastering what I already know rather than repeatedly starting from scratch",c:null},
+    {a:"I regularly pursue learning for its own sake, not just to advance my career",b:"I focus my learning on what I need to do my job better rather than learning broadly",c:null},
+    {a:"I am energised at the beginning of learning a new skill even before I become competent",b:"I am most energised when I have reached a level of mastery in a skill",c:null},
+    {a:"I like structured learning environments — courses, programmes, workshops",b:"I prefer to learn through doing and experience rather than formal structured learning",c:"activator"},
+    {a:"I am drawn to fields and topics I know nothing about yet",b:"I prefer to continue deepening knowledge in areas where I already have a foundation",c:null},
+    {a:"The feeling of growing in competence is one of my deepest sources of satisfaction",b:"The feeling of completing a goal is one of my deepest sources of satisfaction",c:"achiever"},
+    {a:"I believe continuous learning is the best way to stay relevant and effective",b:"I believe deep expertise built over many years matters more than continuous learning",c:null},
+    {a:"I often find myself mid-way through two or three new learning journeys simultaneously",b:"I prefer to complete one learning journey thoroughly before starting the next",c:"focus"},
+    {a:"I am comfortable being a beginner — I do not mind not knowing something yet",b:"I prefer to be expert — I am uncomfortable not knowing something in my domain",c:null},
+    {a:"Even routine tasks hold learning opportunities that I notice and use",b:"Routine tasks are for execution — I look for separate dedicated time to learn",c:null},
+  ],
+  strategic: [
+    {a:"I can quickly see multiple paths forward in any complex situation",b:"I prefer to identify one clear path and commit to it rather than juggle options",c:"focus"},
+    {a:"I naturally see patterns in complex situations that others miss",b:"I see the specific details and facts in a situation that others tend to generalise over",c:"analytical"},
+    {a:"I anticipate obstacles before they materialise and factor them into my planning",b:"I prefer to address obstacles when they arise rather than spend energy anticipating them",c:"activator"},
+    {a:"When faced with a problem, I instinctively consider multiple possible solutions",b:"When faced with a problem, I instinctively go deep on the most promising solution",c:"focus"},
+    {a:"I think in terms of systems and how different elements interact with each other",b:"I think in terms of specific actions and what concretely needs to happen next",c:null},
+    {a:"I can hold the big picture and the details in mind simultaneously",b:"I find it easier to focus on either the big picture or the details — not both at once",c:null},
+    {a:"I am skilled at identifying the key decision that will determine the outcome of a situation",b:"I am skilled at identifying the specific steps that need to happen to reach an outcome",c:null},
+    {a:"I naturally plan for several scenarios rather than a single expected outcome",b:"I prefer to commit to a single scenario and execute it well rather than hedge across several",c:null},
+    {a:"I find it easy to shift between long-term thinking and immediate priorities",b:"I find it easier to stay in either long-term thinking or immediate execution, not both",c:null},
+    {a:"My greatest contribution to a team is usually in how I frame the situation and the options",b:"My greatest contribution to a team is usually in how reliably I execute on what we commit to",c:"responsibility"},
+  ],
+};
+// ── POOL & SESSION BUILDER ────────────────────────────────────────
+
+// Seeded pseudo-random number generator (mulberry32)
+function mulberry32(seed){
+  return function(){
+    seed|=0; seed=seed+0x6D2B79F5|0;
+    let t=Math.imul(seed^seed>>>15,1|seed);
+    t=t+Math.imul(t^t>>>7,61|t)^t;
+    return((t^t>>>14)>>>0)/4294967296;
+  };
+}
+
+// Fisher-Yates shuffle with seeded RNG
+function seededShuffle(arr, rng){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(rng()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+// Build a 177-question session from POOL using a seed
+// Rules:
+//   - Each theme appears 4–6 times
+//   - Total = 177 (34 themes × ~5.2 average)
+//   - Each statement used at most once per session
+//   - Distribution: aim for 5 per theme; remaining 7 go to themes with most statements left
+function buildSession(seed){
+  const rng = mulberry32(seed);
+  const themeIds = Object.keys(POOL);
+
+  // Shuffle each theme's pool independently so we get different statements each time
+  const shuffled = {};
+  themeIds.forEach(t => { shuffled[t] = seededShuffle(POOL[t], mulberry32(seed ^ (t.length * 1234567))); });
+
+  // Track how many questions each theme has appeared in (as A or B)
+  const appearances = {};
+  themeIds.forEach(t => { appearances[t] = 0; });
+
+  // Phase 1: assign exactly 5 questions per theme (as the A-side primary theme)
+  // This gives 34×5 = 170 questions
+  const selected = [];
+  const usedPerTheme = {};  // index into shuffled[theme]
+  themeIds.forEach(t => { usedPerTheme[t] = 0; });
+
+  themeIds.forEach(t => {
+    const stmts = shuffled[t];
+    let added = 0;
+    for(let i = usedPerTheme[t]; i < stmts.length && added < 5; i++){
+      const s = stmts[i];
+      selected.push({tA:t, tB:s.c||'_none', sA:s.a, sB:s.b});
+      usedPerTheme[t] = i + 1;
+      appearances[t]++;
+      if(s.c && appearances[s.c] !== undefined) appearances[s.c]++;
+      added++;
+    }
+  });
+
+  // Phase 2: add 7 more questions from themes that still have unused statements
+  // Prioritise themes with fewest appearances so far (most variety)
+  const remaining = [];
+  themeIds.forEach(t => {
+    for(let i = usedPerTheme[t]; i < shuffled[t].length; i++){
+      const s = shuffled[t][i];
+      // Only pick if adding won't push either theme above 6 appearances
+      const bCount = s.c ? (appearances[s.c]||0) : 0;
+      if(appearances[t] < 6 && bCount < 6){
+        remaining.push({tA:t, tB:s.c||'_none', sA:s.a, sB:s.b, aCount:appearances[t]});
+      }
+    }
+  });
+
+  // Sort remaining by ascending appearance count (prioritise less-represented themes)
+  remaining.sort((a,b) => a.aCount - b.aCount);
+
+  let extras = 0;
+  for(const q of remaining){
+    if(extras >= 7) break;
+    const bCount = q.tB !== '_none' ? (appearances[q.tB]||0) : 0;
+    if(appearances[q.tA] < 6 && bCount < 6){
+      selected.push(q);
+      appearances[q.tA]++;
+      if(q.tB !== '_none' && appearances[q.tB] !== undefined) appearances[q.tB]++;
+      extras++;
+    }
+  }
+
+  // Phase 3: shuffle the final list so questions aren't grouped by theme
+  return seededShuffle(selected, rng);
+}
+
+// Active session questions (built at start or restored from save)
+let QUESTIONS = [];
+
+
+
+// ── HELPERS ───────────────────────────────────────────────────────
+function domainColor(d){
+  return 'var(--th-'+(d==='Executing'?'exec':d==='Influencing'?'infl':d==='Relationship'?'rel':'strat')+')';
+}
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function timeAgo(ts){
+  const s=Math.floor((Date.now()-ts)/1000);
+  if(s<60) return 'just now';
+  if(s<3600) return Math.floor(s/60)+'m ago';
+  if(s<86400) return Math.floor(s/3600)+'h ago';
+  return Math.floor(s/86400)+'d ago';
+}
+
+// ── SAVE / RESUME ─────────────────────────────────────────────────
+const AK='sf_auto', SK='sf_slots';
+function saveProgress(label){
+  try{
+    const d={
+      answers, currentQ,
+      answeredCount:answers.filter(a=>a!==null).length,
+      total:QUESTIONS.length,
+      sessionQuestions:QUESTIONS,   // full resolved list so resume is identical
+      savedAt:Date.now()
+    };
+    localStorage.setItem(AK,JSON.stringify(d));
+    if(label){
+      let slots=getSlots();
+      const slot={...d,label,id:Date.now()};
+      const i=slots.findIndex(s=>s.label===label);
+      if(i>=0) slots[i]=slot; else slots.unshift(slot);
+      localStorage.setItem(SK,JSON.stringify(slots.slice(0,5)));
+    }
+    flashSaved();
+  }catch(e){}
+}
+function getSlots(){try{return JSON.parse(localStorage.getItem(SK)||'[]');}catch(e){return[];}}
+function getAuto(){try{return JSON.parse(localStorage.getItem(AK)||'null');}catch(e){return null;}}
+function clearAuto(){try{localStorage.removeItem(AK);}catch(e){}}
+function delSlot(id){try{localStorage.setItem(SK,JSON.stringify(getSlots().filter(s=>s.id!==id)));}catch(e){}}
+
+let saveFlashTimer=null;
+function flashSaved(){
+  const el=document.getElementById('saveInd');
+  if(!el) return;
+  el.classList.add('show');
+  clearTimeout(saveFlashTimer);
+  saveFlashTimer=setTimeout(()=>el.classList.remove('show'),2000);
+}
+function schedSave(){
+  clearTimeout(saveFlashTimer);
+  saveFlashTimer=setTimeout(()=>saveProgress(),600);
+}
+
+// ── STATE ─────────────────────────────────────────────────────────
+let currentQ=0, answers=[], scores={}, kbdHintShown=false;
+function initState(){
+  answers=new Array(QUESTIONS.length).fill(null);
+  scores={};
+  THEMES.forEach(t=>{scores[t.id]=0;});
+  kbdHintShown=false;
+}
+
+// ── SCREEN ────────────────────────────────────────────────────────
+function show(id){
+  ['intro','quiz','loading','results'].forEach(s=>{
+    document.getElementById(s).style.display=(s===id)?'':'none';
+  });
+  window.scrollTo(0,0);
+  const el=document.getElementById(id);
+  if(!el) return;
+  const f=el.querySelector('button,[href],input,h1,h2');
+  if(f){try{f.focus({preventScroll:true});}catch(e){}}
+}
+
+// ── RESUME BANNER ─────────────────────────────────────────────────
+function checkBanner(){
+  const d=getAuto();
+  if(!d||!d.answeredCount) return;
+  const pct=Math.round(d.answeredCount/d.total*100);
+  document.getElementById('resumeMeta').textContent=d.answeredCount+' of '+d.total+' answered ('+pct+'%) · saved '+timeAgo(d.savedAt);
+  document.getElementById('resumeProgBar').style.width=pct+'%';
+  document.getElementById('resumeBanner').style.display='block';
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────
+function openModal(showSaveInput){
+  const row=document.getElementById('saveInputRow');
+  const inp=document.getElementById('saveNameInput');
+  const fb=document.getElementById('saveFeedback');
+  if(showSaveInput){
+    row.style.display='';
+    fb.textContent='';
+    inp.value='Session · '+answers.filter(a=>a!==null).length+' of '+QUESTIONS.length+' answered';
+    setTimeout(()=>{inp.select();inp.focus();},60);
+  } else {
+    row.style.display='none';
+  }
+  renderSlots();
+  document.getElementById('saveModal').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('saveModal').classList.remove('open');
+}
+function renderSlots(){
+  const el=document.getElementById('slotsList');
+  const slots=getSlots();
+  if(!slots.length){
+    el.innerHTML='<div class="slot-empty">No saved sessions yet. Progress is auto-saved as you answer.</div>';
+    return;
+  }
+  el.innerHTML='';
+  slots.forEach(s=>{
+    const pct=Math.round(s.answeredCount/s.total*100);
+    const div=document.createElement('div');
+    div.className='slot';
+    div.innerHTML='<div class="slot-info"><div class="slot-name">'+esc(s.label||'Untitled')+'</div>'
+      +'<div class="slot-detail">'+s.answeredCount+'/'+s.total+' answered ('+pct+'%) · '+timeAgo(s.savedAt)+'</div></div>'
+      +'<div class="slot-acts">'
+        +'<button class="btn-slot-load" data-id="'+s.id+'" type="button">Resume</button>'
+        +'<button class="btn-slot-del" data-id="'+s.id+'" type="button" aria-label="Delete">✕</button>'
+      +'</div>';
+    el.appendChild(div);
+  });
+  el.querySelectorAll('.btn-slot-load').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const s=getSlots().find(x=>x.id===parseInt(b.dataset.id));
+      if(s){closeModal();resumeSession(s);}
+    });
+  });
+  el.querySelectorAll('.btn-slot-del').forEach(b=>{
+    b.addEventListener('click',()=>{
+      delSlot(parseInt(b.dataset.id));
+      renderSlots();
+      checkBanner();
+    });
+  });
+}
+function confirmSave(){
+  const inp=document.getElementById('saveNameInput');
+  const fb=document.getElementById('saveFeedback');
+  const name=inp.value.trim();
+  if(!name){fb.textContent='Please enter a name.';inp.focus();return;}
+  saveProgress(name);
+  fb.textContent='✓ Saved as "'+esc(name)+'"';
+  renderSlots();
+  setTimeout(closeModal,900);
+}
+
+// ── QUIZ ──────────────────────────────────────────────────────────
+function startQuiz(){
+  const seed = (Date.now() ^ Math.floor(Math.random()*0xFFFFFFFF)) >>> 0;
+  QUESTIONS = buildSession(seed);
+  initState();
+  clearAuto();
+  currentQ=0;
+  show('quiz');
+  renderQ();
+}
+function resumeSession(d){
+  // Restore the exact question list used in this session
+  if(d.sessionQuestions && d.sessionQuestions.length > 0){
+    QUESTIONS = d.sessionQuestions;
+  } else {
+    // Legacy sessions without saved questions: rebuild from scratch
+    const seed = (Date.now() ^ Math.floor(Math.random()*0xFFFFFFFF)) >>> 0;
+    QUESTIONS = buildSession(seed);
+  }
+  answers=(d.answers||[]).map(a=>(a===undefined?null:a));
+  while(answers.length<QUESTIONS.length) answers.push(null);
+  currentQ=Math.min(d.currentQ||0,QUESTIONS.length-1);
+  scores={};
+  THEMES.forEach(t=>{scores[t.id]=0;});
+  kbdHintShown=false;
+  show('quiz');
+  renderQ();
+}
+function renderQ(){
+  const q=QUESTIONS[currentQ], total=QUESTIONS.length;
+  document.getElementById('qTag').textContent='Question '+(currentQ+1)+' of '+total;
+  document.getElementById('qText').textContent='Which statement feels more like you?';
+  document.getElementById('lblA').textContent='A — "'+q.sA+'"';
+  document.getElementById('lblB').textContent='B — "'+q.sB+'"';
+  const pct=currentQ/total*100;
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progText').textContent=currentQ+' / '+total;
+  const pw=document.getElementById('progWrap');
+  if(pw){pw.setAttribute('aria-valuenow',currentQ);pw.setAttribute('aria-valuemax',total);}
+  const val=answers[currentQ];
+  document.querySelectorAll('.scale-btn').forEach(b=>{
+    const sel=parseInt(b.dataset.val)===val;
+    b.classList.toggle('sel',sel);
+    b.setAttribute('aria-pressed',sel?'true':'false');
+  });
+  updateHint(val);
+  document.getElementById('btnBack').disabled=(currentQ===0);
+  const nx=document.getElementById('btnNext');
+  const last=(currentQ===total-1);
+  nx.textContent=last?'See Results →':'Next →';
+  nx.setAttribute('aria-label',last?'Submit and see results':'Next question');
+  if(val!==null){nx.classList.add('on');nx.removeAttribute('aria-disabled');}
+  else{nx.classList.remove('on');nx.setAttribute('aria-disabled','true');}
+  // Show keyboard hint
+  setTimeout(()=>{
+    const kh=document.getElementById('kbdHint');
+    if(kh) kh.classList.add('show');
+  },800);
+}
+function updateHint(val){
+  const h={1:'Strongly A',2:'Leaning A',3:'Neutral',4:'Leaning B',5:'Strongly B'};
+  document.getElementById('scaleHint').textContent=val?h[val]:'← Strongly A · Neutral · Strongly B →';
+}
+function pick(val){
+  answers[currentQ]=val;
+  document.querySelectorAll('.scale-btn').forEach(b=>{
+    const sel=parseInt(b.dataset.val)===val;
+    b.classList.toggle('sel',sel);
+    b.setAttribute('aria-pressed',sel?'true':'false');
+  });
+  updateHint(val);
+  const nx=document.getElementById('btnNext');
+  nx.classList.add('on');
+  nx.removeAttribute('aria-disabled');
+  nx.textContent=(currentQ===QUESTIONS.length-1)?'See Results →':'Next →';
+  schedSave();
+}
+function next(){
+  if(answers[currentQ]===null) return;
+  if(currentQ<QUESTIONS.length-1){currentQ++;renderQ();}
+  else{finish();}
+}
+function back(){
+  if(currentQ>0){currentQ--;renderQ();}
+}
+function finish(){
+  scores={};
+  THEMES.forEach(t=>{scores[t.id]=0;});
+  QUESTIONS.forEach((q,i)=>{
+    const v=answers[i];
+    if(v===null) return;
+    if(v===1) scores[q.tA]=(scores[q.tA]||0)+3;
+    else if(v===2) scores[q.tA]=(scores[q.tA]||0)+1;
+    else if(v===4) scores[q.tB]=(scores[q.tB]||0)+1;
+    else if(v===5) scores[q.tB]=(scores[q.tB]||0)+3;
+  });
+  clearAuto();
+  show('loading');
+  setTimeout(()=>{show('results');renderResults();},2200);
+}
+function restart(){
+  showResetModal(
+    'Starting over will clear your current results and begin a new assessment with a fresh set of questions.',
+    ()=>{
+      initState();
+      clearAuto();
+      checkBanner();
+      show('intro');
+    }
+  );
+}
+
+// ── RESULTS ───────────────────────────────────────────────────────
+function getNorm(id){
+  const ap=QUESTIONS.filter(q=>q.tA===id||q.tB===id).length||1;
+  return (scores[id]||0)/ap;
+}
+function renderResults(){
+  const sorted=THEMES.slice().sort((a,b)=>getNorm(b.id)-getNorm(a.id));
+  const top5=sorted.slice(0,5);
+  const maxNorm=Math.max(...THEMES.map(t=>getNorm(t.id)),0.01);
+
+  // Top 5 cards with explanations
+  const g=document.getElementById('top5');
+  g.innerHTML='';
+  top5.forEach((t,i)=>{
+    const sv=Math.round((getNorm(t.id)/maxNorm)*100);
+    const tc=domainColor(t.d);
+    const exp=THEME_EXP[t.id]||{items:[],avoid:''};
+    const itemsHtml=exp.items.map(x=>'<li>'+esc(x)+'</li>').join('');
+    const avoidHtml=exp.avoid
+      ?'<div class="theme-exp-label" style="margin-top:10px">Watch for</div>'
+        +'<div class="theme-exp-avoid">'+esc(exp.avoid)+'</div>'
+      :'';
+    const c=document.createElement('article');
+    c.className='theme-card';
+    c.style.cssText='--tc:'+tc+';animation-delay:'+(i*0.12)+'s';
+    c.setAttribute('aria-label','Rank '+(i+1)+': '+t.name+', '+t.d+', score '+sv);
+    c.innerHTML=
+      '<div class="theme-rank" style="color:'+tc+'" aria-hidden="true">'+(i+1)+'</div>'
+      +'<div class="theme-body">'
+        +'<div class="theme-name">'+esc(t.name)+'</div>'
+        +'<div class="theme-domain" style="color:'+tc+'">'+esc(t.d)+'</div>'
+        +'<div class="theme-desc">'+esc(t.desc)+'</div>'
+        +'<div class="theme-exp">'
+          +'<div class="theme-exp-label">Where you shine</div>'
+          +'<ul class="theme-exp-list">'+itemsHtml+'</ul>'
+          +avoidHtml
+        +'</div>'
+      +'</div>'
+      +'<div class="theme-score" aria-hidden="true">'
+        +'<div class="theme-score-n" style="color:'+tc+'">'+sv+'</div>'
+        +'<div class="theme-score-l">score</div>'
+      +'</div>';
+    g.appendChild(c);
+  });
+
+  // Domain breakdown
+  const dt={},dc={};
+  THEMES.forEach(t=>{dt[t.d]=(dt[t.d]||0)+(scores[t.id]||0);dc[t.d]=(dc[t.d]||0)+1;});
+  const dg=document.getElementById('domainsGrid');
+  dg.innerHTML='';
+  Object.entries(DOMAINS).forEach(([d,meta],i)=>{
+    const avg=Math.round((dt[d]/(dc[d]*maxNorm))*100);
+    const tc=domainColor(d);
+    const c=document.createElement('div');
+    c.className='dom-card';
+    c.style.animationDelay=(i*0.1)+'s';
+    c.setAttribute('aria-label',d+' domain: '+avg+'%');
+    c.innerHTML=
+      '<span class="dom-icon" role="img" aria-label="'+esc(d)+'">'+meta.icon+'</span>'
+      +'<div class="dom-name">'+esc(d)+'</div>'
+      +'<div class="dom-score" style="color:'+tc+'">'+avg+'%</div>'
+      +'<div class="dom-label">'+esc(meta.desc)+'</div>';
+    dg.appendChild(c);
+  });
+
+  // All 34 themes ranked
+  const tbl=document.getElementById('allTable');
+  tbl.innerHTML='';
+  sorted.forEach((t,i)=>{
+    const pct=Math.round((getNorm(t.id)/maxNorm)*100);
+    const tc=domainColor(t.d);
+    const row=document.createElement('div');
+    row.className='t-row'+(i<5?' top':'');
+    row.setAttribute('role','listitem');
+    row.setAttribute('aria-label','Rank '+(i+1)+': '+t.name+' ('+t.d+') — '+pct+'%'+(i<5?' Top 5':''));
+    row.style.animationDelay=(i*0.03)+'s';
+    row.innerHTML=
+      '<div class="t-rank" aria-hidden="true">'+(i+1)+'</div>'
+      +'<div class="t-name">'+esc(t.name)+(i<5?' <span aria-hidden="true">★</span>':'')+'</div>'
+      +'<div class="t-domain">'+esc(t.d)+'</div>'
+      +'<div class="t-bar-wrap" aria-hidden="true"><div class="t-bar" style="width:'+pct+'%;background:'+tc+'"></div></div>';
+    tbl.appendChild(row);
+  });
+
+  genInsights(top5);
+}
+
+// ── INSIGHTS ──────────────────────────────────────────────────────
+function genInsights(top5){
+  const el=document.getElementById('insightsBody');
+  const names=top5.map(t=>t.name);
+  const domains=[...new Set(top5.map(t=>t.d))];
+  const prompt='A person completed the CliftonStrengths 2.0 assessment. Their top 5 themes are: '
+    +names.join(', ')+'. Their strengths lean toward '+domains.join(' and ')+' domains.\n\n'
+    +'Write 3 paragraphs of personalized coaching insights:\n'
+    +'1. What makes this specific combination uniquely powerful together\n'
+    +'2. Work environments and roles where they will naturally thrive\n'
+    +'3. One key blind spot and a practical way to manage it\n\n'
+    +'Address them as "you". Be specific and warm. No bullets. 3-4 sentences each.';
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,messages:[{role:'user',content:prompt}]})
+  }).then(r=>{
+    if(!r.ok) throw new Error('api');
+    return r.json();
+  }).then(d=>{
+    const t=(d.content||[]).map(b=>b.text||'').join('');
+    el.textContent=t||localInsights(top5);
+  }).catch(()=>{
+    el.textContent=localInsights(top5);
+  });
+}
+function localInsights(top5){
+  const names=top5.map(t=>t.name);
+  const domains=[...new Set(top5.map(t=>t.d))];
+  const pd=domains[0]||'Strategic';
+  const power={
+    Executing:'a rare ability to follow through and deliver when others stall',
+    Influencing:'a natural capacity to move people and drive momentum',
+    Relationship:'a deep talent for building trust and genuine human connection',
+    Strategic:'an exceptional ability to spot patterns and think several steps ahead'
+  };
+  const env={
+    Executing:'structured environments where outcomes are measurable and accountability is clear',
+    Influencing:'visible roles where you can present ideas, lead change, and rally others',
+    Relationship:'collaborative teams where relationships and trust are the engine of success',
+    Strategic:'roles that reward deep thinking, research, and complex problem-solving'
+  };
+  const blind={
+    Executing:"you may push for closure before others feel heard — pause to invite input before finalising decisions",
+    Influencing:"you may move too fast for those who need time to process — build in deliberate checkpoints",
+    Relationship:"you may avoid difficult conversations to protect harmony — practice naming tension early and directly",
+    Strategic:"you may over-analyse before acting — set time-boxed decision deadlines to break the loop"
+  };
+  return 'Your combination of '+names.join(', ')+' creates a genuinely distinctive strength signature. '
+    +'At the core, '+names[0]+' and '+names[1]+' work together to give you '+(power[pd]||'a powerful edge')+'. '
+    +'When '+names[2]+' enters the picture it adds a third dimension that multiplies your impact — '
+    +'you bring something genuinely hard to replicate to every team and challenge.\n\n'
+    +'You will thrive most in '+(env[pd]||'dynamic environments that reward your strengths')+'. '
+    +'Your '+names[0]+' theme means you are energised when there is real work to own and deliver, '
+    +'while '+names[1]+' ensures you approach it with your own distinct style. '
+    +'Look for roles that give you both autonomy and visibility — places where results matter '
+    +'and your particular way of working is valued rather than managed away.\n\n'
+    +'Every strength profile carries a shadow worth knowing. Because of your '
+    +names.slice(0,2).join(' and ')+', '+(blind[pd]||'you may underestimate how your pace lands on others wired differently')+'. '
+    +'This is not a flaw — it is the natural edge of a sharp strength. '
+    +'Build one or two relationships with people whose profiles complement yours '
+    +'and treat their friction as signal rather than obstacle — '
+    +'that single habit will make your already-strong profile significantly more effective.';
+}
+
+
+// ── RESET ─────────────────────────────────────────────────────────
+let _resetCallback = null;
+
+function showResetModal(msg, onConfirm){
+  _resetCallback = onConfirm;
+  const msgEl = document.getElementById('resetModalMsg');
+  if(msgEl && msg) msgEl.textContent = msg;
+  document.getElementById('resetModal').classList.add('open');
+  setTimeout(()=>{
+    const btn = document.getElementById('btnResetCancel');
+    if(btn) btn.focus();
+  }, 60);
+}
+function closeResetModal(){
+  document.getElementById('resetModal').classList.remove('open');
+  _resetCallback = null;
+}
+
+// ── THEME TOGGLE ──────────────────────────────────────────────────
+(function(){
+  const root=document.documentElement;
+  const btn=document.getElementById('themeToggle');
+  let dark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  function apply(d){
+    root.setAttribute('data-theme',d?'dark':'light');
+    btn.textContent=d?'🌙':'☀️';
+    btn.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');
+  }
+  apply(dark);
+  btn.addEventListener('click',()=>{dark=!dark;apply(dark);});
+})();
+
+// ── INIT ──────────────────────────────────────────────────────────
+initState();
+checkBanner();
+
+// ── WIRING ────────────────────────────────────────────────────────
+// Reset modal wiring
+document.getElementById('btnResetConfirm').addEventListener('click',()=>{
+  closeResetModal();
+  if(_resetCallback) _resetCallback();
+});
+document.getElementById('btnResetCancel').addEventListener('click', closeResetModal);
+document.getElementById('resetModal').addEventListener('click',e=>{
+  if(e.target.id==='resetModal') closeResetModal();
+});
+
+// Quiz header reset button — confirm before wiping
+document.getElementById('btnResetQuiz').addEventListener('click',()=>{
+  const answered = answers.filter(a=>a!==null).length;
+  const msg = answered > 0
+    ? 'You have answered '+answered+' of '+QUESTIONS.length+' questions. All progress will be cleared and you will start a brand-new assessment with different questions.'
+    : 'This will clear the current session and start a new assessment with different questions.';
+  showResetModal(msg, ()=>{
+    clearAuto();
+    initState();
+    const seed = (Date.now() ^ Math.floor(Math.random()*0xFFFFFFFF)) >>> 0;
+    QUESTIONS = buildSession(seed);
+    initState();
+    currentQ = 0;
+    show('quiz');
+    renderQ();
+  });
+});
+
+// Dismiss (start fresh) from intro banner
+document.getElementById('btnDismiss').addEventListener('click',()=>{
+  const d = getAuto();
+  if(d && d.answeredCount > 0){
+    showResetModal(
+      'You have '+d.answeredCount+' of '+d.total+' questions saved. Starting fresh will permanently clear this progress.',
+      ()=>{ clearAuto(); document.getElementById('resumeBanner').style.display='none'; }
+    );
+  } else {
+    clearAuto();
+    document.getElementById('resumeBanner').style.display='none';
+  }
+});
+
+document.getElementById('startBtn').addEventListener('click',startQuiz);
+document.getElementById('btnBack').addEventListener('click',back);
+document.getElementById('btnNext').addEventListener('click',next);
+document.getElementById('btnRestart').addEventListener('click',restart);
+document.getElementById('btnExport').addEventListener('click',()=>window.print());
+document.getElementById('btnResume').addEventListener('click',()=>{const d=getAuto();if(d) resumeSession(d);});
+// btnDismiss wired above in reset section
+document.getElementById('btnSave').addEventListener('click',()=>openModal(true));
+document.getElementById('btnOpenSlots').addEventListener('click',()=>openModal(false));
+document.getElementById('btnModalClose').addEventListener('click',closeModal);
+document.getElementById('btnConfirmSave').addEventListener('click',confirmSave);
+document.getElementById('saveNameInput').addEventListener('keydown',e=>{if(e.key==='Enter') confirmSave();});
+document.getElementById('saveModal').addEventListener('click',e=>{if(e.target.id==='saveModal') closeModal();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closeModal();
+    closeResetModal();
+  }
+});
+
+document.querySelectorAll('.scale-btn').forEach(b=>{
+  b.addEventListener('click',()=>pick(parseInt(b.dataset.val)));
+});
+
+// ── KEYBOARD SHORTCUTS ────────────────────────────────────────────
+let autoAdvTimer=null;
+
+function isQuizActive(){
+  return document.getElementById('quiz').style.display!=='none';
+}
+function isInputFocused(){
+  const tag=document.activeElement&&document.activeElement.tagName;
+  return tag==='INPUT'||tag==='TEXTAREA';
+}
+function showKbdHint(){
+  if(kbdHintShown) return;
+  kbdHintShown=true;
+  const kh=document.getElementById('kbdHint');
+  if(kh) kh.classList.add('show');
+}
+function flashKbd(text){
+  document.querySelectorAll('#kbdHint kbd').forEach(k=>{
+    if(k.textContent.trim()===text||(text==='←'&&k.textContent.includes('←'))){
+      k.classList.add('flash');
+      setTimeout(()=>k.classList.remove('flash'),300);
+    }
+  });
+}
+function flashScaleBtn(val){
+  const btn=document.querySelector('.scale-btn[data-val="'+val+'"]');
+  if(!btn) return;
+  btn.classList.remove('key-flash');
+  void btn.offsetWidth;
+  btn.classList.add('key-flash');
+  setTimeout(()=>btn.classList.remove('key-flash'),250);
+}
+function cancelAutoAdv(){
+  if(autoAdvTimer){clearTimeout(autoAdvTimer);autoAdvTimer=null;}
+}
+
+document.addEventListener('keydown',function(e){
+  if(document.getElementById('saveModal').classList.contains('open')) return;
+  if(isInputFocused()) return;
+  if(!isQuizActive()) return;
+
+  const key=e.key;
+
+  if(['1','2','3','4','5'].includes(key)){
+    e.preventDefault();
+    showKbdHint();
+    const val=parseInt(key);
+    flashScaleBtn(val);
+    flashKbd(key);
+    cancelAutoAdv();
+    pick(val);
+    autoAdvTimer=setTimeout(()=>{
+      if(answers[currentQ]!==null&&isQuizActive()) next();
+    },600);
+    return;
+  }
+
+  if(key==='Enter'||key===' '||key==='ArrowRight'){
+    e.preventDefault();
+    showKbdHint();
+    cancelAutoAdv();
+    flashKbd('Enter');
+    if(answers[currentQ]!==null) next();
+    return;
+  }
+
+  if(key==='Backspace'||key==='ArrowLeft'){
+    e.preventDefault();
+    showKbdHint();
+    cancelAutoAdv();
+    flashKbd('←');
+    back();
+    return;
+  }
+});
+
+</script>
+</body>
+</html>
